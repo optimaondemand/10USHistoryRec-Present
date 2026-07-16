@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapping the Cattle Kingdom</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Segoe, Arial, sans-serif; background: linear-gradient(135deg,#E8F6FB,#F4F9FC); color: #1a2340; padding: 14px; }
+  .widget { max-width: 720px; margin: 0 auto; background: #fff; border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 10px; padding: 16px 18px 20px; }
+  .kicker { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #1B6A94; margin-bottom: 6px; }
+  h1 { font-size: 18px; color: #0E1C42; margin: 0 0 10px; }
+  .stage { position: relative; width: 100%; height: 300px; background: linear-gradient(180deg,#dff0d8 0%, #e9e2c9 55%, #ecdcb0 100%); border: 1px solid #D0D9E8; border-radius: 8px; overflow: hidden; }
+  .yearbox { display: flex; align-items: center; justify-content: space-between; margin: 14px 0 6px; flex-wrap: wrap; gap: 10px; }
+  .yearval { font-size: 28px; color: #0E1C42; font-weight: bold; min-width: 90px; }
+  input[type=range] { flex: 1; min-width: 160px; }
+  .caption { background: #EEF1F8; border-left: 4px solid #0E1C42; border-radius: 6px; padding: 10px 14px; font-size: 15px; line-height: 1.5; min-height: 46px; margin-top: 8px; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: #444; }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .sw { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+  button.reset { margin-top: 12px; background: #0E1C42; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+  button.reset:hover { background: #16265c; }
+  #cityLabel { position:absolute; font-size:11px; color:#0E1C42; font-weight:bold; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="kicker">Try It Yourself</div>
+  <h1>Mapping the Cattle Kingdom, 1860&ndash;1890</h1>
+  <div class="stage" id="stage">
+    <svg width="100%" height="100%" viewBox="0 0 700 300" preserveAspectRatio="none" style="position:absolute; top:0; left:0;">
+      <!-- Buffalo range: shrinking blob -->
+      <ellipse id="buffalo" cx="330" cy="150" rx="260" ry="120" fill="#8a6a3a" opacity="0.35"></ellipse>
+      <!-- Railroad line: Omaha (left) to Sacramento (further left/off) and a Kansas spur -->
+      <path id="rail" d="M40,90 C160,95 260,110 420,120 C520,126 600,132 660,140" fill="none" stroke="#0E1C42" stroke-width="4" stroke-dasharray="8 6"></path>
+      <!-- Chisholm Trail: south Texas up to Kansas railhead -->
+      <path id="chisholm" d="M300,270 C320,220 340,170 420,120" fill="none" stroke="#8B4513" stroke-width="3" stroke-dasharray="700" stroke-dashoffset="0"></path>
+      <!-- Goodnight-Loving Trail: west Texas up to Wyoming -->
+      <path id="goodnight" d="M230,270 C260,210 300,140 380,60" fill="none" stroke="#B5651D" stroke-width="3" stroke-dasharray="700" stroke-dashoffset="0"></path>
+      <circle cx="420" cy="120" r="5" fill="#0E1C42"></circle>
+      <text x="428" y="116" font-size="11" fill="#0E1C42" font-weight="bold">Kansas railhead</text>
+      <circle cx="300" cy="270" r="5" fill="#8B4513"></circle>
+      <text x="240" y="288" font-size="11" fill="#5a3a1a" font-weight="bold">Texas</text>
+    </svg>
+  </div>
+  <div class="yearbox">
+    <div class="yearval" id="yearval">1860</div>
+    <input type="range" id="yearSlider" min="1860" max="1890" step="1" value="1860">
+  </div>
+  <div class="legend">
+    <span><i class="sw" style="background:#8a6a3a; opacity:.6"></i>Buffalo range</span>
+    <span><i class="sw" style="background:#0E1C42"></i>Railroad, built so far</span>
+    <span><i class="sw" style="background:#8B4513"></i>Chisholm Trail</span>
+    <span><i class="sw" style="background:#B5651D"></i>Goodnight-Loving Trail</span>
+  </div>
+  <div class="caption" id="caption"></div>
+  <button class="reset" onclick="document.getElementById('yearSlider').value=1860; update();">Reset to 1860</button>
+</div>
+<script>
+  var slider = document.getElementById('yearSlider');
+  var yearval = document.getElementById('yearval');
+  var caption = document.getElementById('caption');
+  var buffalo = document.getElementById('buffalo');
+  var rail = document.getElementById('rail');
+  var chisholm = document.getElementById('chisholm');
+  var goodnight = document.getElementById('goodnight');
+
+  var railLen = rail.getTotalLength();
+  var chLen = chisholm.getTotalLength();
+  var gnLen = goodnight.getTotalLength();
+  rail.style.strokeDasharray = railLen;
+  chisholm.style.strokeDasharray = chLen;
+  goodnight.style.strokeDasharray = gnLen;
+
+  function captionFor(year) {
+    if (year < 1867) return "The buffalo herds still range across most of the Great Plains, and the Plains nations who depend on them control this ground. No railroad has reached the open range yet.";
+    if (year < 1874) return "The transcontinental railroad and its branch lines are pushing west. Cowboys begin driving Texas longhorns hundreds of miles north to meet the tracks at Kansas railheads like Abilene and Dodge City.";
+    if (year < 1880) return "The cattle-drive boom is at its height, but the same railroads carrying cattle east are carrying hide hunters and settlers west. The buffalo herds are collapsing toward extinction.";
+    if (year < 1887) return "Barbed wire is spreading across the plains, fencing land the open trails used to cross freely. The buffalo range has nearly disappeared.";
+    return "The catastrophic winter of 1886–87, combined with barbed-wire fencing everywhere, ends the open-range cattle drive almost overnight. The buffalo economy the Plains nations depended on is already gone.";
+  }
+
+  function update() {
+    var year = parseInt(slider.value, 10);
+    yearval.textContent = year;
+    caption.textContent = captionFor(year);
+
+    // Buffalo range shrinks from full (1860) to nearly gone (1890)
+    var buffaloT = Math.max(0, Math.min(1, (year - 1860) / 30));
+    var scale = 1 - 0.92 * buffaloT;
+    buffalo.setAttribute('rx', 260 * scale);
+    buffalo.setAttribute('ry', 120 * scale);
+    buffalo.setAttribute('opacity', 0.35 * (1 - 0.6 * buffaloT));
+
+    // Railroad builds out from 1862 to 1883
+    var railT = Math.max(0, Math.min(1, (year - 1862) / 21));
+    rail.style.strokeDashoffset = railLen * (1 - railT);
+
+    // Cattle trails active roughly 1867-1886, then fade/stop
+    var trailT;
+    if (year < 1867) trailT = 0;
+    else if (year <= 1886) trailT = Math.min(1, (year - 1867) / 6);
+    else trailT = Math.max(0, 1 - (year - 1886) * 0.5);
+    chisholm.style.strokeDashoffset = chLen * (1 - trailT);
+    goodnight.style.strokeDashoffset = gnLen * (1 - trailT);
+    chisholm.style.opacity = trailT > 0 ? 1 : 0;
+    goodnight.style.opacity = trailT > 0 ? 1 : 0;
+  }
+
+  slider.addEventListener('input', update);
+  update();
+</script>
+</body>
+</html>

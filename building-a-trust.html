@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building a Trust: Horizontal Consolidation</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Segoe, Arial, sans-serif; background: linear-gradient(135deg,#E8F6FB,#F4F9FC); color: #1a2340; padding: 14px; }
+  .widget { max-width: 640px; margin: 0 auto; background: #fff; border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 10px; padding: 16px 18px 20px; }
+  .kicker { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #1B6A94; margin-bottom: 6px; }
+  h1 { font-size: 18px; color: #0E1C42; margin: 0 0 4px; }
+  .hint { font-size: 13px; color: #555; margin-bottom: 12px; }
+  .stage { position: relative; width: 100%; height: 320px; background: #FAFBFD; border: 1px solid #D0D9E8; border-radius: 8px; }
+  .hub { position: absolute; left: 50%; top: 50%; width: 90px; height: 90px; margin-left: -45px; margin-top: -45px; border-radius: 50%; background: #0E1C42; color: #fff; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 11px; font-weight: bold; padding: 6px; transition: width .4s, height .4s, margin .4s; z-index: 2; }
+  .refinery { position: absolute; width: 62px; height: 62px; margin-left: -31px; margin-top: -31px; border-radius: 10px; background: #C7922C; color: #fff; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 10px; font-weight: bold; padding: 4px; cursor: pointer; transition: left .6s ease, top .6s ease, opacity .6s ease, transform .3s; z-index: 3; box-shadow: 0 2px 4px rgba(0,0,0,.2); }
+  .refinery:hover { transform: scale(1.08); }
+  .refinery.absorbed { opacity: 0; pointer-events: none; }
+  .meterbox { margin-top: 14px; }
+  .meter-label { font-size: 12px; color: #6b7a99; margin-bottom: 3px; display:flex; justify-content:space-between; }
+  .meter { height: 18px; border-radius: 9px; background: #EEF1F8; overflow: hidden; border: 1px solid #D0D9E8; }
+  .meter-fill { height: 100%; background: linear-gradient(90deg,#2A9D5C,#C7922C,#C0392B); width: 0%; transition: width .5s ease; }
+  .indicator { display: inline-block; margin-top: 8px; padding: 4px 12px; border-radius: 10px; font-size: 13px; font-weight: bold; color: #fff; background: #2A9D5C; transition: background .4s; }
+  button.reset { margin-top: 14px; background: #0E1C42; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="kicker">Try It Yourself</div>
+  <h1>Building a Trust: Horizontal Consolidation</h1>
+  <div class="hint">Click each independent refinery to fold it into the Standard Oil Trust.</div>
+  <div class="stage" id="stage">
+    <div class="hub" id="hub">Standard<br>Oil<br>Trust</div>
+  </div>
+  <div class="meterbox">
+    <div class="meter-label"><span>Standard Oil's market share</span><span id="pctLabel">0%</span></div>
+    <div class="meter"><div class="meter-fill" id="shareBar"></div></div>
+    <span class="indicator" id="indicator">Competitive market</span>
+  </div>
+  <button class="reset" onclick="resetAll()">Reset</button>
+</div>
+<script>
+  var names = ["Cleveland\nRefinery","Titusville\nRefinery","Pittsburgh\nRefinery","Buffalo\nRefinery","Baltimore\nRefinery","Philadelphia\nRefinery","Chicago\nRefinery","New York\nRefinery"];
+  var positions = [
+    [12,15],[50,6],[86,15],[94,50],[86,85],[50,94],[14,85],[6,50]
+  ]; // percentage left/top around the circle
+  var stage = document.getElementById('stage');
+  var hub = document.getElementById('hub');
+  var absorbedCount = 0;
+
+  var refs = [];
+  names.forEach(function(name, i) {
+    var el = document.createElement('div');
+    el.className = 'refinery';
+    el.style.left = positions[i][0] + '%';
+    el.style.top = positions[i][1] + '%';
+    el.textContent = name.replace('\n', ' ');
+    el.dataset.index = i;
+    el.addEventListener('click', function() { absorb(el); });
+    stage.appendChild(el);
+    refs.push(el);
+  });
+
+  function absorb(el) {
+    if (el.classList.contains('absorbed')) return;
+    el.style.left = '50%';
+    el.style.top = '50%';
+    absorbedCount++;
+    setTimeout(function() { el.classList.add('absorbed'); }, 550);
+    updateMeters();
+    var scale = 1 + absorbedCount * 0.06;
+    hub.style.width = (90 * scale) + 'px';
+    hub.style.height = (90 * scale) + 'px';
+    hub.style.marginLeft = (-45 * scale) + 'px';
+    hub.style.marginTop = (-45 * scale) + 'px';
+  }
+
+  function updateMeters() {
+    var share = Math.min(90, Math.round(absorbedCount * 11.25));
+    document.getElementById('shareBar').style.width = share + '%';
+    document.getElementById('pctLabel').textContent = share + '%';
+    var ind = document.getElementById('indicator');
+    if (share < 35) { ind.textContent = 'Competitive market'; ind.style.background = '#2A9D5C'; }
+    else if (share < 70) { ind.textContent = 'Tightening control'; ind.style.background = '#C7922C'; }
+    else { ind.textContent = 'Controlled by the Trust'; ind.style.background = '#C0392B'; }
+  }
+
+  function resetAll() {
+    absorbedCount = 0;
+    refs.forEach(function(el, i) {
+      el.classList.remove('absorbed');
+      el.style.left = positions[i][0] + '%';
+      el.style.top = positions[i][1] + '%';
+    });
+    hub.style.width = '90px';
+    hub.style.height = '90px';
+    hub.style.marginLeft = '-45px';
+    hub.style.marginTop = '-45px';
+    updateMeters();
+  }
+
+  updateMeters();
+</script>
+</body>
+</html>

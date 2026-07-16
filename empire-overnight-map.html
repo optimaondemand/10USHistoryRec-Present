@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An Empire Overnight</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Segoe, Arial, sans-serif; background: linear-gradient(135deg,#E8F6FB,#F4F9FC); color: #1a2340; padding: 14px; }
+  .widget { max-width: 640px; margin: 0 auto; background: #fff; border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 10px; padding: 16px 18px 20px; }
+  .kicker { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #1B6A94; margin-bottom: 6px; }
+  h1 { font-size: 18px; color: #0E1C42; margin: 0 0 12px; }
+  .toggle { display: flex; gap: 8px; justify-content: center; margin-bottom: 14px; }
+  .toggle button { border: 2px solid #0E1C42; background: #fff; color: #0E1C42; padding: 8px 22px; border-radius: 20px; font-size: 14px; cursor: pointer; }
+  .toggle button.active { background: #0E1C42; color: #fff; }
+  .stage { position: relative; width: 100%; height: 340px; background: radial-gradient(circle, #F4F9FC 0%, #E8F6FB 100%); border: 1px solid #D0D9E8; border-radius: 8px; overflow: hidden; }
+  .ring { position: absolute; border: 1px dashed #b9d3de; border-radius: 50%; left: 50%; top: 50%; }
+  .dc { position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; margin-left: -8px; margin-top: -8px; background: #0E1C42; border-radius: 50%; z-index: 3; }
+  .dclabel { position: absolute; left: 50%; top: 50%; margin-left: 12px; margin-top: -8px; font-size: 11px; font-weight: bold; color: #0E1C42; z-index: 3; }
+  .territory { position: absolute; width: 14px; height: 14px; margin-left: -7px; margin-top: -7px; background: #C7922C; border-radius: 50%; opacity: 0; transform: scale(0.3); transition: opacity .5s ease, transform .5s ease; z-index: 4; }
+  .territory.show { opacity: 1; transform: scale(1); }
+  .tlabel { position: absolute; font-size: 11px; color: #0E1C42; background: #fff; padding: 2px 6px; border-radius: 4px; border: 1px solid #D0D9E8; opacity: 0; transition: opacity .5s ease; white-space: nowrap; z-index: 4; }
+  .tlabel.show { opacity: 1; }
+  .connector { position: absolute; left: 50%; top: 50%; height: 1px; background: #C7922C; transform-origin: 0 0; opacity: 0; transition: opacity .5s ease; z-index: 1; }
+  .connector.show { opacity: .6; }
+  .caption { background: #EEF1F8; border-left: 4px solid #0E1C42; border-radius: 6px; padding: 10px 14px; font-size: 15px; line-height: 1.5; min-height: 46px; margin-top: 12px; }
+  button.reset { margin-top: 12px; background: #C7922C; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="kicker">Try It Yourself</div>
+  <h1>An Empire Overnight: American Territory, 1897 &rarr; 1899</h1>
+  <div class="toggle">
+    <button id="btn1897" class="active" onclick="setYear(1897)">1897</button>
+    <button id="btn1899" onclick="setYear(1899)">1899</button>
+  </div>
+  <div class="stage" id="stage">
+    <div class="dc"></div>
+    <div class="dclabel">Washington, D.C.</div>
+  </div>
+  <div class="caption" id="caption">The United States holds no overseas territories. Its reach ends at its own continental shores.</div>
+  <button class="reset" onclick="setYear(1897)">Reset to 1897</button>
+</div>
+<script>
+  // distance in miles from D.C. (approximate), angle in degrees for placement
+  var territories = [
+    { name: "Puerto Rico", miles: 1500, angle: 100, ring: 1 },
+    { name: "Hawaii", miles: 4800, angle: 250, ring: 2 },
+    { name: "Guam", miles: 7900, angle: 220, ring: 3 },
+    { name: "Philippines", miles: 8500, angle: 200, ring: 4 }
+  ];
+  var stage = document.getElementById('stage');
+  var maxRadius = 155;
+  var ringRadii = [40, 80, 120, 155];
+
+  ringRadii.forEach(function(r) {
+    var ring = document.createElement('div');
+    ring.className = 'ring';
+    ring.style.width = (r*2) + 'px';
+    ring.style.height = (r*2) + 'px';
+    ring.style.marginLeft = (-r) + 'px';
+    ring.style.marginTop = (-r) + 'px';
+    stage.appendChild(ring);
+  });
+
+  territories.forEach(function(t, i) {
+    var r = ringRadii[t.ring - 1];
+    var rad = t.angle * Math.PI / 180;
+    var x = 50 + (r / 340 * 100) * Math.cos(rad) * 1.85;
+    var y = 50 + (r / 340 * 100) * Math.sin(rad) * 1.05;
+
+    var conn = document.createElement('div');
+    conn.className = 'connector';
+    conn.id = 'conn' + i;
+    var dx = r * Math.cos(rad), dy = r * Math.sin(rad);
+    var len = Math.sqrt(dx*dx + dy*dy);
+    var angleDeg = Math.atan2(dy, dx) * 180 / Math.PI;
+    conn.style.width = len + 'px';
+    conn.style.transform = 'rotate(' + angleDeg + 'deg)';
+    stage.appendChild(conn);
+
+    var dot = document.createElement('div');
+    dot.className = 'territory';
+    dot.id = 'dot' + i;
+    dot.style.left = x + '%';
+    dot.style.top = y + '%';
+    stage.appendChild(dot);
+
+    var label = document.createElement('div');
+    label.className = 'tlabel';
+    label.id = 'label' + i;
+    label.innerHTML = '<strong>' + t.name + '</strong><br>' + t.miles.toLocaleString() + ' mi from D.C.';
+    label.style.left = x + '%';
+    label.style.top = (y + 6) + '%';
+    stage.appendChild(label);
+  });
+
+  function setYear(year) {
+    document.getElementById('btn1897').classList.toggle('active', year === 1897);
+    document.getElementById('btn1899').classList.toggle('active', year === 1899);
+    var caption = document.getElementById('caption');
+    if (year === 1897) {
+      territories.forEach(function(t, i) {
+        document.getElementById('dot' + i).classList.remove('show');
+        document.getElementById('label' + i).classList.remove('show');
+        document.getElementById('conn' + i).classList.remove('show');
+      });
+      caption.textContent = "The United States holds no overseas territories. Its reach ends at its own continental shores.";
+    } else {
+      territories.forEach(function(t, i) {
+        setTimeout(function() {
+          document.getElementById('dot' + i).classList.add('show');
+          document.getElementById('label' + i).classList.add('show');
+          document.getElementById('conn' + i).classList.add('show');
+        }, i * 350);
+      });
+      caption.textContent = "In barely two years, the Spanish-American War and the annexation of Hawaii extend American control across two oceans, thousands of miles from Washington.";
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanderbilt vs. Gould: Two Roads to a Fortune</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Segoe, Arial, sans-serif; background: linear-gradient(135deg,#E8F6FB,#F4F9FC); color: #1a2340; padding: 14px; }
+  .widget { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 10px; padding: 16px 18px 20px; }
+  .kicker { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #1B6A94; margin-bottom: 6px; }
+  h1 { font-size: 18px; color: #0E1C42; margin: 0 0 12px; }
+  .cols { display: flex; gap: 16px; flex-wrap: wrap; }
+  .col { flex: 1; min-width: 260px; border: 1px solid #D0D9E8; border-radius: 8px; padding: 14px; background: #FAFBFD; }
+  .col h2 { font-size: 16px; margin: 0 0 4px; color: #0E1C42; }
+  .col .sub { font-size: 12px; color: #666; margin-bottom: 12px; }
+  .meter-label { font-size: 12px; color: #6b7a99; margin: 10px 0 3px; }
+  .meter { height: 16px; border-radius: 8px; background: #EEF1F8; overflow: hidden; border: 1px solid #D0D9E8; }
+  .meter-fill { height: 100%; border-radius: 8px; transition: width .5s ease, background-color .5s ease; }
+  .event { min-height: 58px; font-size: 14px; line-height: 1.45; margin-top: 12px; background: #EEF1F8; border-left: 3px solid #0E1C42; border-radius: 6px; padding: 8px 10px; }
+  .controls { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 18px; }
+  button { background: #0E1C42; color: #fff; border: none; padding: 9px 18px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+  button:disabled { background: #b7bfd6; cursor: default; }
+  button.reset { background: #C7922C; }
+  .stagelabel { font-size: 13px; color: #444; min-width: 130px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="kicker">Try It Yourself</div>
+  <h1>Vanderbilt vs. Gould: Two Roads to a Fortune</h1>
+  <div class="cols">
+    <div class="col">
+      <h2>Cornelius Vanderbilt</h2>
+      <div class="sub">New York Central Railroad</div>
+      <div class="meter-label">Personal wealth</div>
+      <div class="meter"><div class="meter-fill" id="vWealth" style="width:5%; background:#2A9D5C;"></div></div>
+      <div class="meter-label">Railroad's physical condition</div>
+      <div class="meter"><div class="meter-fill" id="vCond" style="width:60%; background:#2A9D5C;"></div></div>
+      <div class="event" id="vEvent">Building a fortune in steamships, Vanderbilt turns to railroads in his early seventies.</div>
+    </div>
+    <div class="col">
+      <h2>Jay Gould</h2>
+      <div class="sub">Erie Railroad</div>
+      <div class="meter-label">Personal wealth</div>
+      <div class="meter"><div class="meter-fill" id="gWealth" style="width:5%; background:#2A9D5C;"></div></div>
+      <div class="meter-label">Railroad's physical condition</div>
+      <div class="meter"><div class="meter-fill" id="gCond" style="width:60%; background:#2A9D5C;"></div></div>
+      <div class="event" id="gEvent">A rival financier, Gould takes control of the Erie Railroad's stock.</div>
+    </div>
+  </div>
+  <div class="controls">
+    <button id="backBtn" onclick="go(-1)" disabled>&larr; Back</button>
+    <div class="stagelabel" id="stagelabel">Stage 1 of 5</div>
+    <button id="nextBtn" onclick="go(1)">Next &rarr;</button>
+  </div>
+  <div style="text-align:center; margin-top:10px;">
+    <button class="reset" onclick="reset()">Reset</button>
+  </div>
+</div>
+<script>
+  var stages = [
+    { vW:5, vC:60, vE:"Building a fortune in steamships, Vanderbilt turns to railroads in his early seventies.",
+      gW:5, gC:60, gE:"A rival financier, Gould takes control of the Erie Railroad's stock." },
+    { vW:20, vC:75, vE:"Vanderbilt buys and consolidates competing short lines into one trunk line: the New York Central.",
+      gW:15, gC:50, gE:"Gould begins watering Erie's stock, issuing new shares that dilute its real value." },
+    { vW:40, vC:90, vE:"He runs trains on schedule and undercuts weaker competitors with genuinely better service.",
+      gW:55, gC:30, gE:"He bribes legislators and manipulates Erie's stock price, pocketing large personal gains." },
+    { vW:65, vC:95, vE:"Profits are reinvested in track, equipment, and efficiency. The railroad keeps improving.",
+      gW:80, gC:15, gE:"Cash is extracted from the company's finances. The railroad itself is left in worse condition." },
+    { vW:90, vC:100, vE:"Legacy: a well-run trunk line that moved people and freight efficiently for decades.",
+      gW:95, gC:5, gE:"Legacy: a wrecked railroad, and a reputation, even among fellow financiers, that his word could not be trusted." }
+  ];
+  var stage = 0;
+
+  function colorFor(pct) {
+    if (pct >= 66) return "#2A9D5C";
+    if (pct >= 33) return "#C7922C";
+    return "#C0392B";
+  }
+
+  function render() {
+    var s = stages[stage];
+    document.getElementById('vWealth').style.width = s.vW + '%';
+    document.getElementById('gWealth').style.width = s.gW + '%';
+    document.getElementById('vCond').style.width = s.vC + '%';
+    document.getElementById('vCond').style.background = colorFor(s.vC);
+    document.getElementById('gCond').style.width = s.gC + '%';
+    document.getElementById('gCond').style.background = colorFor(s.gC);
+    document.getElementById('vEvent').textContent = s.vE;
+    document.getElementById('gEvent').textContent = s.gE;
+    document.getElementById('stagelabel').textContent = 'Stage ' + (stage+1) + ' of ' + stages.length;
+    document.getElementById('backBtn').disabled = (stage === 0);
+    document.getElementById('nextBtn').disabled = (stage === stages.length - 1);
+    document.getElementById('nextBtn').textContent = (stage === stages.length - 1) ? 'End of story' : 'Next →';
+  }
+
+  function go(dir) {
+    stage = Math.max(0, Math.min(stages.length - 1, stage + dir));
+    render();
+  }
+
+  function reset() {
+    stage = 0;
+    render();
+  }
+
+  render();
+</script>
+</body>
+</html>

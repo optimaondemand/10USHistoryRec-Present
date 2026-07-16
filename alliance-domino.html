@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Alliance Domino</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Segoe, Arial, sans-serif; background: linear-gradient(135deg,#E8F6FB,#F4F9FC); color: #1a2340; padding: 14px; }
+  .widget { max-width: 640px; margin: 0 auto; background: #fff; border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 10px; padding: 16px 18px 20px; }
+  .kicker { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #1B6A94; margin-bottom: 6px; }
+  h1 { font-size: 18px; color: #0E1C42; margin: 0 0 12px; }
+  .stage { position: relative; width: 100%; height: 320px; background: #FAFBFD; border: 1px solid #D0D9E8; border-radius: 8px; }
+  .node { position: absolute; width: 96px; height: 44px; margin-left: -48px; margin-top: -22px; border-radius: 8px; background: #D0D9E8; color: #0E1C42; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; font-weight: bold; transition: background .4s, color .4s, transform .4s; z-index: 3; }
+  .node.hot { background: #C0392B; color: #fff; transform: scale(1.08); }
+  .node.spark { background: #C7922C; color: #fff; }
+  .weeklabel { position: absolute; top: 8px; left: 12px; font-size: 12px; color: #6b7a99; background: #fff; padding: 2px 8px; border-radius: 6px; border: 1px solid #D0D9E8; }
+  .controls { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
+  button { background: #0E1C42; color: #fff; border: none; padding: 9px 18px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+  button.reset { background: #C7922C; }
+  .caption { background: #EEF1F8; border-left: 4px solid #0E1C42; border-radius: 6px; padding: 10px 14px; font-size: 15px; line-height: 1.5; min-height: 46px; margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="kicker">Try It Yourself</div>
+  <h1>The Alliance Domino: July&ndash;August 1914</h1>
+  <div class="stage" id="stage">
+    <div class="weeklabel" id="weeklabel">Before the spark</div>
+    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute; top:0; left:0; z-index:1;">
+      <line id="arrow0" x1="50" y1="78" x2="50" y2="55" stroke="#c9cfe0" stroke-width="1.6" marker-end="url(#arrowhead)"></line>
+      <line id="arrow1" x1="50" y1="45" x2="22" y2="30" stroke="#c9cfe0" stroke-width="1.6" marker-end="url(#arrowhead)"></line>
+      <line id="arrow2" x1="18" y1="22" x2="45" y2="10" stroke="#c9cfe0" stroke-width="1.6" marker-end="url(#arrowhead)"></line>
+      <line id="arrow3" x1="55" y1="10" x2="80" y2="25" stroke="#c9cfe0" stroke-width="1.6" marker-end="url(#arrowhead)"></line>
+      <line id="arrow4" x1="85" y1="32" x2="82" y2="60" stroke="#c9cfe0" stroke-width="1.6" marker-end="url(#arrowhead)"></line>
+      <defs>
+        <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#c9cfe0"></path>
+        </marker>
+      </defs>
+    </svg>
+    <div class="node" id="nodeSerbia" style="left:50%; top:85%;">Serbia</div>
+    <div class="node" id="nodeAustria" style="left:22%; top:32%;">Austria-Hungary</div>
+    <div class="node" id="nodeRussia" style="left:48%; top:6%;">Russia</div>
+    <div class="node" id="nodeGermany" style="left:78%; top:22%;">Germany</div>
+    <div class="node" id="nodeFrance" style="left:82%; top:68%;">France</div>
+  </div>
+  <div class="controls">
+    <button id="startBtn" onclick="start()">Assassination in Sarajevo</button>
+    <button class="reset" onclick="reset()">Reset</button>
+  </div>
+  <div class="caption" id="caption">Five great powers, bound by decades of mutual-defense alliances, wait to see what a single assassination in a provincial capital will set in motion. Click above to begin.</div>
+</div>
+<script>
+  var steps = [
+    { node: "nodeSerbia", arrow: null, week: "The spark", text: "June 28, 1914: A Serbian nationalist assassinates Archduke Franz Ferdinand in Sarajevo." },
+    { node: "nodeAustria", arrow: "arrow0", week: "Week 1", text: "Austria-Hungary issues Serbia a harsh ultimatum, then declares war when Serbia only partly complies." },
+    { node: "nodeRussia", arrow: "arrow1", week: "Week 2", text: "Russia mobilizes its army in Serbia's defense, honoring its alliance commitment." },
+    { node: "nodeGermany", arrow: "arrow2", week: "Week 3", text: "Germany declares war on Russia, honoring its alliance with Austria-Hungary." },
+    { node: "nodeFrance", arrow: "arrow3", week: "Week 4", text: "Germany declares war on France next, under the same chain of alliance obligations." },
+    { node: null, arrow: "arrow4", week: "Week 5", text: "Germany invades neutral Belgium to reach France, and Britain enters the war. In five weeks, one assassination has become a continental war." }
+  ];
+  var idx = 0;
+  var running = false;
+
+  function setNodeState(id, cls) {
+    var el = document.getElementById(id);
+    el.classList.remove('hot', 'spark');
+    if (cls) el.classList.add(cls);
+  }
+
+  function advance() {
+    if (idx >= steps.length) { running = false; document.getElementById('startBtn').disabled = false; return; }
+    var s = steps[idx];
+    if (s.node) setNodeState(s.node, idx === 0 ? 'spark' : 'hot');
+    if (s.arrow) document.getElementById(s.arrow).setAttribute('stroke', '#C0392B').setAttribute('stroke-width', '2.4');
+    document.getElementById('weeklabel').textContent = s.week;
+    document.getElementById('caption').textContent = s.text;
+    idx++;
+    setTimeout(advance, 1300);
+  }
+
+  function start() {
+    if (running) return;
+    running = true;
+    reset(false);
+    document.getElementById('startBtn').disabled = true;
+    idx = 0;
+    advance();
+  }
+
+  function reset(clearButton) {
+    idx = 0;
+    running = false;
+    ["nodeSerbia","nodeAustria","nodeRussia","nodeGermany","nodeFrance"].forEach(function(id) { setNodeState(id, null); });
+    ["arrow0","arrow1","arrow2","arrow3","arrow4"].forEach(function(id) {
+      document.getElementById(id).setAttribute('stroke', '#c9cfe0');
+      document.getElementById(id).setAttribute('stroke-width', '1.6');
+    });
+    document.getElementById('weeklabel').textContent = 'Before the spark';
+    document.getElementById('caption').textContent = 'Five great powers, bound by decades of mutual-defense alliances, wait to see what a single assassination in a provincial capital will set in motion. Click above to begin.';
+    if (clearButton !== false) document.getElementById('startBtn').disabled = false;
+  }
+</script>
+</body>
+</html>

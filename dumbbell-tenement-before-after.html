@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Before and After: The Dumbbell Tenement</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Segoe, Arial, sans-serif; background: linear-gradient(135deg,#E8F6FB,#F4F9FC); color: #1a2340; padding: 14px; }
+  .widget { max-width: 640px; margin: 0 auto; background: #fff; border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 10px; padding: 16px 18px 20px; }
+  .kicker { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #1B6A94; margin-bottom: 6px; }
+  h1 { font-size: 18px; color: #0E1C42; margin: 0 0 12px; }
+  .toggle { display: flex; gap: 8px; justify-content: center; margin-bottom: 14px; }
+  .toggle button { border: 2px solid #0E1C42; background: #fff; color: #0E1C42; padding: 8px 18px; border-radius: 20px; font-size: 13px; cursor: pointer; }
+  .toggle button.active { background: #0E1C42; color: #fff; }
+  .plan { border: 1px solid #D0D9E8; border-radius: 8px; background: #FAFBFD; padding: 14px; }
+  .floor { display: flex; align-items: stretch; gap: 0; height: 76px; margin-bottom: 6px; }
+  .room { flex: 1; background: #EFE6D2; border: 1px solid #cbb98f; position: relative; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #5a4a2a; }
+  .overlay { position: absolute; inset: 0; background: #1a2340; opacity: .55; transition: opacity .6s ease; }
+  .shaft { width: 26px; background: #b9c4d6; border: 1px solid #93a3bd; transition: width .6s ease; position: relative; }
+  .shaft.wide { width: 90px; background: #cdeccd; border-color: #7ec27e; }
+  .shaft-label { position: absolute; bottom: -18px; left: 0; right: 0; text-align: center; font-size: 9px; color: #444; white-space: nowrap; }
+  .toilet { position: absolute; bottom: 4px; right: 4px; font-size: 14px; opacity: 0; transition: opacity .5s ease; }
+  .toilet.show { opacity: 1; }
+  .outhouse-row { text-align: center; font-size: 12px; margin-top: 4px; transition: opacity .5s ease; }
+  .caption { background: #EEF1F8; border-left: 4px solid #0E1C42; border-radius: 6px; padding: 10px 14px; font-size: 15px; line-height: 1.5; min-height: 40px; margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="kicker">Try It Yourself</div>
+  <h1>Before and After: The Dumbbell Tenement</h1>
+  <div class="toggle">
+    <button id="btn1879" class="active" onclick="setMode('1879')">1879 Law (dumbbell design)</button>
+    <button id="btn1901" onclick="setMode('1901')">1901 Act (new standard)</button>
+  </div>
+  <div class="plan">
+    <div class="floor">
+      <div class="room">Front room<div class="overlay" id="ov1a"></div></div>
+      <div class="shaft" id="shaft1"><div class="shaft-label" id="shaftlabel1">airshaft</div></div>
+      <div class="room">Dark bedroom<div class="overlay" id="ov1b"></div><span class="toilet" id="toilet1">&#128701;</span></div>
+    </div>
+    <div class="floor">
+      <div class="room">Front room<div class="overlay" id="ov2a"></div></div>
+      <div class="shaft" id="shaft2"><div class="shaft-label" id="shaftlabel2">airshaft</div></div>
+      <div class="room">Dark bedroom<div class="overlay" id="ov2b"></div><span class="toilet" id="toilet2">&#128701;</span></div>
+    </div>
+    <div class="floor">
+      <div class="room">Front room<div class="overlay" id="ov3a"></div></div>
+      <div class="shaft" id="shaft3"><div class="shaft-label" id="shaftlabel3">airshaft</div></div>
+      <div class="room">Dark bedroom<div class="overlay" id="ov3b"></div><span class="toilet" id="toilet3">&#128701;</span></div>
+    </div>
+    <div class="outhouse-row" id="outhouseRow">&#8595; one shared outhouse in the back yard for the whole building &#8595;</div>
+  </div>
+  <div class="caption" id="caption">A narrow airshaft, barely wide enough to reach through, is the only source of light and air for the interior "dark bedrooms." One outhouse serves every family in the building.</div>
+</div>
+<script>
+  function setMode(mode) {
+    document.getElementById('btn1879').classList.toggle('active', mode === '1879');
+    document.getElementById('btn1901').classList.toggle('active', mode === '1901');
+    var is1901 = mode === '1901';
+    [1,2,3].forEach(function(i) {
+      document.getElementById('shaft' + i).classList.toggle('wide', is1901);
+      document.getElementById('shaftlabel' + i).textContent = is1901 ? 'real courtyard' : 'airshaft';
+      document.getElementById('ov' + i + 'a').style.opacity = is1901 ? '0.05' : '0.55';
+      document.getElementById('ov' + i + 'b').style.opacity = is1901 ? '0.1' : '0.55';
+      document.getElementById('toilet' + i).classList.toggle('show', is1901);
+    });
+    document.getElementById('outhouseRow').style.opacity = is1901 ? '0.15' : '1';
+    document.getElementById('caption').textContent = is1901
+      ? "The 1901 Tenement House Act outlaws the dumbbell design. The narrow airshaft becomes a real courtyard, every floor gets its own toilet connected to water and sewer, and city inspectors have the power to enforce it."
+      : 'A narrow airshaft, barely wide enough to reach through, is the only source of light and air for the interior "dark bedrooms." One outhouse serves every family in the building.';
+  }
+</script>
+</body>
+</html>

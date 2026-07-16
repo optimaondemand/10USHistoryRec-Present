@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The New Face of War</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Segoe, Arial, sans-serif; background: linear-gradient(135deg,#E8F6FB,#F4F9FC); color: #1a2340; padding: 14px; }
+  .widget { max-width: 680px; margin: 0 auto; background: #fff; border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 10px; padding: 16px 18px 20px; }
+  .kicker { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #1B6A94; margin-bottom: 6px; }
+  h1 { font-size: 18px; color: #0E1C42; margin: 0 0 12px; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tabs button { flex: 1; min-width: 120px; border: 2px solid #0E1C42; background: #fff; color: #0E1C42; padding: 8px 6px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+  .tabs button.active { background: #0E1C42; color: #fff; }
+  .scene { position: relative; width: 100%; height: 190px; border-radius: 8px; overflow: hidden; background: linear-gradient(180deg,#cfe3d8 0%, #a9c9b6 55%, #8a7355 100%); border: 1px solid #D0D9E8; }
+  .trench { position: absolute; bottom: 0; width: 60px; height: 46px; background: #6b5a3f; }
+  .trenchL { left: 0; border-radius: 0 30px 0 0; }
+  .trenchR { right: 0; border-radius: 30px 0 0 0; }
+  .nomans { position: absolute; left: 60px; right: 60px; bottom: 0; height: 100%; }
+  .hazard { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 40px; opacity: 0; transition: opacity .5s ease; }
+  .hazard.show { opacity: 1; }
+  .oldtactic { position: absolute; bottom: 46px; left: 70px; font-size: 11px; color: #333; background: rgba(255,255,255,.75); padding: 3px 8px; border-radius: 5px; }
+  .caption { background: #EEF1F8; border-left: 4px solid #0E1C42; border-radius: 6px; padding: 10px 14px; font-size: 15px; line-height: 1.55; min-height: 70px; margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="kicker">Try It Yourself</div>
+  <h1>The New Face of War: Why the Trenches Stayed Put</h1>
+  <div class="tabs">
+    <button class="active" data-i="0" onclick="show(0)">Barbed Wire &amp; Machine Guns</button>
+    <button data-i="1" onclick="show(1)">Poison Gas</button>
+    <button data-i="2" onclick="show(2)">Tanks</button>
+    <button data-i="3" onclick="show(3)">Aircraft</button>
+  </div>
+  <div class="scene">
+    <div class="trench trenchL"></div>
+    <div class="trench trenchR"></div>
+    <div class="nomans">
+      <div class="hazard show" id="hazard0">&#128737;&#65039;</div>
+      <div class="hazard" id="hazard1">&#9784;&#65039;</div>
+      <div class="hazard" id="hazard2">&#128663;</div>
+      <div class="hazard" id="hazard3">&#9992;&#65039;</div>
+    </div>
+    <div class="oldtactic">Civil War tactic: march across open ground in close formation</div>
+  </div>
+  <div class="caption" id="caption">Barbed wire strung across no-man's-land, swept by machine guns firing hundreds of rounds a minute, turned an open-field infantry charge into a massacre. Attackers were mowed down before they ever reached the enemy line.</div>
+</div>
+<script>
+  var captions = [
+    "Barbed wire strung across no-man's-land, swept by machine guns firing hundreds of rounds a minute, turned an open-field infantry charge into a massacre. Attackers were mowed down before they ever reached the enemy line.",
+    "Poison gas drifted invisibly across the same open ground a Civil War charge would have crossed on foot. Without a mask, exposed lungs and eyes failed within minutes, making any advance through a gassed field a slow death rather than a battle.",
+    "Tanks could crawl over cratered ground and crush barbed wire that would have stopped foot soldiers cold, but they were slow, mechanically unreliable, and easy to pick off; they changed what was possible without yet ending the stalemate.",
+    "Aircraft turned the sky itself into a battlefield, scouting troop movements and dogfighting for control of the air, a dimension of combat that simply did not exist for a Civil War commander planning a charge."
+  ];
+  function show(i) {
+    document.querySelectorAll('.tabs button').forEach(function(b) { b.classList.toggle('active', b.dataset.i == i); });
+    for (var k = 0; k < 4; k++) {
+      document.getElementById('hazard' + k).classList.toggle('show', k === i);
+    }
+    document.getElementById('caption').textContent = captions[i];
+  }
+</script>
+</body>
+</html>
