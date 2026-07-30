@@ -14,11 +14,30 @@
   .iframe-wrap { margin: 20px 0; border: 2px solid #2196D0; border-radius: 12px; overflow: hidden; background: #f8f9fa; }
   .iframe-header { background: #0E1C42; color: #fff; padding: 10px 18px; font-weight: bold; font-size: 15px; }
   .iframe-fallback { padding: 6px 18px; font-size: 12px; color: #666; background: #EEF1F8; }
+  .seq-nav { display: flex; justify-content: space-between; gap: 16px; margin: 0 34px 24px; flex-wrap: wrap; }
+  .seq-nav a { flex: 1; min-width: 140px; background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 12px 16px; text-decoration: none; }
+  .seq-nav a.next { text-align: right; }
+  .seq-nav .seq-kicker { font-size: 10px; color: #6b7a99; }
+  .seq-nav .seq-label { font-size: 15px; color: #0e1c42; }
+  .back-to-map { margin: 0 34px 16px; }
+  .back-to-map a { font-size: 14px; color: #55607f; text-decoration: none; }
+  .back-to-map a:hover { text-decoration: underline; }
+  /* Glossary markup (Phase D populates terms; harmless and unused until then) */
+  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-radius: 8px; padding: 16px 20px; margin: 0 34px 20px; }
+  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 4px; }
+  .glossary-box .glossary-note { font-size: 13px; color: #666; font-style: italic; margin-bottom: 10px; }
+  .glossary-box dl { margin: 0; }
+  .glossary-box dt { font-size: 16px; color: #0e1c42; margin-top: 8px; }
+  .glossary-box dd { font-size: 14px; color: #1a2340; margin: 2px 0 0 0; }
+  .gloss { border-bottom: 1px dotted #55607f; cursor: help; position: relative; }
+  .gloss-audio { border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; }
+  .gloss-tip { display: none; position: absolute; left: 0; top: 1.5em; z-index: 5; background: #0E1C42; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; width: 240px; line-height: 1.4; }
+  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; }
+  .gloss.open .gloss-tip { display: block; }
 </style>
 </head>
 <body>
 <div class="wrap">
-
 <div style="background: #0E1C42; border-bottom: 5px solid #55C8E8; padding: 22px 34px;">
   <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
     <div style="width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="https://raw.githubusercontent.com/optimaondemand/optima-assets/eeb0b335630058906d52f478028361d352253a93/images/Optima%20Final%20Circle%20-%20Owl%20Only.png" alt="Optima Academy" style="width: 50px; height: 40px; object-fit: contain;" /></div>
@@ -29,52 +48,67 @@
   </div>
   <div style="font-size: 36px; color: #ffffff; margin-bottom: 6px;">U.S. HISTORY: RECONSTRUCTION TO PRESENT</div>
 </div>
-
 <div style="background: #FFFFFF; border-bottom: 2px solid #D0D9E8; display: flex; flex-wrap: wrap;">
   <div style="flex: 1; min-width: 150px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
     <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Quarter / Week</div>
     <div style="font-size: 17px; color: #0e1c42;">Q1 &middot; Week 3</div>
   </div>
   <div style="flex: 1; min-width: 150px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
-    <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Day</div>
-    <div style="font-size: 17px; color: #0e1c42;">Monday &middot; Lesson 3.1</div>
+    <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Page</div>
+    <div style="font-size: 17px; color: #0e1c42;">Lesson 3.1</div>
   </div>
   <div style="flex: 1; min-width: 220px; padding: 12px 16px;">
     <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">This Week's Topic</div>
     <div style="font-size: 15px; color: #0e1c42;">Gilded Age: Rise of Heavy Industry</div>
   </div>
 </div>
-
+<div class="back-to-map"><a href="module-map.html">&larr; Back to this week's Module Map</a></div>
 <div style="background: #EEF1F8; border-left: 5px solid #0E1C42; border-radius: 7px; padding: 18px 22px; margin: 24px 34px 20px;">
   <div style="font-size: 11px; color: #0e1c42; margin-bottom: 6px;">&#128214; LESSON 3.1</div>
   <div style="font-size: 22px; color: #0e1c42;">Gilded Age: Rise of Heavy Industry</div>
 </div>
-
 <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-top: 3px solid #C7922C; border-radius: 8px; padding: 20px 24px; margin: 0 34px 20px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 12px;">&#128214; TODAY'S LESSON</div>
   <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p>A railroad is only as good as its rails, and for the first decades of American railroading, rails were made of iron, which cracked and wore flat within two or three years of hard use. The Bessemer process, which blasted air through molten iron to burn off impurities, made steel, previously a costly specialty metal, cheap enough to roll into rails by the thousands of miles. A steel rail could last a decade instead of two years. That single change, more than any single law or entrepreneur, is why the two decades after the Civil War are remembered as the start of a Second Industrial Revolution: American railroad mileage roughly quadrupled between 1865 and 1890, and steel production increased more than a hundredfold in the same years.</p>
 <p>The railroad that captured the nation's imagination was the transcontinental line, chartered by Congress in 1862 and finished on May 10, 1869, when the Union Pacific building west from Nebraska met the Central Pacific building east from California at Promontory Summit, Utah. The engineer who first proved the route through the Sierra Nevada was Theodore Judah, a young civil engineer who spent years surveying the mountains and lobbying Congress for a charter, only to die of yellow fever in 1863, six years before the golden spike he had made possible was ever driven. The Central Pacific's grade through the Sierras was cut largely by Chinese immigrant laborers working with hand tools and explosives in brutal winter conditions; the Union Pacific's plains route relied heavily on Irish immigrant and Civil War veteran labor. Both companies were paid in government land grants and bonds calculated per mile of track laid, an incentive structure that rewarded speed and, as the Crédit Mobilier scandal from Week 1 already showed, invited fraud on a matching scale.</p>
-<p>None of this made railroads simply good or simply corrupt. They cut a journey that had taken months by wagon down to about a week, bound California's economy to the rest of the nation for the first time, and created the first American businesses large enough to require professional, salaried managers rather than owner-operators, a managerial revolution nearly as important as the steel itself. They also produced fortunes and failures on a scale the country had never seen, and the difference between the men who built something real with those fortunes and the men who merely extracted them is the subject of Wednesday's lesson.</p></div>
+<p>None of this made railroads simply good or simply corrupt. They cut a journey that had taken months by wagon down to about a week, bound California's economy to the rest of the nation for the first time, and created the first American businesses large enough to require professional, salaried managers rather than owner-operators, a managerial revolution nearly as important as the steel itself. They also produced fortunes and failures on a scale the country had never seen, and the difference between the men who built something real with those fortunes and the men who merely extracted them is the subject of the next lesson.</p></div>
 </div>
-
+<div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 18px 22px; margin: 0 34px 20px;">
+  <div style="font-size: 11px; color: #c7922c; margin-bottom: 12px;">&#127919; BY THE END OF THIS LESSON YOU WILL BE ABLE TO&hellip;</div>
+  <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+    <div style="min-width: 24px; height: 24px; border-radius: 50%; background: #C7922C; color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+    <div style="font-size: 16px; color: #1a2340; line-height: 1.6;"><strong>I will be able to</strong> explain how the Bessemer process's cheap steel rail made the Second Industrial Revolution's railroad boom possible</div>
+  </div>
+  <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+    <div style="min-width: 24px; height: 24px; border-radius: 50%; background: #C7922C; color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+    <div style="font-size: 16px; color: #1a2340; line-height: 1.6;"><strong>I will be able to</strong> describe the contingent human cost and incentive structure behind the transcontinental railroad, from Theodore Judah's surveying to the immigrant labor that built it</div>
+  </div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 18px 22px; margin: 0 34px 20px;">
+  <div style="font-size: 11px; color: #c7922c; margin-bottom: 12px;">&#128203; WHAT YOU NEED FOR THIS LESSON</div>
+  <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; border-left: 3px solid #D0D9E8; padding-left: 12px;"><span style="color: #c7922c; font-size: 16px; flex-shrink: 0;">&#9654;</span>
+    <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Today's lesson text (below)</div>
+  </div>
+  <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; border-left: 3px solid #D0D9E8; padding-left: 12px;"><span style="color: #c7922c; font-size: 16px; flex-shrink: 0;">&#9654;</span>
+    <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">The embedded interactive below</div>
+  </div>
+</div>
 <div class="iframe-wrap" style="margin: 0 34px 24px;">
   <div class="iframe-header">Try It Yourself: Vanderbilt vs. Gould: Two Roads to a Fortune</div>
   <iframe src="https://optimaondemand.github.io/10USHistoryRec-Present/widgets/vanderbilt-vs-gould.html" width="100%" height="650" style="border: none; display: block;" allowfullscreen></iframe>
   <div class="iframe-fallback">If the interactive doesn't load, <a href="https://optimaondemand.github.io/10USHistoryRec-Present/widgets/vanderbilt-vs-gould.html" target="_blank" rel="noopener">open it in a new tab</a>.</div>
 </div>
-
 <div style="background: #FDF3E3; border-left: 5px solid #C7922C; border-radius: 6px; padding: 18px 22px; margin: 0 34px 30px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 14px;">&#10145; WHAT YOU'LL DO NEXT (in Canvas)</div>
-  
-  <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px;">
+  <div style="display: flex; align-items: flex-start; gap: 14px;">
     <div style="min-width: 30px; height: 30px; border-radius: 50%; background: #0E1C42; color: #fff; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
     <div>
-      <div style="font-size: 17px; color: #0e1c42; margin-bottom: 2px;"><strong>Reading Quiz &middot; 3.1</strong></div>
+      <div style="font-size: 17px; color: #0e1c42; margin-bottom: 2px;"><strong>Reading Quiz · 3.1</strong></div>
       <div style="font-size: 15px; color: #1a2340;">A short autograded quiz over today's lesson. Find it in Canvas under this week's module.</div>
     </div>
   </div>
 </div>
-
+<div class="seq-nav"><a class="prev" href="module-map.html"><div class="seq-kicker">&larr; Previous</div><div class="seq-label">Week Module Map</div></a><a class="next" href="primary-source-1.html"><div class="seq-kicker">Next &rarr;</div><div class="seq-label">Primary Source 3.2</div></a></div>
 <div style="background: #0E1C42; border-top: 3px solid #55C8E8; padding: 18px 34px; text-align: center;">
   <div style="font-size: 16px; color: #ffffff; margin-bottom: 6px;"><span style="color: #55c8e8;">Optima Academy Online</span> &middot; U.S. HISTORY: RECONSTRUCTION TO PRESENT &middot; Quarter 1</div>
   <div style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 4px;">Week 3 &middot; Lesson 3.1 &middot; Gilded Age: Rise of Heavy Industry</div>
