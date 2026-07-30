@@ -2,441 +2,441 @@
  [
   1,
   "module_map",
-  "week-01-module-map.html"
+  "week-01/module-map.html"
  ],
  [
   1,
   "lesson_1",
-  "week-01-lesson-1.html"
+  "week-01/lesson-1.html"
  ],
  [
   1,
   "primary_source_1",
-  "week-01-primary-source-1.html"
+  "week-01/primary-source-1.html"
  ],
  [
   1,
   "lesson_2",
-  "week-01-lesson-2.html"
+  "week-01/lesson-2.html"
  ],
  [
   1,
   "primary_source_2",
-  "week-01-primary-source-2.html"
+  "week-01/primary-source-2.html"
  ],
  [
   2,
   "module_map",
-  "week-02-module-map.html"
+  "week-02/module-map.html"
  ],
  [
   2,
   "lesson_1",
-  "week-02-lesson-1.html"
+  "week-02/lesson-1.html"
  ],
  [
   2,
   "primary_source_1",
-  "week-02-primary-source-1.html"
+  "week-02/primary-source-1.html"
  ],
  [
   2,
   "lesson_2",
-  "week-02-lesson-2.html"
+  "week-02/lesson-2.html"
  ],
  [
   2,
   "primary_source_2",
-  "week-02-primary-source-2.html"
+  "week-02/primary-source-2.html"
  ],
  [
   3,
   "module_map",
-  "week-03-module-map.html"
+  "week-03/module-map.html"
  ],
  [
   3,
   "lesson_1",
-  "week-03-lesson-1.html"
+  "week-03/lesson-1.html"
  ],
  [
   3,
   "primary_source_1",
-  "week-03-primary-source-1.html"
+  "week-03/primary-source-1.html"
  ],
  [
   3,
   "lesson_2",
-  "week-03-lesson-2.html"
+  "week-03/lesson-2.html"
  ],
  [
   3,
   "primary_source_2",
-  "week-03-primary-source-2.html"
+  "week-03/primary-source-2.html"
  ],
  [
   4,
   "module_map",
-  "week-04-module-map.html"
+  "week-04/module-map.html"
  ],
  [
   4,
   "lesson_1",
-  "week-04-lesson-1.html"
+  "week-04/lesson-1.html"
  ],
  [
   4,
   "primary_source_1",
-  "week-04-primary-source-1.html"
+  "week-04/primary-source-1.html"
  ],
  [
   4,
   "lesson_2",
-  "week-04-lesson-2.html"
+  "week-04/lesson-2.html"
  ],
  [
   4,
   "primary_source_2",
-  "week-04-primary-source-2.html"
+  "week-04/primary-source-2.html"
  ],
  [
   5,
   "module_map",
-  "week-05-module-map.html"
+  "week-05/module-map.html"
  ],
  [
   5,
   "lesson_1",
-  "week-05-lesson-1.html"
+  "week-05/lesson-1.html"
  ],
  [
   5,
   "lesson_2",
-  "week-05-lesson-2.html"
+  "week-05/lesson-2.html"
  ],
  [
   5,
   "primary_source",
-  "week-05-primary-source.html"
+  "week-05/primary-source.html"
  ],
  [
   6,
   "module_map",
-  "week-06-module-map.html"
+  "week-06/module-map.html"
  ],
  [
   6,
   "lesson_1",
-  "week-06-lesson-1.html"
+  "week-06/lesson-1.html"
  ],
  [
   6,
   "lesson_2",
-  "week-06-lesson-2.html"
+  "week-06/lesson-2.html"
  ],
  [
   6,
   "primary_source",
-  "week-06-primary-source.html"
+  "week-06/primary-source.html"
  ],
  [
   7,
   "module_map",
-  "week-07-module-map.html"
+  "week-07/module-map.html"
  ],
  [
   7,
   "lesson_1",
-  "week-07-lesson-1.html"
+  "week-07/lesson-1.html"
  ],
  [
   7,
   "primary_source_1",
-  "week-07-primary-source-1.html"
+  "week-07/primary-source-1.html"
  ],
  [
   7,
   "lesson_2",
-  "week-07-lesson-2.html"
+  "week-07/lesson-2.html"
  ],
  [
   7,
   "primary_source_2",
-  "week-07-primary-source-2.html"
+  "week-07/primary-source-2.html"
  ],
  [
   8,
   "module_map",
-  "week-08-module-map.html"
+  "week-08/module-map.html"
  ],
  [
   8,
   "lesson_1",
-  "week-08-lesson-1.html"
+  "week-08/lesson-1.html"
  ],
  [
   8,
   "primary_source_1",
-  "week-08-primary-source-1.html"
+  "week-08/primary-source-1.html"
  ],
  [
   8,
   "lesson_2",
-  "week-08-lesson-2.html"
+  "week-08/lesson-2.html"
  ],
  [
   8,
   "primary_source_2",
-  "week-08-primary-source-2.html"
+  "week-08/primary-source-2.html"
  ],
  [
   9,
   "module_map",
-  "week-09-module-map.html"
+  "week-09/module-map.html"
  ],
  [
   9,
   "lesson_1",
-  "week-09-lesson-1.html"
+  "week-09/lesson-1.html"
  ],
  [
   9,
   "primary_source_1",
-  "week-09-primary-source-1.html"
+  "week-09/primary-source-1.html"
  ],
  [
   9,
   "lesson_2",
-  "week-09-lesson-2.html"
+  "week-09/lesson-2.html"
  ],
  [
   9,
   "primary_source_2",
-  "week-09-primary-source-2.html"
+  "week-09/primary-source-2.html"
  ],
  [
   10,
   "module_map",
-  "week-10-module-map.html"
+  "week-10/module-map.html"
  ],
  [
   10,
   "lesson_1",
-  "week-10-lesson-1.html"
+  "week-10/lesson-1.html"
  ],
  [
   10,
   "primary_source_1",
-  "week-10-primary-source-1.html"
+  "week-10/primary-source-1.html"
  ],
  [
   10,
   "lesson_2",
-  "week-10-lesson-2.html"
+  "week-10/lesson-2.html"
  ],
  [
   10,
   "primary_source_2",
-  "week-10-primary-source-2.html"
+  "week-10/primary-source-2.html"
  ],
  [
   11,
   "module_map",
-  "week-11-module-map.html"
+  "week-11/module-map.html"
  ],
  [
   11,
   "lesson_1",
-  "week-11-lesson-1.html"
+  "week-11/lesson-1.html"
  ],
  [
   11,
   "primary_source_1",
-  "week-11-primary-source-1.html"
+  "week-11/primary-source-1.html"
  ],
  [
   11,
   "lesson_2",
-  "week-11-lesson-2.html"
+  "week-11/lesson-2.html"
  ],
  [
   11,
   "primary_source_2",
-  "week-11-primary-source-2.html"
+  "week-11/primary-source-2.html"
  ],
  [
   12,
   "module_map",
-  "week-12-module-map.html"
+  "week-12/module-map.html"
  ],
  [
   12,
   "lesson_1",
-  "week-12-lesson-1.html"
+  "week-12/lesson-1.html"
  ],
  [
   12,
   "primary_source_1",
-  "week-12-primary-source-1.html"
+  "week-12/primary-source-1.html"
  ],
  [
   12,
   "lesson_2",
-  "week-12-lesson-2.html"
+  "week-12/lesson-2.html"
  ],
  [
   12,
   "primary_source_2",
-  "week-12-primary-source-2.html"
+  "week-12/primary-source-2.html"
  ],
  [
   13,
   "module_map",
-  "week-13-module-map.html"
+  "week-13/module-map.html"
  ],
  [
   13,
   "lesson_1",
-  "week-13-lesson-1.html"
+  "week-13/lesson-1.html"
  ],
  [
   13,
   "primary_source_1",
-  "week-13-primary-source-1.html"
+  "week-13/primary-source-1.html"
  ],
  [
   13,
   "lesson_2",
-  "week-13-lesson-2.html"
+  "week-13/lesson-2.html"
  ],
  [
   13,
   "primary_source_2",
-  "week-13-primary-source-2.html"
+  "week-13/primary-source-2.html"
  ],
  [
   14,
   "module_map",
-  "week-14-module-map.html"
+  "week-14/module-map.html"
  ],
  [
   14,
   "lesson_1",
-  "week-14-lesson-1.html"
+  "week-14/lesson-1.html"
  ],
  [
   14,
   "primary_source_1",
-  "week-14-primary-source-1.html"
+  "week-14/primary-source-1.html"
  ],
  [
   14,
   "lesson_2",
-  "week-14-lesson-2.html"
+  "week-14/lesson-2.html"
  ],
  [
   14,
   "primary_source_2",
-  "week-14-primary-source-2.html"
+  "week-14/primary-source-2.html"
  ],
  [
   15,
   "module_map",
-  "week-15-module-map.html"
+  "week-15/module-map.html"
  ],
  [
   15,
   "lesson_1",
-  "week-15-lesson-1.html"
+  "week-15/lesson-1.html"
  ],
  [
   15,
   "primary_source_1",
-  "week-15-primary-source-1.html"
+  "week-15/primary-source-1.html"
  ],
  [
   15,
   "lesson_2",
-  "week-15-lesson-2.html"
+  "week-15/lesson-2.html"
  ],
  [
   15,
   "primary_source_2",
-  "week-15-primary-source-2.html"
+  "week-15/primary-source-2.html"
  ],
  [
   16,
   "module_map",
-  "week-16-module-map.html"
+  "week-16/module-map.html"
  ],
  [
   16,
   "lesson_1",
-  "week-16-lesson-1.html"
+  "week-16/lesson-1.html"
  ],
  [
   16,
   "primary_source_1",
-  "week-16-primary-source-1.html"
+  "week-16/primary-source-1.html"
  ],
  [
   16,
   "lesson_2",
-  "week-16-lesson-2.html"
+  "week-16/lesson-2.html"
  ],
  [
   16,
   "primary_source_2",
-  "week-16-primary-source-2.html"
+  "week-16/primary-source-2.html"
  ],
  [
   17,
   "module_map",
-  "week-17-module-map.html"
+  "week-17/module-map.html"
  ],
  [
   17,
   "lesson_1",
-  "week-17-lesson-1.html"
+  "week-17/lesson-1.html"
  ],
  [
   17,
   "primary_source_1",
-  "week-17-primary-source-1.html"
+  "week-17/primary-source-1.html"
  ],
  [
   17,
   "lesson_2",
-  "week-17-lesson-2.html"
+  "week-17/lesson-2.html"
  ],
  [
   17,
   "primary_source_2",
-  "week-17-primary-source-2.html"
+  "week-17/primary-source-2.html"
  ],
  [
   18,
   "module_map",
-  "week-18-module-map.html"
+  "week-18/module-map.html"
  ],
  [
   18,
   "lesson_1",
-  "week-18-lesson-1.html"
+  "week-18/lesson-1.html"
  ],
  [
   18,
   "primary_source_1",
-  "week-18-primary-source-1.html"
+  "week-18/primary-source-1.html"
  ],
  [
   18,
   "lesson_2",
-  "week-18-lesson-2.html"
+  "week-18/lesson-2.html"
  ],
  [
   18,
   "primary_source_2",
-  "week-18-primary-source-2.html"
+  "week-18/primary-source-2.html"
  ]
 ]
