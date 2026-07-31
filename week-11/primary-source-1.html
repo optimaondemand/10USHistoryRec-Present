@@ -14,11 +14,30 @@
   .iframe-wrap { margin: 20px 0; border: 2px solid #2196D0; border-radius: 12px; overflow: hidden; background: #f8f9fa; }
   .iframe-header { background: #0E1C42; color: #fff; padding: 10px 18px; font-weight: bold; font-size: 15px; }
   .iframe-fallback { padding: 6px 18px; font-size: 12px; color: #666; background: #EEF1F8; }
+  .seq-nav { display: flex; justify-content: space-between; gap: 16px; margin: 0 34px 24px; flex-wrap: wrap; }
+  .seq-nav a { flex: 1; min-width: 140px; background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 12px 16px; text-decoration: none; }
+  .seq-nav a.next { text-align: right; }
+  .seq-nav .seq-kicker { font-size: 10px; color: #6b7a99; }
+  .seq-nav .seq-label { font-size: 15px; color: #0e1c42; }
+  .back-to-map { margin: 0 34px 16px; }
+  .back-to-map a { font-size: 14px; color: #55607f; text-decoration: none; }
+  .back-to-map a:hover { text-decoration: underline; }
+  /* Glossary markup (Phase D populates terms; harmless and unused until then) */
+  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-radius: 8px; padding: 16px 20px; margin: 0 34px 20px; }
+  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 4px; }
+  .glossary-box .glossary-note { font-size: 13px; color: #666; font-style: italic; margin-bottom: 10px; }
+  .glossary-box dl { margin: 0; }
+  .glossary-box dt { font-size: 16px; color: #0e1c42; margin-top: 8px; }
+  .glossary-box dd { font-size: 14px; color: #1a2340; margin: 2px 0 0 0; }
+  .gloss { border-bottom: 1px dotted #55607f; cursor: help; position: relative; }
+  .gloss-audio { border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; }
+  .gloss-tip { display: none; position: absolute; left: 0; top: 1.5em; z-index: 5; background: #0E1C42; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; width: 240px; line-height: 1.4; }
+  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; }
+  .gloss.open .gloss-tip { display: block; }
 </style>
 </head>
 <body>
 <div class="wrap">
-
 <div style="background: #0E1C42; border-bottom: 5px solid #55C8E8; padding: 22px 34px;">
   <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
     <div style="width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="https://raw.githubusercontent.com/optimaondemand/optima-assets/eeb0b335630058906d52f478028361d352253a93/images/Optima%20Final%20Circle%20-%20Owl%20Only.png" alt="Optima Academy" style="width: 50px; height: 40px; object-fit: contain;" /></div>
@@ -29,22 +48,20 @@
   </div>
   <div style="font-size: 36px; color: #ffffff; margin-bottom: 6px;">U.S. HISTORY: RECONSTRUCTION TO PRESENT</div>
 </div>
-
 <div style="background: #FFFFFF; border-bottom: 2px solid #D0D9E8; display: flex; flex-wrap: wrap;">
   <div style="flex: 1; min-width: 150px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
     <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Quarter / Week</div>
     <div style="font-size: 17px; color: #0e1c42;">Q2 &middot; Week 11</div>
   </div>
   <div style="flex: 1; min-width: 150px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
-    <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Day</div>
-    <div style="font-size: 17px; color: #0e1c42;">Tuesday &middot; Primary Source 11.2</div>
+    <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Page</div>
+    <div style="font-size: 17px; color: #0e1c42;">Primary Source 11.2</div>
   </div>
   <div style="flex: 1; min-width: 220px; padding: 12px 16px;">
     <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">This Week's Topic</div>
     <div style="font-size: 15px; color: #0e1c42;">Urban Conflict: Great Migration, Anarchism, Socialism, Political Machines</div>
   </div>
 </div>
-
 <div style="background: #EEF1F8; border-left: 5px solid #0E1C42; border-radius: 7px; padding: 18px 22px; margin: 24px 34px 20px;">
   <div style="font-size: 11px; color: #0e1c42; margin-bottom: 6px;">&#128214; PRIMARY SOURCE 11.2</div>
   <div style="font-size: 22px; color: #0e1c42;">Theodore Roosevelt, First Annual Message to Congress (December 3, 1901)</div>
@@ -52,16 +69,15 @@
 <div style="margin: 0 34px 20px;"><blockquote class="source">President McKinley was killed by an utterly depraved criminal belonging to that body of criminals who object to all governments... The anarchist, and especially the anarchist in the United States, is merely one type of criminal, more dangerous than any other... The man who advocates anarchy directly or indirectly, in any shape or fashion... makes himself morally accessory to murder... Anarchy is a crime against the whole human race; and all mankind should band against the anarchist.<div class="source-cite">Theodore Roosevelt, First Annual Message to Congress, December 3, 1901, excerpted, delivered three months after President McKinley's assassination by an anarchist</div></blockquote></div>
 <div style="background: #FDF3E3; border-left: 5px solid #C7922C; border-radius: 6px; padding: 18px 22px; margin: 0 34px 30px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 14px;">&#10145; WHAT YOU'LL DO NEXT (in Canvas)</div>
-  
-  <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px;">
+  <div style="display: flex; align-items: flex-start; gap: 14px;">
     <div style="min-width: 30px; height: 30px; border-radius: 50%; background: #0E1C42; color: #fff; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
     <div>
-      <div style="font-size: 17px; color: #0e1c42; margin-bottom: 2px;"><strong>Critical Questions &middot; 11.2</strong></div>
+      <div style="font-size: 17px; color: #0e1c42; margin-bottom: 2px;"><strong>Critical Questions · 11.2</strong></div>
       <div style="font-size: 15px; color: #1a2340;">Answer the Critical Questions on this source. Find the assignment in Canvas under this week's module.</div>
     </div>
   </div>
 </div>
-
+<div class="seq-nav"><a class="prev" href="lesson-1.html"><div class="seq-kicker">&larr; Previous</div><div class="seq-label">Lesson 11.1</div></a><a class="next" href="lesson-2.html"><div class="seq-kicker">Next &rarr;</div><div class="seq-label">Lesson 11.3</div></a></div>
 <div style="background: #0E1C42; border-top: 3px solid #55C8E8; padding: 18px 34px; text-align: center;">
   <div style="font-size: 16px; color: #ffffff; margin-bottom: 6px;"><span style="color: #55c8e8;">Optima Academy Online</span> &middot; U.S. HISTORY: RECONSTRUCTION TO PRESENT &middot; Quarter 2</div>
   <div style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 4px;">Week 11 &middot; Primary Source 11.2 &middot; Theodore Roosevelt, First Annual Message to Congress (December 3, 1901)</div>
