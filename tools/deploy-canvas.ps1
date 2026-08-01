@@ -58,6 +58,11 @@ $TIER_NAMES = @{
     tier4 = "Tier 4: Ungraded Scaffolding"
 }
 
+# optima-m365-skills Part 7: this page must be linked in EVERY module, not just the front matter,
+# so a student enrolling mid-year can find it from wherever they land. The page itself is
+# m365-guide.json's own standalone deploy; this constant only names it for module-item wiring.
+$M365_PAGE_TITLE = "M365 Setup & File Organization Guide"
+
 # --- Auth --------------------------------------------------------------------
 # Token is read at run time from a file OUTSIDE the OneDrive tree, or passed via -Token. It is
 # never written into this script, into canvas-deploy/*.json, or into any committed file.
@@ -458,6 +463,40 @@ function Ensure-ModuleItem {
     Write-Host "  Module item added at position $nextPosition : $Key ($($Item.type))"
 }
 
+# --- M365 module wiring --------------------------------------------------------
+# optima-m365-skills Part 7: the M365 guide must be linked in every module, not just the front
+# matter (module 1304, where it already sits at 0.5). Weekly modules keep optima-hs-social-studies
+# V.3's module-order naming ("N.13", the 13th slot after the twelve-slot grid); the capstone, exam,
+# and appendix modules are not number-prefixed at all, so they get the plain page title.
+
+function Get-M365ItemTitle {
+    param($Week)
+    $isWeekly = ($Week -is [int]) -or ("$Week" -match '^\d+$')
+    if ($isWeekly) { return "$Week.13 $M365_PAGE_TITLE" }
+    return $M365_PAGE_TITLE
+}
+
+# Resolves the live M365 page by title (never created here: it is m365-guide.json's own deploy).
+# Fails loudly rather than skipping, because a module silently missing this page is itself a
+# compliance failure, not a condition to route around.
+function Resolve-M365PageItem {
+    $page = (Get-PagesCache) | Where-Object { $_.title -eq $M365_PAGE_TITLE } | Select-Object -First 1
+    if (-not $page) {
+        throw "M365 page '$M365_PAGE_TITLE' not found in course $courseId. Deploy m365-guide.json before wiring module items, per optima-m365-skills Part 7."
+    }
+    return @{ type = 'Page'; url = $page.url; id = $page.page_id }
+}
+
+# Appends the M365 page as the LAST item of the module (never position 1, which the intro wrapper
+# owns). Ensure-ModuleItem is reused verbatim, so this is idempotent for free: a module that
+# already carries the page (1304) is left untouched beyond a title check.
+function Ensure-M365ModuleItem {
+    param($ModuleId, $Week)
+    $item  = Resolve-M365PageItem
+    $title = Get-M365ItemTitle -Week $Week
+    Ensure-ModuleItem -ModuleId $ModuleId -Key 'm365' -Item $item -Title $title
+}
+
 # --- Manifest loading ---------------------------------------------------------
 
 function Get-ManifestFiles {
@@ -700,6 +739,7 @@ function Invoke-Manifest {
 
     if ($DryRun) {
         Write-Host "  [dry-run] moduleOrder ($($data.moduleOrder.Count) items): $($data.moduleOrder -join ' ')"
+        Write-Host "  [dry-run] M365    : $(Get-M365ItemTitle -Week $data.week)  (appended last, no HTTP)"
         return
     }
 
@@ -708,6 +748,9 @@ function Invoke-Manifest {
         Ensure-ModuleItem -ModuleId $data.moduleId -Key $key -Item $created[$key] -Title $titles[$key] -Position $position
         $position++
     }
+
+    Ensure-M365ModuleItem -ModuleId $data.moduleId -Week $data.week
+
     Write-Host "=== $name complete (reconciled, no duplicates created) ==="
 }
 
