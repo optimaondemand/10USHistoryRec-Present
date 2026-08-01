@@ -22,18 +22,20 @@
   .back-to-map { margin: 0 34px 16px; }
   .back-to-map a { font-size: 14px; color: #55607f; text-decoration: none; }
   .back-to-map a:hover { text-decoration: underline; }
-  /* Glossary markup (Phase D populates terms; harmless and unused until then) */
-  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-radius: 8px; padding: 16px 20px; margin: 0 34px 20px; }
-  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 4px; }
-  .glossary-box .glossary-note { font-size: 13px; color: #666; font-style: italic; margin-bottom: 10px; }
-  .glossary-box dl { margin: 0; }
-  .glossary-box dt { font-size: 16px; color: #0e1c42; margin-top: 8px; }
-  .glossary-box dd { font-size: 14px; color: #1a2340; margin: 2px 0 0 0; }
-  .gloss { border-bottom: 1px dotted #55607f; cursor: help; position: relative; }
-  .gloss-audio { border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; }
-  .gloss-tip { display: none; position: absolute; left: 0; top: 1.5em; z-index: 5; background: #0E1C42; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; width: 240px; line-height: 1.4; }
-  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; }
-  .gloss.open .gloss-tip { display: block; }
+  /* Glossary markup (Stage 15/D2 onward). One combined "Glossary of Subject Vocabulary" box
+     per course decision 2026-07-31 -- see CLAUDE.md's "Vocabulary glossing" section. */
+  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-left: 5px solid #C7922C; border-radius: 8px; padding: 18px 22px; margin: 24px 34px 20px; }
+  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 6px; }
+  .glossary-box .glossary-note { font-size: 14px; color: #55607f; font-style: italic; margin-bottom: 10px; }
+  .glossary-box ul { margin: 8px 0 0 0; padding-left: 20px; }
+  .glossary-box li { margin-bottom: 8px; font-size: 15px; color: #1a2340; line-height: 1.5; }
+  .gloss { position: relative; border-bottom: 1px dotted #2196D0; font-weight: 600; color: #0E1C42; cursor: help; }
+  .gloss .gloss-tip { display: none; }
+  .gloss.open .gloss-tip, .gloss:hover .gloss-tip, .gloss:focus .gloss-tip { display: block; }
+  .gloss-audio { display: inline-flex; align-items: center; justify-content: center; border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; vertical-align: middle; color: #1B6A94; }
+  .gloss-audio:hover { color: #0E1C42; }
+  .gloss-tip { position: absolute; left: 0; bottom: 100%; margin-bottom: 8px; width: 260px; max-width: 70vw; background: #0E1C42; color: #fff; font-weight: normal; font-size: 13px; line-height: 1.5; padding: 10px 12px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.25); z-index: 20; }
+  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -67,12 +69,25 @@
   <div style="font-size: 11px; color: #0e1c42; margin-bottom: 6px;">&#128214; LESSON 6.1</div>
   <div style="font-size: 22px; color: #0e1c42;">Transformative Inventions and the Beginning of Consumer Society</div>
 </div>
+<div class="glossary-box">
+  <div class="glossary-title">&#128214; GLOSSARY OF SUBJECT VOCABULARY</div>
+  <div class="glossary-note">A few words below are worth a quick look before you read. Tap or click any underlined term, here or in the lesson text, to see what it means.</div>
+  <ul>
+    <li><span class="gloss" tabindex="0">Alexander Graham Bell<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'al-ig-ZAN-der GRAY-um bel')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">al-ig-ZAN-der GRAY-um bel</span>The inventor who patented the telephone in 1876.</span></span></li>
+    <li><span class="gloss" tabindex="0">George Eastman<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'jorj EEST-mun')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">jorj EEST-mun</span>The inventor of the Kodak camera, sold from 1888, which made photography available to ordinary families.</span></span></li>
+    <li><span class="gloss" tabindex="0">Gustavus Swift<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'gus-TAY-vus swift')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">gus-TAY-vus swift</span>The businessman who began shipping dressed beef in refrigerated rail cars in the late 1870s.</span></span></li>
+    <li><span class="gloss" tabindex="0">Montgomery Ward<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'mahnt-GUM-uh-ree word')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">mahnt-GUM-uh-ree word</span>A mail-order retail company founded in 1872 that let rural families order goods by catalog.</span></span></li>
+    <li><span class="gloss" tabindex="0">Remington typewriter<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'REM-ing-tun TY-py-riter')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">REM-ing-tun TY-py-riter</span>The first commercially successful typewriter, sold from 1874, which opened office work to women.</span></span></li>
+    <li><span class="gloss" tabindex="0">Rural Free Delivery<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'ROOR-ul free dih-LIV-uh-ree')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">ROOR-ul free dih-LIV-uh-ree</span>A U.S. Post Office program begun in 1896 that brought mail directly to farm gates instead of distant town offices.</span></span></li>
+    <li><span class="gloss" tabindex="0">Sears, Roebuck<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'seerz ROH-buk')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">seerz ROH-buk</span>A mail-order retail company founded in 1893 whose thick catalog was nicknamed the "wish book."</span></span></li>
+  </ul>
+</div>
 <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-top: 3px solid #C7922C; border-radius: 8px; padding: 20px 24px; margin: 0 34px 20px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 12px;">&#128214; TODAY'S LESSON</div>
-  <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p>The same decades that built railroads and steel mills also rewired daily life at home. Alexander Graham Bell patented the telephone in 1876, and Thomas Edison built a working phonograph the following year. Communication and music, which had always required another person in the room, became things a machine could carry. The telephone's arrival was also a near thing worth pausing over. Bell and a rival inventor named Elisha Gray filed papers on the same idea at the same patent office on the same day, February 14, 1876. Bell's application was recorded first. Years of litigation followed, and Bell won every case. But the company that grew into a national telephone monopoly might easily have carried a different name.</p>
-<p>A strengthened patent system gave inventors real financial reason to commercialize an idea quickly rather than keep it a private curiosity. The number of United States patents issued each year roughly doubled between 1870 and 1900. Some of those patents changed who could work, not just what work looked like. The typewriter, sold commercially by Remington from 1874, is the clearest case. Office correspondence had been handwritten by male clerks. The typewriter made the work faster and made it a distinct skill. It also opened that work to women, who entered offices in enormous numbers over the next thirty years. A respectable job outside the home, at a wage a woman controlled herself, was a genuine social change. It came out of a machine rather than out of an argument.</p>
-<p>Other inventions reached into the kitchen. Gustavus Swift began shipping dressed beef in refrigerated rail cars in the late 1870s, over the loud objection of butchers and railroads alike. The refrigerated car meant a family in Boston could eat beef slaughtered in Chicago. It meant fresh fruit in winter, and it made the Chicago stockyards into the largest meat operation on earth. George Eastman's Kodak camera, sold from 1888, did something similar for memory. "You press the button, we do the rest," the advertisements promised, and photography stopped being a specialist's craft. An ordinary family could now own pictures of itself, something only the wealthy had managed a generation before.</p>
-<p>None of this reached Americans as a set of isolated gadgets. It arrived as an emerging culture of consumption, and the institutions of that culture were as new as the machines. Montgomery Ward began in 1872 with a single printed sheet of goods. Sears, Roebuck followed in 1893, and its catalog grew so thick and so eagerly awaited that farm families called it the wish book. A household in Kansas could order clothing, tools, a sewing machine, even a stove, from a printed page. The goods arrived on the same railroads that carried its wheat to market. The Post Office made this possible by starting Rural Free Delivery in 1896. It brought mail to the farm gate rather than to a distant town office. Country storekeepers fought both the catalogs and the free delivery, correctly seeing what was coming.</p>
+  <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p>The same decades that built railroads and steel mills also rewired daily life at home. <span class="gloss" tabindex="0">Alexander Graham Bell<span class="gloss-tip"><span class="gloss-pron">al-ig-ZAN-der GRAY-um bel</span>The inventor who patented the telephone in 1876.</span></span> patented the telephone in 1876, and Thomas Edison built a working phonograph the following year. Communication and music, which had always required another person in the room, became things a machine could carry. The telephone's arrival was also a near thing worth pausing over. Bell and a rival inventor named Elisha Gray filed papers on the same idea at the same patent office on the same day, February 14, 1876. Bell's application was recorded first. Years of litigation followed, and Bell won every case. But the company that grew into a national telephone monopoly might easily have carried a different name.</p>
+<p>A strengthened patent system gave inventors real financial reason to commercialize an idea quickly rather than keep it a private curiosity. The number of United States patents issued each year roughly doubled between 1870 and 1900. Some of those patents changed who could work, not just what work looked like. The typewriter, sold commercially by <span class="gloss" tabindex="0">Remington<span class="gloss-tip"><span class="gloss-pron">REM-ing-tun TY-py-riter</span>The first commercially successful typewriter, sold from 1874, which opened office work to women.</span></span> from 1874, is the clearest case. Office correspondence had been handwritten by male clerks. The typewriter made the work faster and made it a distinct skill. It also opened that work to women, who entered offices in enormous numbers over the next thirty years. A respectable job outside the home, at a wage a woman controlled herself, was a genuine social change. It came out of a machine rather than out of an argument.</p>
+<p>Other inventions reached into the kitchen. <span class="gloss" tabindex="0">Gustavus Swift<span class="gloss-tip"><span class="gloss-pron">gus-TAY-vus swift</span>The businessman who began shipping dressed beef in refrigerated rail cars in the late 1870s.</span></span> began shipping dressed beef in refrigerated rail cars in the late 1870s, over the loud objection of butchers and railroads alike. The refrigerated car meant a family in Boston could eat beef slaughtered in Chicago. It meant fresh fruit in winter, and it made the Chicago stockyards into the largest meat operation on earth. <span class="gloss" tabindex="0">George Eastman<span class="gloss-tip"><span class="gloss-pron">jorj EEST-mun</span>The inventor of the Kodak camera, sold from 1888, which made photography available to ordinary families.</span></span>'s Kodak camera, sold from 1888, did something similar for memory. "You press the button, we do the rest," the advertisements promised, and photography stopped being a specialist's craft. An ordinary family could now own pictures of itself, something only the wealthy had managed a generation before.</p>
+<p>None of this reached Americans as a set of isolated gadgets. It arrived as an emerging culture of consumption, and the institutions of that culture were as new as the machines. <span class="gloss" tabindex="0">Montgomery Ward<span class="gloss-tip"><span class="gloss-pron">mahnt-GUM-uh-ree word</span>A mail-order retail company founded in 1872 that let rural families order goods by catalog.</span></span> began in 1872 with a single printed sheet of goods. <span class="gloss" tabindex="0">Sears, Roebuck<span class="gloss-tip"><span class="gloss-pron">seerz ROH-buk</span>A mail-order retail company founded in 1893 whose thick catalog was nicknamed the "wish book."</span></span> followed in 1893, and its catalog grew so thick and so eagerly awaited that farm families called it the wish book. A household in Kansas could order clothing, tools, a sewing machine, even a stove, from a printed page. The goods arrived on the same railroads that carried its wheat to market. The Post Office made this possible by starting <span class="gloss" tabindex="0">Rural Free Delivery<span class="gloss-tip"><span class="gloss-pron">ROOR-ul free dih-LIV-uh-ree</span>A U.S. Post Office program begun in 1896 that brought mail directly to farm gates instead of distant town offices.</span></span> in 1896. It brought mail to the farm gate rather than to a distant town office. Country storekeepers fought both the catalogs and the free delivery, correctly seeing what was coming.</p>
 <p>What arrived in those parcels was itself different from what an earlier generation had bought. Before this era, most goods came unbranded and in bulk. Flour, oats, soap, and crackers were scooped from a barrel by a storekeeper the customer knew personally, and quality depended on his honesty. Now goods came sealed in packages with a name on them. Quaker Oats, Ivory Soap, and dozens of others promised the same product in Maine and in Oregon. Clothing changed the same way. Ready-made garments in standard sizes, an idea refined during the Civil War when the army had to clothe hundreds of thousands of men quickly, meant a family no longer had to sew everything it wore. A brand was in effect a promise made by a distant stranger, backed by advertising rather than by acquaintance. That was a real gain in reliability. It was also the moment when trust in commerce began shifting from a person to a name.</p>
 <p>In the cities the equivalent institution was the department store. Marshall Field's in Chicago and Wanamaker's in Philadelphia turned shopping itself into an outing rather than an errand. They introduced fixed prices. A customer no longer had to haggle, and no longer had to wonder whether the man behind the counter had charged the previous customer less. They accepted returns. They built elaborate lighted windows meant to be looked at from the sidewalk by people with no intention of buying anything that day. Advertising grew from plain notices of what a shop carried into a real industry with its own writers and artists. Its business was persuading people to want goods they had not previously known existed. A rising urban middle class, drawing steady salaries rather than a farmer's harvest-dependent income, became the customer this whole system was designed to serve.</p>
 <p>The deepest change may have been to time itself. Electric lighting spread through American cities in the 1880s and 1890s, and work, shopping, and leisure no longer had to end at sunset. For factory owners this meant a second shift. For shopkeepers it meant evening hours. For ordinary people it meant that the night became usable, for reading, for theaters, for walking a lighted street in reasonable safety. A city under electric light was, in a real sense, a new kind of place to live. The invention that made it possible, the practical incandescent bulb, is the subject of the next lesson.</p>
@@ -116,5 +131,26 @@
   <div style="font-size: 12px; color: rgba(255,255,255,0.4);">&copy; Optima Academy Online &middot; An Education Experience Company</div>
 </div>
 </div>
+
+<script>
+function speakGloss(e, text) {
+  e.stopPropagation();
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  }
+}
+document.addEventListener('click', function (e) {
+  var gloss = e.target.closest('.gloss');
+  if (gloss && !e.target.closest('.gloss-audio')) {
+    document.querySelectorAll('.gloss.open').forEach(function (g) { if (g !== gloss) g.classList.remove('open'); });
+    gloss.classList.toggle('open');
+  } else if (!e.target.closest('.gloss-tip')) {
+    document.querySelectorAll('.gloss.open').forEach(function (g) { g.classList.remove('open'); });
+  }
+});
+</script>
 </body>
 </html>

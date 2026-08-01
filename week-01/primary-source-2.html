@@ -22,18 +22,20 @@
   .back-to-map { margin: 0 34px 16px; }
   .back-to-map a { font-size: 14px; color: #55607f; text-decoration: none; }
   .back-to-map a:hover { text-decoration: underline; }
-  /* Glossary markup (Phase D populates terms; harmless and unused until then) */
-  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-radius: 8px; padding: 16px 20px; margin: 0 34px 20px; }
-  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 4px; }
-  .glossary-box .glossary-note { font-size: 13px; color: #666; font-style: italic; margin-bottom: 10px; }
-  .glossary-box dl { margin: 0; }
-  .glossary-box dt { font-size: 16px; color: #0e1c42; margin-top: 8px; }
-  .glossary-box dd { font-size: 14px; color: #1a2340; margin: 2px 0 0 0; }
-  .gloss { border-bottom: 1px dotted #55607f; cursor: help; position: relative; }
-  .gloss-audio { border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; }
-  .gloss-tip { display: none; position: absolute; left: 0; top: 1.5em; z-index: 5; background: #0E1C42; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; width: 240px; line-height: 1.4; }
-  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; }
-  .gloss.open .gloss-tip { display: block; }
+  /* Glossary markup (Stage 15/D2 onward). One combined "Glossary of Subject Vocabulary" box
+     per course decision 2026-07-31 -- see CLAUDE.md's "Vocabulary glossing" section. */
+  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-left: 5px solid #C7922C; border-radius: 8px; padding: 18px 22px; margin: 24px 34px 20px; }
+  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 6px; }
+  .glossary-box .glossary-note { font-size: 14px; color: #55607f; font-style: italic; margin-bottom: 10px; }
+  .glossary-box ul { margin: 8px 0 0 0; padding-left: 20px; }
+  .glossary-box li { margin-bottom: 8px; font-size: 15px; color: #1a2340; line-height: 1.5; }
+  .gloss { position: relative; border-bottom: 1px dotted #2196D0; font-weight: 600; color: #0E1C42; cursor: help; }
+  .gloss .gloss-tip { display: none; }
+  .gloss.open .gloss-tip, .gloss:hover .gloss-tip, .gloss:focus .gloss-tip { display: block; }
+  .gloss-audio { display: inline-flex; align-items: center; justify-content: center; border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; vertical-align: middle; color: #1B6A94; }
+  .gloss-audio:hover { color: #0E1C42; }
+  .gloss-tip { position: absolute; left: 0; bottom: 100%; margin-bottom: 8px; width: 260px; max-width: 70vw; background: #0E1C42; color: #fff; font-weight: normal; font-size: 13px; line-height: 1.5; padding: 10px 12px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.25); z-index: 20; }
+  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -92,5 +94,26 @@ Sec. 6. ...any civil governments which may exist therein shall be deemed provisi
   <div style="font-size: 12px; color: rgba(255,255,255,0.4);">&copy; Optima Academy Online &middot; An Education Experience Company</div>
 </div>
 </div>
+
+<script>
+function speakGloss(e, text) {
+  e.stopPropagation();
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  }
+}
+document.addEventListener('click', function (e) {
+  var gloss = e.target.closest('.gloss');
+  if (gloss && !e.target.closest('.gloss-audio')) {
+    document.querySelectorAll('.gloss.open').forEach(function (g) { if (g !== gloss) g.classList.remove('open'); });
+    gloss.classList.toggle('open');
+  } else if (!e.target.closest('.gloss-tip')) {
+    document.querySelectorAll('.gloss.open').forEach(function (g) { g.classList.remove('open'); });
+  }
+});
+</script>
 </body>
 </html>

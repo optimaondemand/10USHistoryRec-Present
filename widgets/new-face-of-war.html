@@ -22,6 +22,9 @@
   .hazard.show { opacity: 1; }
   .oldtactic { position: absolute; bottom: 46px; left: 70px; font-size: 11px; color: #333; background: rgba(255,255,255,.75); padding: 3px 8px; border-radius: 5px; }
   .caption { background: #EEF1F8; border-left: 4px solid #0E1C42; border-radius: 6px; padding: 10px 14px; font-size: 15px; line-height: 1.55; min-height: 70px; margin-top: 14px; }
+  .resetRow { text-align: center; margin-top: 12px; }
+  button.reset { background: #C7922C; color: #fff; border: none; padding: 8px 18px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+  button.reset:hover { background: #a8781f; }
 </style>
 </head>
 <body>
@@ -46,6 +49,9 @@
     <div class="oldtactic">Civil War tactic: march across open ground in close formation</div>
   </div>
   <div class="caption" id="caption">Barbed wire strung across no-man's-land, swept by machine guns firing hundreds of rounds a minute, turned an open-field infantry charge into a massacre. Attackers were mowed down before they ever reached the enemy line.</div>
+  <div class="resetRow">
+    <button class="reset" onclick="show(0)">Reset</button>
+  </div>
 </div>
 <script>
   var captions = [

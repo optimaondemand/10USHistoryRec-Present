@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hetch Hetchy: One Valley, Two Verdicts</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Segoe, Arial, sans-serif; background: linear-gradient(135deg,#E8F6FB,#F4F9FC); color: #1a2340; padding: 14px; }
+  .widget { max-width: 660px; margin: 0 auto; background: #fff; border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 10px; padding: 16px 18px 20px; }
+  .kicker { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #1B6A94; margin-bottom: 6px; }
+  h1 { font-size: 18px; color: #0E1C42; margin: 0 0 4px; }
+  .hint { font-size: 13px; color: #555; margin-bottom: 14px; }
+  .cases { display: flex; gap: 12px; margin-bottom: 14px; }
+  .casebox { flex: 1; background: #FAFBFD; border: 1px solid #D0D9E8; border-radius: 8px; padding: 12px 14px; }
+  .casebox h2 { font-size: 13.5px; margin: 0 0 6px; }
+  .casebox.muir h2 { color: #2A9D5C; }
+  .casebox.pinchot h2 { color: #C7922C; }
+  .casebox p { font-size: 12.5px; line-height: 1.45; margin: 0; }
+  .verdictrow { display: flex; gap: 10px; margin-bottom: 14px; }
+  .vbtn { flex: 1; padding: 12px 10px; border-radius: 8px; border: 2px solid #C5DCE5; background: #fff; font-size: 13.5px; font-weight: bold; cursor: pointer; text-align: center; color: #1a2340; }
+  .vbtn:hover { border-color: #2196D0; }
+  .vbtn.chosen { border-color: #0E1C42; background: #EEF1F8; }
+  .vbtn:disabled { cursor: default; }
+  .reveal-wrap { display: none; }
+  .reveal-wrap.show { display: block; }
+  .reveal { font-size: 13.5px; line-height: 1.55; background: #EEF4FF; border-left: 4px solid #2196D0; border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; }
+  .reveal .tag { font-weight: bold; text-transform: uppercase; font-size: 10.5px; letter-spacing: .04em; color: #1B6A94; display: block; margin-bottom: 5px; }
+  .reveal.honest { background: #FBF3E3; border-left-color: #C7922C; }
+  .reveal.honest .tag { color: #8a6416; }
+  button.reset { background: #0E1C42; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="kicker">Try It Yourself</div>
+  <h1>Hetch Hetchy: One Valley, Two Verdicts</h1>
+  <div class="hint">Read both real arguments below. Before you find out what Congress actually decided in 1913, commit to your own verdict.</div>
+  <div class="cases">
+    <div class="casebox muir">
+      <h2>John Muir's case</h2>
+      <p>Hetch Hetchy Valley is nearly as magnificent as Yosemite Valley itself. Damming it for San Francisco's water supply would destroy an irreplaceable wild place forever, something no later generation could ever get back.</p>
+    </div>
+    <div class="casebox pinchot">
+      <h2>Gifford Pinchot's case</h2>
+      <p>A growing city's need for a reliable water supply is a legitimate "wise use" of a natural resource. San Francisco's devastating 1906 earthquake and fire left the city desperate for water it could actually count on, and no other nearby site could supply it as cheaply.</p>
+    </div>
+  </div>
+  <div class="verdictrow" id="verdictRow">
+    <button class="vbtn" onclick="commit('dam')">Build the dam</button>
+    <button class="vbtn" onclick="commit('nodam')">Protect the valley</button>
+  </div>
+  <div class="reveal-wrap" id="revealWrap">
+    <div class="reveal" id="yourPick"></div>
+    <div class="reveal honest">
+      <span class="tag">What Congress actually decided</span>
+      Congress authorized the dam in 1913, and it was built soon after. Muir died the following year; some of his own friends believed losing Hetch Hetchy hastened his decline. Judged by this course's own standard for evaluating a genuine first-order economic problem, how a growing society should use a scarce resource, neither Muir nor Pinchot was simply wrong. The argument did not end with the dam. It is the direct ancestor of wilderness-versus-managed-use fights that still shape American public land policy today.
+    </div>
+    <button class="reset" onclick="resetAll()">Reset</button>
+  </div>
+</div>
+<script>
+  function commit(choice) {
+    var row = document.getElementById('verdictRow');
+    var buttons = row.querySelectorAll('.vbtn');
+    buttons.forEach(function(b) { b.disabled = true; });
+    if (choice === 'dam') { buttons[0].classList.add('chosen'); } else { buttons[1].classList.add('chosen'); }
+
+    var yourPick = document.getElementById('yourPick');
+    if (choice === 'dam') {
+      yourPick.innerHTML = '<span class="tag">Your verdict</span>You sided with Pinchot: build the dam. That is a defensible reading of a real, scarce-resource problem, not a naive one.';
+    } else {
+      yourPick.innerHTML = '<span class="tag">Your verdict</span>You sided with Muir: protect the valley. That is a defensible reading of what an irreplaceable place is worth, not a sentimental one.';
+    }
+    document.getElementById('revealWrap').classList.add('show');
+  }
+
+  function resetAll() {
+    var row = document.getElementById('verdictRow');
+    var buttons = row.querySelectorAll('.vbtn');
+    buttons.forEach(function(b) { b.disabled = false; b.classList.remove('chosen'); });
+    document.getElementById('revealWrap').classList.remove('show');
+  }
+</script>
+</body>
+</html>

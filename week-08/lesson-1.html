@@ -22,18 +22,20 @@
   .back-to-map { margin: 0 34px 16px; }
   .back-to-map a { font-size: 14px; color: #55607f; text-decoration: none; }
   .back-to-map a:hover { text-decoration: underline; }
-  /* Glossary markup (Phase D populates terms; harmless and unused until then) */
-  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-radius: 8px; padding: 16px 20px; margin: 0 34px 20px; }
-  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 4px; }
-  .glossary-box .glossary-note { font-size: 13px; color: #666; font-style: italic; margin-bottom: 10px; }
-  .glossary-box dl { margin: 0; }
-  .glossary-box dt { font-size: 16px; color: #0e1c42; margin-top: 8px; }
-  .glossary-box dd { font-size: 14px; color: #1a2340; margin: 2px 0 0 0; }
-  .gloss { border-bottom: 1px dotted #55607f; cursor: help; position: relative; }
-  .gloss-audio { border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; }
-  .gloss-tip { display: none; position: absolute; left: 0; top: 1.5em; z-index: 5; background: #0E1C42; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; width: 240px; line-height: 1.4; }
-  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; }
-  .gloss.open .gloss-tip { display: block; }
+  /* Glossary markup (Stage 15/D2 onward). One combined "Glossary of Subject Vocabulary" box
+     per course decision 2026-07-31 -- see CLAUDE.md's "Vocabulary glossing" section. */
+  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-left: 5px solid #C7922C; border-radius: 8px; padding: 18px 22px; margin: 24px 34px 20px; }
+  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 6px; }
+  .glossary-box .glossary-note { font-size: 14px; color: #55607f; font-style: italic; margin-bottom: 10px; }
+  .glossary-box ul { margin: 8px 0 0 0; padding-left: 20px; }
+  .glossary-box li { margin-bottom: 8px; font-size: 15px; color: #1a2340; line-height: 1.5; }
+  .gloss { position: relative; border-bottom: 1px dotted #2196D0; font-weight: 600; color: #0E1C42; cursor: help; }
+  .gloss .gloss-tip { display: none; }
+  .gloss.open .gloss-tip, .gloss:hover .gloss-tip, .gloss:focus .gloss-tip { display: block; }
+  .gloss-audio { display: inline-flex; align-items: center; justify-content: center; border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; vertical-align: middle; color: #1B6A94; }
+  .gloss-audio:hover { color: #0E1C42; }
+  .gloss-tip { position: absolute; left: 0; bottom: 100%; margin-bottom: 8px; width: 260px; max-width: 70vw; background: #0E1C42; color: #fff; font-weight: normal; font-size: 13px; line-height: 1.5; padding: 10px 12px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.25); z-index: 20; }
+  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -67,13 +69,24 @@
   <div style="font-size: 11px; color: #0e1c42; margin-bottom: 6px;">&#128214; LESSON 8.1</div>
   <div style="font-size: 22px; color: #0e1c42;">Revivalism, Urban Poverty, and Foreign Missions</div>
 </div>
+<div class="glossary-box">
+  <div class="glossary-title">&#128214; GLOSSARY OF SUBJECT VOCABULARY</div>
+  <div class="glossary-note">A few words below are worth a quick look before you read. Tap or click any underlined term, here or in the lesson text, to see what it means.</div>
+  <ul>
+    <li><span class="gloss" tabindex="0">Dwight L. Moody<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'dwyt el MOO-dee')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">dwyt el MOO-dee</span>An urban revivalist who treated the industrial city as a mission field, using organized, modern methods to reach working people.</span></span></li>
+    <li><span class="gloss" tabindex="0">Florence Kelley<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'FLOR-enss KEL-ee')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">FLOR-enss KEL-ee</span>A Hull House resident who documented conditions behind an 1893 Illinois factory law and became the state's chief factory inspector.</span></span></li>
+    <li><span class="gloss" tabindex="0">Hull House<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'hul howss')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">hul howss</span>A Chicago settlement house founded by Jane Addams and Ellen Gates Starr in 1889, offering education, childcare, and legal aid to immigrant neighbors.</span></span></li>
+    <li><span class="gloss" tabindex="0">Jane Addams<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'jayn AD-umz')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">jayn AD-umz</span>A reformer who co-founded Hull House, a Chicago settlement house, and later became a leading pacifist.</span></span></li>
+    <li><span class="gloss" tabindex="0">settlement house<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'SET-ul-ment howss')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">SET-ul-ment howss</span>A reform institution where middle-class workers lived among the urban poor they served, offering services and gathering evidence for reform.</span></span></li>
+  </ul>
+</div>
 <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-top: 3px solid #C7922C; border-radius: 8px; padding: 20px 24px; margin: 0 34px 20px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 12px;">&#128214; TODAY'S LESSON</div>
-  <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p>The industrial city produced its own religious response, and that response was not obvious in advance. A church looking at the crowded wards described in lesson 5.1 could reasonably have written them off. The people there moved often, worked long hours, spoke many languages, and belonged to no congregation. Dwight L. Moody made the opposite choice, and the choice shaped a generation.</p>
+  <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p>The industrial city produced its own religious response, and that response was not obvious in advance. A church looking at the crowded wards described in lesson 5.1 could reasonably have written them off. The people there moved often, worked long hours, spoke many languages, and belonged to no congregation. <span class="gloss" tabindex="0">Dwight L. Moody<span class="gloss-tip"><span class="gloss-pron">dwyt el MOO-dee</span>An urban revivalist who treated the industrial city as a mission field, using organized, modern methods to reach working people.</span></span> made the opposite choice, and the choice shaped a generation.</p>
 <p>Moody was born in Massachusetts in 1837 and went to work selling shoes, first in Boston and then in Chicago. He was a salesman before he was anything else, and it showed in his methods. He gathered children from a poor Chicago district into a Sunday school, then rose through the city's Young Men's Christian Association. The Great Chicago Fire of 1871, the fire lesson 5.1 described, burned his church and his house together. Two years later he sailed for Britain with the singer Ira Sankey, and the two of them filled halls for two years. He came home famous.</p>
 <p>What Moody did with that fame is the interesting part. He borrowed the city's own tools and turned them to revival. His campaigns ran on advance committees, rented halls, ticketed seating, printed hymnals, and choirs of hundreds. He preached in plain speech, avoided quarrels over doctrine, and aimed squarely at working people rather than at settled rural congregations. In 1886 he founded the Chicago training school that now carries his name, so that others could do the same work after him. The industrial city, in his hands, became a mission field rather than a lost cause.</p>
-<p>A great deal of that energy went into direct relief. Jane Addams and Ellen Gates Starr opened Hull House on Halsted Street in Chicago in 1889. The ward around it was crowded with Italian, Greek, Russian, and Bohemian families. The house offered a kindergarten, a boys' club, English classes, legal aid, and a public bath. It also offered a place to sit that was neither a saloon nor a tenement room. Its reformers lived in the building, and that was the point of the settlement idea. You resided among the people you served rather than visiting from a distance and going home at night.</p>
-<p>Living there meant seeing things a visitor would miss, and the residents turned what they saw into evidence. Florence Kelley lived at Hull House. She gathered the documentation behind an Illinois factory law in 1893, then became the state's chief factory inspector. In 1895 the residents published maps of their own neighborhood, recording wages and nationalities house by house. This was reform built on counted facts rather than on impressions. It points ahead to Week 12's photographs of tenement life and to the Progressive laws of Weeks 12 and 13. By 1910 more than four hundred settlement houses were operating in American cities.</p>
+<p>A great deal of that energy went into direct relief. <span class="gloss" tabindex="0">Jane Addams<span class="gloss-tip"><span class="gloss-pron">jayn AD-umz</span>A reformer who co-founded Hull House, a Chicago settlement house, and later became a leading pacifist.</span></span> and Ellen Gates Starr opened <span class="gloss" tabindex="0">Hull House<span class="gloss-tip"><span class="gloss-pron">hul howss</span>A Chicago settlement house founded by Jane Addams and Ellen Gates Starr in 1889, offering education, childcare, and legal aid to immigrant neighbors.</span></span> on Halsted Street in Chicago in 1889. The ward around it was crowded with Italian, Greek, Russian, and Bohemian families. The house offered a kindergarten, a boys' club, English classes, legal aid, and a public bath. It also offered a place to sit that was neither a saloon nor a tenement room. Its reformers lived in the building, and that was the point of the settlement idea. You resided among the people you served rather than visiting from a distance and going home at night.</p>
+<p>Living there meant seeing things a visitor would miss, and the residents turned what they saw into evidence. <span class="gloss" tabindex="0">Florence Kelley<span class="gloss-tip"><span class="gloss-pron">FLOR-enss KEL-ee</span>A Hull House resident who documented conditions behind an 1893 Illinois factory law and became the state's chief factory inspector.</span></span> lived at Hull House. She gathered the documentation behind an Illinois factory law in 1893, then became the state's chief factory inspector. In 1895 the residents published maps of their own neighborhood, recording wages and nationalities house by house. This was reform built on counted facts rather than on impressions. It points ahead to Week 12's photographs of tenement life and to the Progressive laws of Weeks 12 and 13. By 1910 more than four hundred <span class="gloss" tabindex="0">settlement houses<span class="gloss-tip"><span class="gloss-pron">SET-ul-ment howss</span>A reform institution where middle-class workers lived among the urban poor they served, offering services and gathering evidence for reform.</span></span> were operating in American cities.</p>
 <p>It is worth asking what settlement work was finally for. Addams had little patience with charity that made the giver feel generous and left the receiver exactly where he was. A bath and a kindergarten are genuinely useful. But the residents came to argue that the real trouble lay elsewhere: in wages, in hours, in housing law, and in the length of a child's working day. No amount of private kindness would reach any of those. That conclusion is what turned a house on Halsted Street into a source of legislation.</p>
 <p>Other energy went abroad, and it went in remarkable volume. At a summer conference Moody hosted in 1886, a hundred college students pledged themselves to foreign missionary service. The movement that grew from that meeting took a watchword: the evangelization of the world in this generation. Under leaders like John R. Mott, thousands of students signed the pledge over the following decades. Denominational women's missionary societies raised their own funds and ran their own boards. They sent out their own single women as teachers, nurses, and doctors. Before women could vote anywhere in the country, these societies were the largest organized women's movement in it.</p>
 <p>The work overseas deserves an honest accounting rather than a verdict. American missionaries built schools and hospitals in China, India, Africa, and the Ottoman Empire. They taught literacy and medicine that people genuinely wanted and often came a long way to get. They also carried a confidence that American Protestant civilization was the standard other peoples ought to meet. They were not always able to tell those two things apart. Both statements are true at once. Judge the enterprise by what it actually accomplished and cost, in particular places, rather than by its intentions alone.</p>
@@ -118,5 +131,26 @@
   <div style="font-size: 12px; color: rgba(255,255,255,0.4);">&copy; Optima Academy Online &middot; An Education Experience Company</div>
 </div>
 </div>
+
+<script>
+function speakGloss(e, text) {
+  e.stopPropagation();
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  }
+}
+document.addEventListener('click', function (e) {
+  var gloss = e.target.closest('.gloss');
+  if (gloss && !e.target.closest('.gloss-audio')) {
+    document.querySelectorAll('.gloss.open').forEach(function (g) { if (g !== gloss) g.classList.remove('open'); });
+    gloss.classList.toggle('open');
+  } else if (!e.target.closest('.gloss-tip')) {
+    document.querySelectorAll('.gloss.open').forEach(function (g) { g.classList.remove('open'); });
+  }
+});
+</script>
 </body>
 </html>

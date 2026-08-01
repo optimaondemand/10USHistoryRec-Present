@@ -22,18 +22,20 @@
   .back-to-map { margin: 0 34px 16px; }
   .back-to-map a { font-size: 14px; color: #55607f; text-decoration: none; }
   .back-to-map a:hover { text-decoration: underline; }
-  /* Glossary markup (Phase D populates terms; harmless and unused until then) */
-  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-radius: 8px; padding: 16px 20px; margin: 0 34px 20px; }
-  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 4px; }
-  .glossary-box .glossary-note { font-size: 13px; color: #666; font-style: italic; margin-bottom: 10px; }
-  .glossary-box dl { margin: 0; }
-  .glossary-box dt { font-size: 16px; color: #0e1c42; margin-top: 8px; }
-  .glossary-box dd { font-size: 14px; color: #1a2340; margin: 2px 0 0 0; }
-  .gloss { border-bottom: 1px dotted #55607f; cursor: help; position: relative; }
-  .gloss-audio { border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; }
-  .gloss-tip { display: none; position: absolute; left: 0; top: 1.5em; z-index: 5; background: #0E1C42; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; width: 240px; line-height: 1.4; }
-  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; }
-  .gloss.open .gloss-tip { display: block; }
+  /* Glossary markup (Stage 15/D2 onward). One combined "Glossary of Subject Vocabulary" box
+     per course decision 2026-07-31 -- see CLAUDE.md's "Vocabulary glossing" section. */
+  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-left: 5px solid #C7922C; border-radius: 8px; padding: 18px 22px; margin: 24px 34px 20px; }
+  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 6px; }
+  .glossary-box .glossary-note { font-size: 14px; color: #55607f; font-style: italic; margin-bottom: 10px; }
+  .glossary-box ul { margin: 8px 0 0 0; padding-left: 20px; }
+  .glossary-box li { margin-bottom: 8px; font-size: 15px; color: #1a2340; line-height: 1.5; }
+  .gloss { position: relative; border-bottom: 1px dotted #2196D0; font-weight: 600; color: #0E1C42; cursor: help; }
+  .gloss .gloss-tip { display: none; }
+  .gloss.open .gloss-tip, .gloss:hover .gloss-tip, .gloss:focus .gloss-tip { display: block; }
+  .gloss-audio { display: inline-flex; align-items: center; justify-content: center; border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; vertical-align: middle; color: #1B6A94; }
+  .gloss-audio:hover { color: #0E1C42; }
+  .gloss-tip { position: absolute; left: 0; bottom: 100%; margin-bottom: 8px; width: 260px; max-width: 70vw; background: #0E1C42; color: #fff; font-weight: normal; font-size: 13px; line-height: 1.5; padding: 10px 12px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.25); z-index: 20; }
+  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -66,12 +68,23 @@
   <div style="font-size: 11px; color: #0e1c42; margin-bottom: 6px;">&#128214; LESSON 9.3</div>
   <div style="font-size: 22px; color: #0e1c42;">Joseph Pulitzer and Yellow Journalism</div>
 </div>
+<div class="glossary-box">
+  <div class="glossary-title">&#128214; GLOSSARY OF SUBJECT VOCABULARY</div>
+  <div class="glossary-note">A few words below are worth a quick look before you read. Tap or click any underlined term, here or in the lesson text, to see what it means.</div>
+  <ul>
+    <li><span class="gloss" tabindex="0">Frederic Remington<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'FRED-rik REM-ing-tun')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">FRED-rik REM-ing-tun</span>An illustrator Hearst sent to Cuba to cover the rebellion against Spain.</span></span></li>
+    <li><span class="gloss" tabindex="0">Joseph Pulitzer<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'JOH-sef PUL-it-zer')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">JOH-sef PUL-it-zer</span>A newspaper publisher whose New York World pioneered sensational, high-circulation journalism and later funded the Pulitzer Prizes.</span></span></li>
+    <li><span class="gloss" tabindex="0">Nellie Bly<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'NEL-ee bly')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">NEL-ee bly</span>A reporter for Pulitzer's World who went undercover in a New York asylum, exposing patient abuse.</span></span></li>
+    <li><span class="gloss" tabindex="0">William Randolph Hearst<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'WIL-yum RAN-dolf herst')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">WIL-yum RAN-dolf herst</span>A newspaper publisher whose New York Journal competed fiercely with Pulitzer's World, especially in covering Cuba.</span></span></li>
+    <li><span class="gloss" tabindex="0">yellow journalism<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'YEL-oh JER-nuh-liz-um')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">YEL-oh JER-nuh-liz-um</span>Sensational, exaggerated newspaper reporting named after the "Yellow Kid" comic character both papers ran during their circulation war.</span></span></li>
+  </ul>
+</div>
 <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-top: 3px solid #C7922C; border-radius: 8px; padding: 20px 24px; margin: 0 34px 20px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 12px;">&#128214; TODAY'S LESSON</div>
-  <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p>Joseph Pulitzer arrived in the United States from Hungary in 1864 and enlisted in a Union cavalry regiment. He learned English partly in the Army and partly in St. Louis newsrooms. He bought a failing St. Louis paper in 1878 and built the <i>Post-Dispatch</i> out of it. In 1883 he bought the New York <i>World</i> from Jay Gould, the railroad speculator of lesson 3.3. Its circulation was about fifteen thousand. Within a decade the <i>World</i> was selling several hundred thousand copies a day.</p>
-<p>His formula is worth naming, because it was not simply noise. Pulitzer used big headlines, illustrations, sports, and short sentences aimed at immigrant readers learning English. He also ran genuine campaigns against corrupt officials and dishonest landlords. In 1885 Congress would not pay for the Statue of Liberty's pedestal. The <i>World</i> raised the money instead, from more than a hundred twenty thousand small donors, and printed their names in the paper. In 1887 the paper sent Nellie Bly undercover into a New York asylum, and her account of what was done to patients there forced an official investigation. A newspaper could sell copies and serve the public in the same edition.</p>
-<p>William Randolph Hearst bought the New York <i>Journal</i> in 1895 with money from his family's mines. He cut the price to a penny, spent freely, and hired Pulitzer's best people away, including most of the Sunday staff. Among them was Richard Outcault, who drew a popular comic character called the Yellow Kid. Pulitzer put another artist to work drawing his own version of the same character. Two Yellow Kids in two competing papers gave the whole style its lasting name.</p>
-<p>Cuba was the story both men wanted. It offered brave rebels, cruel oppressors, suffering civilians, and a moral verdict readers could reach before breakfast. Hearst sent correspondents and illustrators, among them Frederic Remington. In 1897 the <i>Journal</i> arranged a young Cuban woman's escape from a Havana jail and printed the rescue as its own achievement. It published the stolen De Lome letter. Some engravings showed scenes no artist had witnessed. During the war both papers passed a million copies a day.</p>
+  <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p><span class="gloss" tabindex="0">Joseph Pulitzer<span class="gloss-tip"><span class="gloss-pron">JOH-sef PUL-it-zer</span>A newspaper publisher whose New York World pioneered sensational, high-circulation journalism and later funded the Pulitzer Prizes.</span></span> arrived in the United States from Hungary in 1864 and enlisted in a Union cavalry regiment. He learned English partly in the Army and partly in St. Louis newsrooms. He bought a failing St. Louis paper in 1878 and built the <i>Post-Dispatch</i> out of it. In 1883 he bought the New York <i>World</i> from Jay Gould, the railroad speculator of lesson 3.3. Its circulation was about fifteen thousand. Within a decade the <i>World</i> was selling several hundred thousand copies a day.</p>
+<p>His formula is worth naming, because it was not simply noise. Pulitzer used big headlines, illustrations, sports, and short sentences aimed at immigrant readers learning English. He also ran genuine campaigns against corrupt officials and dishonest landlords. In 1885 Congress would not pay for the Statue of Liberty's pedestal. The <i>World</i> raised the money instead, from more than a hundred twenty thousand small donors, and printed their names in the paper. In 1887 the paper sent <span class="gloss" tabindex="0">Nellie Bly<span class="gloss-tip"><span class="gloss-pron">NEL-ee bly</span>A reporter for Pulitzer's World who went undercover in a New York asylum, exposing patient abuse.</span></span> undercover into a New York asylum, and her account of what was done to patients there forced an official investigation. A newspaper could sell copies and serve the public in the same edition.</p>
+<p><span class="gloss" tabindex="0">William Randolph Hearst<span class="gloss-tip"><span class="gloss-pron">WIL-yum RAN-dolf herst</span>A newspaper publisher whose New York Journal competed fiercely with Pulitzer's World, especially in covering Cuba.</span></span> bought the New York <i>Journal</i> in 1895 with money from his family's mines. He cut the price to a penny, spent freely, and hired Pulitzer's best people away, including most of the Sunday staff. Among them was Richard Outcault, who drew a popular comic character called the Yellow Kid. Pulitzer put another artist to work drawing his own version of the same character. Two Yellow Kids in two competing papers gave the whole style its lasting name: <span class="gloss" tabindex="0">yellow journalism<span class="gloss-tip"><span class="gloss-pron">YEL-oh JER-nuh-liz-um</span>Sensational, exaggerated newspaper reporting named after the "Yellow Kid" comic character both papers ran during their circulation war.</span></span>.</p>
+<p>Cuba was the story both men wanted. It offered brave rebels, cruel oppressors, suffering civilians, and a moral verdict readers could reach before breakfast. Hearst sent correspondents and illustrators, among them <span class="gloss" tabindex="0">Frederic Remington<span class="gloss-tip"><span class="gloss-pron">FRED-rik REM-ing-tun</span>An illustrator Hearst sent to Cuba to cover the rebellion against Spain.</span></span>. In 1897 the <i>Journal</i> arranged a young Cuban woman's escape from a Havana jail and printed the rescue as its own achievement. It published the stolen <span class="gloss" tabindex="0">De Lome letter<span class="gloss-tip"><span class="gloss-pron">duh lohm LET-er</span>A stolen private letter by Spain's minister to Washington calling President McKinley weak, published by Hearst's newspaper in 1898.</span></span>. Some engravings showed scenes no artist had witnessed. During the war both papers passed a million copies a day.</p>
 <p>One story about this rivalry is so famous that it needs to be handled carefully. The claim is that Hearst telegraphed Remington in Cuba: "You furnish the pictures and I'll furnish the war." Here is the whole evidence base for it. The line first appears in a memoir published in 1901 by James Creelman, a journalist who had worked for both papers. Creelman does not say how he came to know of the exchange. No copy of the telegram has ever been produced. Hearst denied sending it. Spanish authorities controlled and read the cable traffic out of Havana. That makes such a message an odd thing to send, and an odder thing to go unremarked at the time.</p>
 <p>So what should a student do with it? Not repeat it as fact, and not pretend it never circulated. It is best held as a story people told about Hearst, one that spread because it matched what his critics already believed about him. That is a useful thing to notice on its own. A quotation that fits our expectations gets repeated without checking, precisely because it fits.</p>
 <p>The test to apply is short, and it works on any quotation. Who reported it? When, relative to the event? How would that person have known? Does the original document survive anywhere? And who benefited from the story being believed? Appendix A returns to this same episode to build that skill properly.</p>
@@ -79,7 +92,7 @@
 <p>On the other side, these two papers shaped what the political class in New York and Washington read every morning. They supplied the war's vocabulary and kept Cuba on the front page for three years, which is itself a kind of power. The honest answer is that the press was one cause among several and probably not the decisive one. That is less satisfying than either "the newspapers caused the war" or "the newspapers did not matter," and it is closer to the truth. Learning to prefer the less satisfying answer when the evidence supports it is most of what historical judgment consists of.</p>
 <p>Judge the two men by a civic standard. A republic depends on citizens who can deliberate, and deliberation depends on an information supply they can trust. By that measure the circulation war did real damage. It taught a mass readership that the vivid and the true were the same thing, and it made accuracy a competitive disadvantage.</p>
 <p>Both men were capable of better, and Pulitzer proved it. He pulled back from the worst of the sensationalism in his later years. His will left money to found a school of journalism at Columbia, and to establish the prizes that still carry his name. That was a genuine self-correction, made by the man who had helped create the problem. It does not erase what came before it, and it is worth reporting alongside.</p>
-<p>One last thing, since this week's two primary sources are both by Theodore Roosevelt. The skepticism this lesson asks of a Hearst headline applies to a president's memoir as well. A man writing about a charge he led has reasons of his own. Those reasons do not disappear because he was brave, and they do not disappear because he later held high office. Ask what he wants you to conclude, and then ask what his own words will actually support. Read him closely, and read him the same way.</p></div>
+<p>One last thing, since this week's two primary sources are both by <span class="gloss" tabindex="0">Theodore Roosevelt<span class="gloss-tip"><span class="gloss-pron">THEE-oh-dor ROH-zuh-velt</span>A recurring figure across this course: Assistant Secretary of the Navy, Rough Rider, and later president, who led the volunteer cavalry charge at Kettle Hill in the Spanish-American War.</span></span>. The skepticism this lesson asks of a Hearst headline applies to a president's memoir as well. A man writing about a charge he led has reasons of his own. Those reasons do not disappear because he was brave, and they do not disappear because he later held high office. Ask what he wants you to conclude, and then ask what his own words will actually support. Read him closely, and read him the same way.</p></div>
 </div>
 <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 18px 22px; margin: 0 34px 20px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 12px;">&#127919; BY THE END OF THIS LESSON YOU WILL BE ABLE TO&hellip;</div>
@@ -124,5 +137,26 @@
   <div style="font-size: 12px; color: rgba(255,255,255,0.4);">&copy; Optima Academy Online &middot; An Education Experience Company</div>
 </div>
 </div>
+
+<script>
+function speakGloss(e, text) {
+  e.stopPropagation();
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  }
+}
+document.addEventListener('click', function (e) {
+  var gloss = e.target.closest('.gloss');
+  if (gloss && !e.target.closest('.gloss-audio')) {
+    document.querySelectorAll('.gloss.open').forEach(function (g) { if (g !== gloss) g.classList.remove('open'); });
+    gloss.classList.toggle('open');
+  } else if (!e.target.closest('.gloss-tip')) {
+    document.querySelectorAll('.gloss.open').forEach(function (g) { g.classList.remove('open'); });
+  }
+});
+</script>
 </body>
 </html>

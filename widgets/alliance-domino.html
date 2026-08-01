@@ -14,10 +14,15 @@
   .node { position: absolute; width: 96px; height: 44px; margin-left: -48px; margin-top: -22px; border-radius: 8px; background: #D0D9E8; color: #0E1C42; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; font-weight: bold; transition: background .4s, color .4s, transform .4s; z-index: 3; }
   .node.hot { background: #C0392B; color: #fff; transform: scale(1.08); }
   .node.spark { background: #C7922C; color: #fff; }
+  .node.bloc-central { background: #4A3F6B; color: #fff; }
+  .node.bloc-entente { background: #1B6A94; color: #fff; }
   .weeklabel { position: absolute; top: 8px; left: 12px; font-size: 12px; color: #6b7a99; background: #fff; padding: 2px 8px; border-radius: 6px; border: 1px solid #D0D9E8; }
   .controls { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
   button { background: #0E1C42; color: #fff; border: none; padding: 9px 18px; border-radius: 6px; font-size: 14px; cursor: pointer; }
   button.reset { background: #C7922C; }
+  .legend { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: #444; }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
   .caption { background: #EEF1F8; border-left: 4px solid #0E1C42; border-radius: 6px; padding: 10px 14px; font-size: 15px; line-height: 1.5; min-height: 46px; margin-top: 14px; }
 </style>
 </head>
@@ -49,7 +54,11 @@
     <button id="startBtn" onclick="start()">Assassination in Sarajevo</button>
     <button class="reset" onclick="reset()">Reset</button>
   </div>
-  <div class="caption" id="caption">Five great powers, bound by decades of mutual-defense alliances, wait to see what a single assassination in a provincial capital will set in motion. Click above to begin.</div>
+  <div class="legend">
+    <span><i class="sw" style="background:#4A3F6B"></i>Triple Alliance (Austria-Hungary, Germany)</span>
+    <span><i class="sw" style="background:#1B6A94"></i>Triple Entente (Russia, France)</span>
+  </div>
+  <div class="caption" id="caption">Two rival alliance blocs already lock these five powers together before a single shot is fired: Austria-Hungary and Germany on one side, Russia and France on the other, with Serbia as Russia's smaller ally in the Balkans. Click "Assassination in Sarajevo" to watch one crisis pull all five into war.</div>
 </div>
 <script>
   var steps = [
@@ -62,11 +71,20 @@
   ];
   var idx = 0;
   var running = false;
+  var defaultCaption = 'Two rival alliance blocs already lock these five powers together before a single shot is fired: Austria-Hungary and Germany on one side, Russia and France on the other, with Serbia as Russia\'s smaller ally in the Balkans. Click "Assassination in Sarajevo" to watch one crisis pull all five into war.';
 
   function setNodeState(id, cls) {
     var el = document.getElementById(id);
-    el.classList.remove('hot', 'spark');
+    el.classList.remove('hot', 'spark', 'bloc-central', 'bloc-entente');
     if (cls) el.classList.add(cls);
+  }
+
+  function applyDefaultBlocs() {
+    setNodeState('nodeAustria', 'bloc-central');
+    setNodeState('nodeGermany', 'bloc-central');
+    setNodeState('nodeRussia', 'bloc-entente');
+    setNodeState('nodeFrance', 'bloc-entente');
+    setNodeState('nodeSerbia', null);
   }
 
   function advance() {
@@ -92,15 +110,17 @@
   function reset(clearButton) {
     idx = 0;
     running = false;
-    ["nodeSerbia","nodeAustria","nodeRussia","nodeGermany","nodeFrance"].forEach(function(id) { setNodeState(id, null); });
+    applyDefaultBlocs();
     ["arrow0","arrow1","arrow2","arrow3","arrow4"].forEach(function(id) {
       document.getElementById(id).setAttribute('stroke', '#c9cfe0');
       document.getElementById(id).setAttribute('stroke-width', '1.6');
     });
     document.getElementById('weeklabel').textContent = 'Before the spark';
-    document.getElementById('caption').textContent = 'Five great powers, bound by decades of mutual-defense alliances, wait to see what a single assassination in a provincial capital will set in motion. Click above to begin.';
+    document.getElementById('caption').textContent = defaultCaption;
     if (clearButton !== false) document.getElementById('startBtn').disabled = false;
   }
+
+  applyDefaultBlocs();
 </script>
 </body>
 </html>

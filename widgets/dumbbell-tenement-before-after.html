@@ -24,6 +24,9 @@
   .toilet.show { opacity: 1; }
   .outhouse-row { text-align: center; font-size: 12px; margin-top: 4px; transition: opacity .5s ease; }
   .caption { background: #EEF1F8; border-left: 4px solid #0E1C42; border-radius: 6px; padding: 10px 14px; font-size: 15px; line-height: 1.5; min-height: 40px; margin-top: 14px; }
+  .resetRow { text-align: center; margin-top: 12px; }
+  button.reset { background: #C7922C; color: #fff; border: none; padding: 8px 18px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+  button.reset:hover { background: #a8781f; }
 </style>
 </head>
 <body>
@@ -53,6 +56,9 @@
     <div class="outhouse-row" id="outhouseRow">&#8595; one shared outhouse in the back yard for the whole building &#8595;</div>
   </div>
   <div class="caption" id="caption">A narrow airshaft, barely wide enough to reach through, is the only source of light and air for the interior "dark bedrooms." One outhouse serves every family in the building.</div>
+  <div class="resetRow">
+    <button class="reset" onclick="setMode('1879')">Reset to 1879 Law</button>
+  </div>
 </div>
 <script>
   function setMode(mode) {

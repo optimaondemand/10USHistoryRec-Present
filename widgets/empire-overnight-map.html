@@ -51,52 +51,73 @@
     { name: "Philippines", miles: 8500, angle: 200, ring: 4 }
   ];
   var stage = document.getElementById('stage');
-  var maxRadius = 155;
-  var ringRadii = [40, 80, 120, 155];
+  var ringFracs = [40/155, 80/155, 120/155, 1];
+  var shownYear = 1897;
 
-  ringRadii.forEach(function(r) {
-    var ring = document.createElement('div');
-    ring.className = 'ring';
-    ring.style.width = (r*2) + 'px';
-    ring.style.height = (r*2) + 'px';
-    ring.style.marginLeft = (-r) + 'px';
-    ring.style.marginTop = (-r) + 'px';
-    stage.appendChild(ring);
-  });
+  function layout() {
+    stage.querySelectorAll('.ring, .connector, .territory, .tlabel').forEach(function(el) { el.remove(); });
 
-  territories.forEach(function(t, i) {
-    var r = ringRadii[t.ring - 1];
-    var rad = t.angle * Math.PI / 180;
-    var x = 50 + (r / 340 * 100) * Math.cos(rad) * 1.85;
-    var y = 50 + (r / 340 * 100) * Math.sin(rad) * 1.05;
+    var rect = stage.getBoundingClientRect();
+    var w = rect.width || 640;
+    var h = rect.height || 340;
+    var maxR = Math.min(w, h) / 2 * 0.9;
+    var ringRadii = ringFracs.map(function(f) { return f * maxR; });
 
-    var conn = document.createElement('div');
-    conn.className = 'connector';
-    conn.id = 'conn' + i;
-    var dx = r * Math.cos(rad), dy = r * Math.sin(rad);
-    var len = Math.sqrt(dx*dx + dy*dy);
-    var angleDeg = Math.atan2(dy, dx) * 180 / Math.PI;
-    conn.style.width = len + 'px';
-    conn.style.transform = 'rotate(' + angleDeg + 'deg)';
-    stage.appendChild(conn);
+    ringRadii.forEach(function(r) {
+      var ring = document.createElement('div');
+      ring.className = 'ring';
+      ring.style.width = (r*2) + 'px';
+      ring.style.height = (r*2) + 'px';
+      ring.style.marginLeft = (-r) + 'px';
+      ring.style.marginTop = (-r) + 'px';
+      stage.appendChild(ring);
+    });
 
-    var dot = document.createElement('div');
-    dot.className = 'territory';
-    dot.id = 'dot' + i;
-    dot.style.left = x + '%';
-    dot.style.top = y + '%';
-    stage.appendChild(dot);
+    territories.forEach(function(t, i) {
+      var r = ringRadii[t.ring - 1];
+      var rad = t.angle * Math.PI / 180;
+      var dx = r * Math.cos(rad), dy = r * Math.sin(rad);
+      var x = 50 + (dx / w * 100);
+      var y = 50 + (dy / h * 100);
 
-    var label = document.createElement('div');
-    label.className = 'tlabel';
-    label.id = 'label' + i;
-    label.innerHTML = '<strong>' + t.name + '</strong><br>' + t.miles.toLocaleString() + ' mi from D.C.';
-    label.style.left = x + '%';
-    label.style.top = (y + 6) + '%';
-    stage.appendChild(label);
+      var conn = document.createElement('div');
+      conn.className = 'connector';
+      conn.id = 'conn' + i;
+      var len = Math.sqrt(dx*dx + dy*dy);
+      var angleDeg = Math.atan2(dy, dx) * 180 / Math.PI;
+      conn.style.width = len + 'px';
+      conn.style.transform = 'rotate(' + angleDeg + 'deg)';
+      if (shownYear === 1899) conn.classList.add('show');
+      stage.appendChild(conn);
+
+      var dot = document.createElement('div');
+      dot.className = 'territory';
+      dot.id = 'dot' + i;
+      dot.style.left = x + '%';
+      dot.style.top = y + '%';
+      if (shownYear === 1899) dot.classList.add('show');
+      stage.appendChild(dot);
+
+      var label = document.createElement('div');
+      label.className = 'tlabel';
+      label.id = 'label' + i;
+      label.innerHTML = '<strong>' + t.name + '</strong><br>' + t.miles.toLocaleString() + ' mi from D.C.';
+      label.style.left = x + '%';
+      label.style.top = (y + 6) + '%';
+      if (shownYear === 1899) label.classList.add('show');
+      stage.appendChild(label);
+    });
+  }
+
+  layout();
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(layout, 150);
   });
 
   function setYear(year) {
+    shownYear = year;
     document.getElementById('btn1897').classList.toggle('active', year === 1897);
     document.getElementById('btn1899').classList.toggle('active', year === 1899);
     var caption = document.getElementById('caption');

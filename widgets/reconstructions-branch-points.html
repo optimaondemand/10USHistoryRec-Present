@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reconstruction's Branch Points</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Segoe, Arial, sans-serif; background: linear-gradient(135deg,#E8F6FB,#F4F9FC); color: #1a2340; padding: 14px; }
+  .widget { max-width: 700px; margin: 0 auto; background: #fff; border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 10px; padding: 16px 18px 20px; }
+  .kicker { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #1B6A94; margin-bottom: 6px; }
+  h1 { font-size: 18px; color: #0E1C42; margin: 0 0 4px; }
+  .hint { font-size: 13px; color: #555; margin-bottom: 14px; }
+  .track { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  .step-dot { flex: 1; min-width: 40px; height: 8px; border-radius: 4px; background: #E3E9F5; transition: background .3s; }
+  .step-dot.done { background: #2196D0; }
+  .step-dot.active { background: #C7922C; }
+  .card { background: #FAFBFD; border: 1px solid #D0D9E8; border-radius: 8px; padding: 14px 16px; min-height: 200px; }
+  .year { display: inline-block; font-size: 11px; font-weight: bold; color: #fff; background: #0E1C42; border-radius: 10px; padding: 2px 10px; margin-bottom: 8px; }
+  .setup { font-size: 14.5px; line-height: 1.5; margin-bottom: 12px; }
+  .choice-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+  .choice-btn { text-align: left; background: #fff; border: 2px solid #C5DCE5; border-radius: 8px; padding: 10px 12px; font-size: 13.5px; cursor: pointer; color: #1a2340; transition: border-color .2s, background .2s; }
+  .choice-btn:hover { border-color: #2196D0; background: #F0F8FC; }
+  .choice-btn.picked-actual { border-color: #2A9D5C; background: #EAF7EF; }
+  .choice-btn.picked-alt { border-color: #C7922C; background: #FBF3E3; }
+  .choice-btn:disabled { cursor: default; }
+  .reveal { font-size: 13.5px; line-height: 1.5; background: #EEF4FF; border-left: 4px solid #2196D0; border-radius: 6px; padding: 10px 12px; margin-top: 10px; }
+  .reveal .tag { font-weight: bold; text-transform: uppercase; font-size: 10.5px; letter-spacing: .04em; color: #1B6A94; display: block; margin-bottom: 4px; }
+  .navrow { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+  .navbtn { background: #0E1C42; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+  .navbtn:disabled { background: #B7BFD4; cursor: default; }
+  .navbtn.reset { background: transparent; color: #0E1C42; border: 1px solid #0E1C42; }
+  .summary { font-size: 14px; line-height: 1.6; }
+  .summary ul { padding-left: 20px; margin: 8px 0; }
+  .summary li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="kicker">Try It Yourself</div>
+  <h1>Reconstruction's Branch Points</h1>
+  <div class="hint">At each moment below, a real historical choice was still open. Pick what you think should happen, then see what actually did and what a different choice would plausibly have meant.</div>
+  <div class="track" id="track"></div>
+  <div class="card" id="card"></div>
+  <div class="navrow">
+    <button class="navbtn reset" id="resetBtn" onclick="resetAll()">Reset</button>
+    <div>
+      <button class="navbtn" id="prevBtn" onclick="go(-1)">Back</button>
+      <button class="navbtn" id="nextBtn" onclick="go(1)" disabled>Next</button>
+    </div>
+  </div>
+</div>
+<script>
+  var steps = [
+    {
+      year: "1865",
+      setup: "Lincoln is dead. Vice President Andrew Johnson now controls Reconstruction policy, with Congress out of session for months. What should Johnson do about the Southern state governments and the Black Codes they are about to pass?",
+      actual: {
+        label: "Pardon Confederates quickly, restore state governments fast, and leave freedpeople's status to the states.",
+        tag: "What actually happened",
+        text: "Johnson did exactly this. Southern legislatures, elected under his lenient terms, answered almost immediately with the Black Codes, laws that criminalized unemployment and barred Black testimony in court. Congress, still out of session when Johnson acted, would spend the next two years fighting to undo the terms he had already set."
+      },
+      alt: {
+        label: "Hold Southern states to the stricter loyalty terms Congress had already proposed in the Wade-Davis Bill.",
+        tag: "A path not taken",
+        text: "Lincoln himself had killed the Wade-Davis Bill with a pocket veto in 1864, and Johnson never revived anything like it. Had a president enforced stricter terms from the start, the Black Codes may never have had the opening they needed. Congress's later fight to seize control of Reconstruction might not have been necessary at all."
+      }
+    },
+    {
+      year: "1868",
+      setup: "Andrew Johnson stands trial in the Senate after firing his secretary of war in defiance of the Tenure of Office Act. Conviction needs a two-thirds vote. Kansas Republican Edmund Ross has not yet declared how he will vote.",
+      actual: {
+        label: "Ross votes not guilty. Johnson is acquitted by a single vote, 35 to 19.",
+        tag: "What actually happened",
+        text: "Ross's vote fell exactly one short of conviction. It ended his own political career, but it kept the presidency itself intact against a Congress that many historians believe was reaching past its constitutional authority. Reconstruction's fight over Black Codes and federal enforcement would continue under an unremoved Johnson for another year."
+      },
+      alt: {
+        label: "Ross votes guilty, alongside enough other wavering Republicans to convict.",
+        tag: "A path not taken",
+        text: "A conviction would have removed a sitting president from office for the first time in American history, over a dispute about cabinet removal power rather than a clear crime. It might have permanently shifted the balance of power toward Congress, but it also risked making impeachment itself into an ordinary tool of partisan combat rather than a genuine last resort."
+      }
+    },
+    {
+      year: "1877",
+      setup: "The 1876 presidential election is disputed in three states. A fifteen-member Electoral Commission, evenly split between the parties except for one seat, must decide who becomes president.",
+      actual: {
+        label: "The commission rules 8 to 7, along party lines, for Republican Rutherford B. Hayes.",
+        tag: "What actually happened",
+        text: "The ruling itself did not end the crisis. House Democrats could still delay the final count past Inauguration Day. That standoff produced the Compromise of 1877: Hayes took office, and in exchange withdrew the last federal troops protecting Reconstruction governments in South Carolina and Louisiana. Those governments collapsed within weeks."
+      },
+      alt: {
+        label: "The independent justice originally assigned to the commission, David Davis, keeps his seat and casts the deciding vote instead of a party regular.",
+        tag: "A path not taken",
+        text: "Davis resigned from the Supreme Court to take an Illinois Senate seat just before the commission convened, and a Republican justice replaced him. A genuinely independent tie-breaker might have ruled differently on one or more of the three disputed states, changing the outcome without any compromise over troop withdrawal ever being needed."
+      }
+    }
+  ];
+
+  var current = 0;
+  var picks = {};
+
+  function renderTrack() {
+    var track = document.getElementById('track');
+    track.innerHTML = '';
+    steps.forEach(function(s, i) {
+      var dot = document.createElement('div');
+      dot.className = 'step-dot' + (picks[i] ? ' done' : (i === current ? ' active' : ''));
+      track.appendChild(dot);
+    });
+  }
+
+  function renderCard() {
+    var s = steps[current];
+    var card = document.getElementById('card');
+    var pick = picks[current];
+    var html = '<div class="year">' + s.year + '</div><div class="setup">' + s.setup + '</div>';
+    html += '<div class="choice-row">';
+    html += '<button class="choice-btn' + (pick === 'actual' ? ' picked-actual' : '') + '" ' + (pick ? 'disabled' : '') + ' onclick="choose(\'actual\')">' + s.actual.label + '</button>';
+    html += '<button class="choice-btn' + (pick === 'alt' ? ' picked-alt' : '') + '" ' + (pick ? 'disabled' : '') + ' onclick="choose(\'alt\')">' + s.alt.label + '</button>';
+    html += '</div>';
+    if (pick) {
+      var chosen = s[pick];
+      html += '<div class="reveal"><span class="tag">' + chosen.tag + '</span>' + chosen.text + '</div>';
+    }
+    card.innerHTML = html;
+    document.getElementById('nextBtn').disabled = !pick;
+    document.getElementById('prevBtn').disabled = (current === 0);
+  }
+
+  function choose(which) {
+    picks[current] = which;
+    renderTrack();
+    renderCard();
+  }
+
+  function go(dir) {
+    if (current === steps.length - 1 && dir > 0) {
+      showSummary();
+      return;
+    }
+    current = Math.max(0, Math.min(steps.length - 1, current + dir));
+    renderTrack();
+    renderCard();
+  }
+
+  function showSummary() {
+    var card = document.getElementById('card');
+    var html = '<div class="summary"><strong>None of these three moments had to resolve the way they did.</strong> A different pardon policy in 1865, a different single vote in 1868, or a different justice on the commission in 1877 could each have sent Reconstruction down a genuinely different path. Here is what you picked at each branch:<ul>';
+    steps.forEach(function(s, i) {
+      var pick = picks[i];
+      var label = pick === 'actual' ? 'the path history actually took' : (pick === 'alt' ? 'the path not taken' : 'not yet chosen');
+      html += '<li><strong>' + s.year + ':</strong> you chose ' + label + '.</li>';
+    });
+    html += '</ul>The lesson\'s own point stands regardless of which you picked: this was the product of specific decisions by specific people, not the working-out of anything inevitable.</div>';
+    card.innerHTML = html;
+    document.getElementById('nextBtn').disabled = true;
+    document.getElementById('prevBtn').disabled = false;
+  }
+
+  function resetAll() {
+    current = 0;
+    picks = {};
+    renderTrack();
+    renderCard();
+  }
+
+  renderTrack();
+  renderCard();
+</script>
+</body>
+</html>

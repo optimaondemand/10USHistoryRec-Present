@@ -22,18 +22,20 @@
   .back-to-map { margin: 0 34px 16px; }
   .back-to-map a { font-size: 14px; color: #55607f; text-decoration: none; }
   .back-to-map a:hover { text-decoration: underline; }
-  /* Glossary markup (Phase D populates terms; harmless and unused until then) */
-  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-radius: 8px; padding: 16px 20px; margin: 0 34px 20px; }
-  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 4px; }
-  .glossary-box .glossary-note { font-size: 13px; color: #666; font-style: italic; margin-bottom: 10px; }
-  .glossary-box dl { margin: 0; }
-  .glossary-box dt { font-size: 16px; color: #0e1c42; margin-top: 8px; }
-  .glossary-box dd { font-size: 14px; color: #1a2340; margin: 2px 0 0 0; }
-  .gloss { border-bottom: 1px dotted #55607f; cursor: help; position: relative; }
-  .gloss-audio { border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; }
-  .gloss-tip { display: none; position: absolute; left: 0; top: 1.5em; z-index: 5; background: #0E1C42; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; width: 240px; line-height: 1.4; }
-  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; }
-  .gloss.open .gloss-tip { display: block; }
+  /* Glossary markup (Stage 15/D2 onward). One combined "Glossary of Subject Vocabulary" box
+     per course decision 2026-07-31 -- see CLAUDE.md's "Vocabulary glossing" section. */
+  .glossary-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-left: 5px solid #C7922C; border-radius: 8px; padding: 18px 22px; margin: 24px 34px 20px; }
+  .glossary-box .glossary-title { font-size: 13px; color: #0e1c42; margin-bottom: 6px; }
+  .glossary-box .glossary-note { font-size: 14px; color: #55607f; font-style: italic; margin-bottom: 10px; }
+  .glossary-box ul { margin: 8px 0 0 0; padding-left: 20px; }
+  .glossary-box li { margin-bottom: 8px; font-size: 15px; color: #1a2340; line-height: 1.5; }
+  .gloss { position: relative; border-bottom: 1px dotted #2196D0; font-weight: 600; color: #0E1C42; cursor: help; }
+  .gloss .gloss-tip { display: none; }
+  .gloss.open .gloss-tip, .gloss:hover .gloss-tip, .gloss:focus .gloss-tip { display: block; }
+  .gloss-audio { display: inline-flex; align-items: center; justify-content: center; border: none; background: none; cursor: pointer; font-size: 12px; padding: 0 0 0 2px; vertical-align: middle; color: #1B6A94; }
+  .gloss-audio:hover { color: #0E1C42; }
+  .gloss-tip { position: absolute; left: 0; bottom: 100%; margin-bottom: 8px; width: 260px; max-width: 70vw; background: #0E1C42; color: #fff; font-weight: normal; font-size: 13px; line-height: 1.5; padding: 10px 12px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.25); z-index: 20; }
+  .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -66,12 +68,21 @@
   <div style="font-size: 11px; color: #0e1c42; margin-bottom: 6px;">&#128214; LESSON 12.3</div>
   <div style="font-size: 22px; color: #0e1c42;">The Tenement House Act of 1901</div>
 </div>
+<div class="glossary-box">
+  <div class="glossary-title">&#128214; GLOSSARY OF SUBJECT VOCABULARY</div>
+  <div class="glossary-note">A few words below are worth a quick look before you read. Tap or click any underlined term, here or in the lesson text, to see what it means.</div>
+  <ul>
+    <li><span class="gloss" tabindex="0">police power<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'puh-LEESS POW-er')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">puh-LEESS POW-er</span>A government's constitutional authority to regulate private property and behavior to protect public health and safety.</span></span></li>
+    <li><span class="gloss" tabindex="0">Tenement House Act of 1901<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'TEN-uh-ment howss akt uv NYN-teen oh-wun')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">TEN-uh-ment howss akt uv NYN-teen oh-wun</span>A New York law outlawing the dumbbell tenement design and creating a city agency with real power to inspect and enforce housing standards.</span></span></li>
+    <li><span class="gloss" tabindex="0">Tenement House Department<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'TEN-uh-ment howss dih-PART-ment')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">TEN-uh-ment howss dih-PART-ment</span>The New York City agency created by the 1901 Act to inspect buildings and enforce housing standards.</span></span></li>
+  </ul>
+</div>
 <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-top: 3px solid #C7922C; border-radius: 8px; padding: 20px 24px; margin: 0 34px 20px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 12px;">&#128214; TODAY'S LESSON</div>
-  <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p>New York's Tenement House Act was signed into law in April 1901. It came after years of reformer pressure described in the previous lesson. The Act was the direct legislative descendant of the documentation campaign Robert De Forest's commission and Lawrence Veiller's drafting had built. It outlawed the dumbbell design for new construction. Buildings now needed genuinely open courtyards, not narrow airshafts. It mandated a toilet connected to a water and sewer system on every floor. That replaced a single outhouse shared by an entire building. The Act set minimum sizes for bedrooms and windows. A room advertised as a bedroom actually had to admit light and air, not merely carry a legal label. The Act required fire escapes on every tenement. It banned an older and even worse practice too: building a second "rear tenement" behind an existing one, on the same crowded lot. And it created a new city agency, the Tenement House Department. That department was staffed with inspectors, empowered to enter buildings and issue enforceable violations.</p>
+  <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p>New York's <span class="gloss" tabindex="0">Tenement House Act<span class="gloss-tip"><span class="gloss-pron">TEN-uh-ment howss akt uv NYN-teen oh-wun</span>A New York law outlawing the dumbbell tenement design and creating a city agency with real power to inspect and enforce housing standards.</span></span> was signed into law in April 1901. It came after years of reformer pressure described in the previous lesson. The Act was the direct legislative descendant of the documentation campaign <span class="gloss" tabindex="0">Robert De Forest<span class="gloss-tip"><span class="gloss-pron">RAH-bert dee FOR-est</span>A lawyer and reformer who chaired the 1900 New York commission investigating tenement conditions.</span></span>'s commission and <span class="gloss" tabindex="0">Lawrence Veiller<span class="gloss-tip"><span class="gloss-pron">LOR-ens VY-ler</span>A housing reformer who drafted the Tenement House Act of 1901 and founded the National Housing Association.</span></span>'s drafting had built. It outlawed the <span class="gloss" tabindex="0">dumbbell design<span class="gloss-tip"><span class="gloss-pron">DUM-bel TEN-uh-ment</span>A tenement building design, pinched in the middle like a dumbbell, that technically met an 1879 light-and-air law while leaving most rooms without real light or air.</span></span> for new construction. Buildings now needed genuinely open courtyards, not narrow airshafts. It mandated a toilet connected to a water and sewer system on every floor. That replaced a single outhouse shared by an entire building. The Act set minimum sizes for bedrooms and windows. A room advertised as a bedroom actually had to admit light and air, not merely carry a legal label. The Act required fire escapes on every tenement. It banned an older and even worse practice too: building a second "rear tenement" behind an existing one, on the same crowded lot. And it created a new city agency, the <span class="gloss" tabindex="0">Tenement House Department<span class="gloss-tip"><span class="gloss-pron">TEN-uh-ment howss dih-PART-ment</span>The New York City agency created by the 1901 Act to inspect buildings and enforce housing standards.</span></span>. That department was staffed with inspectors, empowered to enter buildings and issue enforceable violations.</p>
 <p>The Act's most important feature may have been this last one: enforcement. Earlier tenement laws specified standards without giving any agency real power or funding to inspect buildings and compel compliance. That was true even of the 1879 law, the one the dumbbell design had been built to technically satisfy. This new law reversed that pattern directly. It addressed the specific failure the previous lesson identified in the earlier law. The 1901 law's inspectors could, and did, force landlords to make expensive retrofits to existing buildings. They did not merely apply the new standard to future construction. That was a genuinely significant expansion of city government's reach into what had previously been treated as purely private property. Lawmakers also amended the law in the years that followed. They closed loopholes landlords found in its original wording. Enforcement, in other words, was an ongoing project, not a single finished act.</p>
-<p>That expansion did not happen without resistance. Many landlords owned tenement property as a passive investment. Some had never even set foot inside their own buildings. They lobbied hard against provisions that would cost them money, for improvements that benefited only their tenants. Some challenged the law directly in court. Their argument: forcing a private owner to retrofit an existing building, at the owner's own expense, went beyond what government had any right to demand. New York's courts disagreed. They upheld the law as a legitimate use of the state's power to protect public health and safety. The United States Supreme Court left that ruling undisturbed when the case reached it. The law passed, and it held. That is a sign of how far the documented evidence, Riis's photographs and the commission's specific case files, had shifted public and legal opinion. The old argument, that regulation of this kind oversteps government's proper role, no longer carried the day.</p>
-<p>One case in particular tested the new law's authority directly: <i>Tenement House Department v. Moeschen</i>. A landlord argued that the city could not force him to alter a building he already owned and had built legally, under the older rules. New York's highest court disagreed, and when the case reached the United States Supreme Court, the justices let the state court's ruling stand. The government's police power to protect public health, the courts held, extended to buildings already standing, not only to buildings not yet built.</p>
+<p>That expansion did not happen without resistance. Many landlords owned tenement property as a passive investment. Some had never even set foot inside their own buildings. They lobbied hard against provisions that would cost them money, for improvements that benefited only their tenants. Some challenged the law directly in court. Their argument: forcing a private owner to retrofit an existing building, at the owner's own expense, went beyond what government had any right to demand. New York's courts disagreed. They upheld the law as a legitimate use of the state's power to protect public health and safety. The United States Supreme Court left that ruling undisturbed when the case reached it. The law passed, and it held. That is a sign of how far the documented evidence, <span class="gloss" tabindex="0">Riis<span class="gloss-tip"><span class="gloss-pron">JAY-kub reess</span>A Danish immigrant police reporter whose flash photography documented tenement conditions in his 1890 book How the Other Half Lives.</span></span>'s photographs and the commission's specific case files, had shifted public and legal opinion. The old argument, that regulation of this kind oversteps government's proper role, no longer carried the day.</p>
+<p>One case in particular tested the new law's authority directly: <i>Tenement House Department v. Moeschen</i>. A landlord argued that the city could not force him to alter a building he already owned and had built legally, under the older rules. New York's highest court disagreed, and when the case reached the United States Supreme Court, the justices let the state court's ruling stand. The government's <span class="gloss" tabindex="0">police power<span class="gloss-tip"><span class="gloss-pron">puh-LEESS POW-er</span>A government's constitutional authority to regulate private property and behavior to protect public health and safety.</span></span> to protect public health, the courts held, extended to buildings already standing, not only to buildings not yet built.</p>
 <p>What did an actual inspection look like? A Tenement House Department inspector would walk a building floor by floor. He measured window and airshaft dimensions against the law's specific numbers. He checked whether a promised toilet connection had actually been installed, not merely written into a builder's plan. If a building failed, the department issued a written violation and set a deadline for repair. A landlord who ignored the deadline faced fines, and, eventually, a court order. This was, in miniature, exactly the enforcement machinery the 1879 law had never possessed.</p>
 <p>The law did not end tenement poverty. Riis's own photographs, the subject of this week's second primary source, had already been taken before the law passed. No single act of legislation could undo decades of overcrowded urban growth overnight. A family living in an old, unretrofitted building in 1902 might have waited years before an inspector actually reached its block. The Act also changed who counted as a legitimate voice in city government. Before 1901, a landlord's property right was often treated as close to absolute, subject mainly to his own judgment about his own building. After 1901, a tenant's health, and a city inspector's measurement of a window or an airshaft, could override that judgment and require the landlord to spend his own money making the change. That shift did not happen because anyone discovered a new right. It happened because Riis's photographs, De Forest's commission, and Veiller's draft law made the tenant's condition impossible for a city government to keep ignoring.</p>
 <p>Judge the 1901 Act by the Classical Republican standard this course applies elsewhere: a political community's capacity to administer common laws regularly and predictably. By that standard, the Act succeeded where the 1879 law had failed. It did not merely announce a standard. It built the machinery to enforce one, and that machinery survived the legal challenge it invited.</p>
@@ -121,5 +132,26 @@
   <div style="font-size: 12px; color: rgba(255,255,255,0.4);">&copy; Optima Academy Online &middot; An Education Experience Company</div>
 </div>
 </div>
+
+<script>
+function speakGloss(e, text) {
+  e.stopPropagation();
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  }
+}
+document.addEventListener('click', function (e) {
+  var gloss = e.target.closest('.gloss');
+  if (gloss && !e.target.closest('.gloss-audio')) {
+    document.querySelectorAll('.gloss.open').forEach(function (g) { if (g !== gloss) g.classList.remove('open'); });
+    gloss.classList.toggle('open');
+  } else if (!e.target.closest('.gloss-tip')) {
+    document.querySelectorAll('.gloss.open').forEach(function (g) { g.classList.remove('open'); });
+  }
+});
+</script>
 </body>
 </html>
