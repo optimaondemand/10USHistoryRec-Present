@@ -464,10 +464,25 @@ function Get-ManifestFiles {
     if ($JsonPath) { return @((Resolve-Path $JsonPath).Path) }
     if (-not $Directory) { throw "Pass -JsonPath <file> or -Directory <dir>." }
     # Weeks first and in order, then the standalone modules, so positions accumulate predictably.
+    #
+    # Only files that actually look like manifests are returned. A snapshot or any other stray .json
+    # dropped in this directory would otherwise be treated as a module and crash the run: that is
+    # exactly what happened when live-snapshot-pre-wipe-2026-08-01.json was first written here.
+    # Snapshots now live in 03_Build/canvas-snapshots/, and this guard keeps the mistake from
+    # mattering if one lands here again.
+    # The test is a raw text match, not ConvertFrom-Json. PS 5.1's JSON parser is slow enough on
+    # these files (the semester final is 44 KB and deeply nested) that parsing every candidate here
+    # added minutes to a dry run that otherwise takes seconds.
     $dir = (Resolve-Path $Directory).Path
-    $weeks = Get-ChildItem -Path $dir -Filter 'week-*.json' | Sort-Object Name
-    $rest  = Get-ChildItem -Path $dir -Filter '*.json' |
-             Where-Object { $_.Name -notlike 'week-*' } | Sort-Object Name
+    $all = @(Get-ChildItem -Path $dir -Filter '*.json')
+    $manifests = @($all | Where-Object {
+        $head = Get-Content $_.FullName -Raw -Encoding UTF8
+        $head -match '"moduleOrder"\s*:' -or ($head -match '"title"\s*:' -and $head -match '"body"\s*:')
+    })
+    $weeks = @($manifests | Where-Object { $_.Name -like 'week-*' } | Sort-Object Name)
+    $rest  = @($manifests | Where-Object { $_.Name -notlike 'week-*' } | Sort-Object Name)
+    $skipped = $all.Count - $manifests.Count
+    if ($skipped -gt 0) { Write-Host "Skipped $skipped non-manifest .json file(s) in $dir`n" }
     return @($weeks.FullName) + @($rest.FullName)
 }
 
@@ -568,15 +583,20 @@ function Invoke-ResolveModuleIds {
         if ($null -ne $data.moduleId) { Write-Host "  $name : already set to $($data.moduleId)"; continue }
 
         # Weekly manifests match a module whose name contains "Module N" or "Week N" for their own
-        # number. The three standalone manifests that DO have a live module are matched through
-        # the explicit alias map below rather than by fuzzy name search, so the pairing is
-        # auditable. The four exam manifests are deliberately absent from it: course 94 has no
-        # exam module at all, and creating one is a Canvas write, which Stage 29 does not do.
-        # They stay unresolved and are reported, for Stage 31 to place.
+        # number. Standalone manifests are matched through the explicit alias map below rather than
+        # by fuzzy name search, so every pairing is auditable.
+        #
+        # All four exams share one module, "Exams and Final", created 2026-08-01 during the wipe and
+        # rebuild. Course 94 previously had no exam module at all, which is why these four manifests
+        # carried moduleId null through Stage 29.
         $ALIASES = @{
-            'q1-capstone.json' = '(?i)^Q1 Capstone\b'
-            'q2-capstone.json' = '(?i)^Q2 Capstone\b'
-            'appendices.json'  = '(?i)^Appendix\b'
+            'q1-capstone.json'       = '(?i)^Q1 Capstone\b'
+            'q2-capstone.json'       = '(?i)^Q2 Capstone\b'
+            'appendices.json'        = '(?i)^Appendix\b'
+            'q1-exam.json'           = '(?i)^Exams and Final$'
+            'q2-exam.json'           = '(?i)^Exams and Final$'
+            'semester-final.json'    = '(?i)^Exams and Final$'
+            'eoc-practice-exam.json' = '(?i)^Exams and Final$'
         }
         $match = $null
         if ($ALIASES.ContainsKey($name)) {
