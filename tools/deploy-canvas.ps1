@@ -26,6 +26,7 @@ param(
     [Parameter(Mandatory=$false)][string]$Directory,
     [Parameter(Mandatory=$false)][switch]$DryRun,
     [Parameter(Mandatory=$false)][switch]$ResolveModuleIds,
+    [Parameter(Mandatory=$false)][string]$Snapshot,
     [Parameter(Mandatory=$false)][string]$Token,
     # Resolution order: -Token, then $env:CANVAS_TOKEN_FILE, then the default below. No absolute
     # personal path is hardcoded, because this file is committed to a public repo.
@@ -36,6 +37,12 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+
+# Windows PowerShell 5.1 renders a progress bar for every Invoke-WebRequest/Invoke-RestMethod, and
+# on large responses that rendering dominates the call: the /pages and /assignments reads for this
+# course (93 and 90 objects) hung past two minutes with it on, and returned in under a second with
+# it off. This one line is the difference between the snapshot working and appearing to freeze.
+$ProgressPreference = 'SilentlyContinue'
 
 $base      = "https://optimaoaoteam.instructure.com/api/v1"
 $courseId  = 94
@@ -464,6 +471,81 @@ function Get-ManifestFiles {
     return @($weeks.FullName) + @($rest.FullName)
 }
 
+# --- Snapshot -----------------------------------------------------------------
+# Read-only. Captures the complete live state of the course to one JSON file: every module with its
+# items, and every page, assignment and quiz WITH ITS FULL BODY and, for quizzes, its questions.
+#
+# Bodies are the point. A snapshot of titles and ids alone would be useless as a backup, and this
+# file is the only recovery path once wipe-course.ps1 runs. The list endpoints do not return page
+# bodies, so each page is re-fetched individually by url.
+
+function Invoke-Snapshot {
+    param($Path)
+    Write-Host "Capturing live state of course $courseId ..."
+
+    $modules = @()
+    foreach ($m in (Get-ModulesCache)) {
+        $modules += [ordered]@{
+            id = $m.id; name = $m.name; position = $m.position
+            published = $m.published
+            items = @(Canvas-Get "/courses/$courseId/modules/$($m.id)/items?per_page=100")
+        }
+    }
+    Write-Host "  modules: $($modules.Count) (items: $(($modules | ForEach-Object { $_.items.Count } | Measure-Object -Sum).Sum))"
+
+    # /pages omits `body`; each page must be fetched by its url to get one.
+    $pages = @()
+    foreach ($p in (Get-PagesCache)) {
+        $full = Canvas-Get "/courses/$courseId/pages/$($p.url)"
+        $pages += [ordered]@{
+            page_id = $p.page_id; url = $p.url; title = $p.title
+            published = $p.published; body = $full.body
+        }
+    }
+    Write-Host "  pages: $($pages.Count)"
+
+    $assignments = @()
+    foreach ($a in (Get-AssignmentsCache)) {
+        $assignments += [ordered]@{
+            id = $a.id; name = $a.name; published = $a.published
+            points_possible = $a.points_possible
+            assignment_group_id = $a.assignment_group_id
+            submission_types = $a.submission_types
+            description = $a.description
+            rubric = $a.rubric
+        }
+    }
+    Write-Host "  assignments: $($assignments.Count)"
+
+    $quizzes = @()
+    foreach ($q in (Get-QuizzesCache)) {
+        $quizzes += [ordered]@{
+            id = $q.id; title = $q.title; quiz_type = $q.quiz_type
+            published = $q.published; description = $q.description
+            assignment_group_id = $q.assignment_group_id
+            questions = @(Canvas-Get "/courses/$courseId/quizzes/$($q.id)/questions?per_page=100")
+        }
+    }
+    Write-Host "  quizzes: $($quizzes.Count)"
+
+    $snap = [ordered]@{
+        _note = "Read-only capture of Canvas course $courseId taken before wipe-course.ps1 ran. Bodies, descriptions and quiz questions are included, so this is a genuine backup and not merely an inventory."
+        courseId = $courseId
+        capturedBy = "deploy-canvas.ps1 -Snapshot"
+        assignmentGroups = @(Get-AssignmentGroupsCache | ForEach-Object { [ordered]@{ id = $_.id; name = $_.name; group_weight = $_.group_weight } })
+        modules = $modules
+        pages = $pages
+        assignments = $assignments
+        quizzes = $quizzes
+    }
+    $json = $snap | ConvertTo-Json -Depth 40
+    # .NET resolves a relative path against the process working directory, which is NOT PowerShell's
+    # current location. Make it absolute first, or the file silently lands somewhere unexpected.
+    $abs = [System.IO.Path]::GetFullPath((Join-Path (Get-Location).ProviderPath $Path))
+    [System.IO.File]::WriteAllText($abs, $json, (New-Object System.Text.UTF8Encoding($false)))
+    Write-Host "Snapshot written: $abs ($([math]::Round((Get-Item $abs).Length / 1KB)) KB)"
+}
+
 # --- ResolveModuleIds ---------------------------------------------------------
 # Read-only. GETs course 94's module list and matches each manifest to a live module by name,
 # then patches moduleId into the manifest file on disk. No Canvas object is created or modified,
@@ -610,6 +692,12 @@ function Invoke-Manifest {
 }
 
 # --- Main ----------------------------------------------------------------------
+
+# -Snapshot needs no manifests, so it is handled before Get-ManifestFiles insists on one.
+if ($Snapshot) {
+    Invoke-Snapshot -Path $Snapshot
+    return
+}
 
 $files = Get-ManifestFiles
 
