@@ -413,7 +413,16 @@ function Ensure-Rubric {
 
 function Iframe-Wrapper {
     param($Title, $Url, $Height)
-    return "<div style=`"margin: 20px 0; border: 2px solid #2e86c1; border-radius: 12px; overflow: hidden; background: #f8f9fa;`">`n  <div style=`"background: #1a5276; color: #fff; padding: 10px 18px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 1.05em;`">$Title</div>`n  <iframe src=`"$Url`" width=`"100%`" height=`"$Height`" style=`"border: none; display: block;`" allowfullscreen></iframe>`n  <div style=`"padding: 6px 18px; font-family: Arial, sans-serif; font-size: 0.8em; color: #666; background: #eaf2f8;`">`n    If the page doesn't load, <a href=`"$Url`" target=`"_blank`" rel=`"noopener`">open it in a new tab</a>.`n  </div>`n</div>"
+    # No fallback-footer link to the raw GitHub Pages URL here, by design (2026-08-11).
+    # A prior version of this function generated one ("If the page doesn't load, open it in a
+    # new tab") and every page built by it carried a live, working second route straight out of
+    # Canvas to GitHub Pages, bypassing the iframe entirely -- which is exactly the pattern
+    # teachers flagged as alarming when a student clicked it (see the intra-course link audit
+    # skill and this course's own remediation history). All 88 existing pages were fixed by
+    # stripping this div directly via the Canvas API; that fix is NOT durable against a future
+    # deploy unless this function stays footer-free, since every live deploy regenerates the page
+    # body from this template. Do not re-add a footer link here.
+    return "<div style=`"margin: 20px 0; border: 2px solid #2e86c1; border-radius: 12px; overflow: hidden; background: #f8f9fa;`">`n  <div style=`"background: #1a5276; color: #fff; padding: 10px 18px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 1.05em;`">$Title</div>`n  <iframe src=`"$Url`" width=`"100%`" height=`"$Height`" style=`"border: none; display: block;`" allowfullscreen></iframe>`n</div>"
 }
 
 # --- Module item wiring -------------------------------------------------------
