@@ -35,6 +35,25 @@
   .gloss-audio:hover { color: #0E1C42; }
   .gloss-tip { position: absolute; left: 0; bottom: 100%; margin-bottom: 8px; width: 260px; max-width: 70vw; background: #0E1C42; color: #fff; font-weight: normal; font-size: 13px; line-height: 1.5; padding: 10px 12px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.25); z-index: 20; }
   .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; font-style: italic; }
+  /* Finding 7 (remediation-S2): gold time-estimate pill, optima-lesson-format's spec. */
+  .time-pill { display: inline-block; background: #C7922C; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 11px; border-radius: 999px; margin-left: 10px; vertical-align: middle; }
+  /* optima-world-history Part IV, borrowed in (2026-08-17): main map, figure bio box, visual boxes. */
+  .map-card { background: #FFFFFF; border: 1px solid #D0D9E8; border-top: 4px solid #2196D0; border-radius: 8px; margin: 0 34px 24px; overflow: hidden; }
+  .map-card .map-kicker { padding: 14px 20px 0; font-size: 11px; color: #2196D0; }
+  .map-card img { width: 100%; display: block; margin-top: 10px; }
+  .map-card .map-caption { padding: 14px 20px 4px; font-size: 15px; color: #1a2340; line-height: 1.6; }
+  .map-card .map-credit { padding: 0 20px 14px; font-size: 11px; color: #8290ab; }
+  .figure-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-left: 5px solid #C7922C; border-radius: 8px; margin: 0 34px 24px; padding: 20px; display: flex; gap: 18px; flex-wrap: wrap; }
+  .figure-box img { width: 140px; height: auto; border-radius: 6px; flex-shrink: 0; }
+  .figure-box .figure-kicker { font-size: 11px; color: #c7922c; margin-bottom: 6px; }
+  .figure-box .figure-name { font-size: 17px; color: #0e1c42; margin-bottom: 8px; }
+  .figure-box .figure-body { font-size: 15px; color: #1a2340; line-height: 1.6; }
+  .figure-box .figure-credit { font-size: 11px; color: #8290ab; margin-top: 10px; }
+  .visual-box { background: #FFFFFF; border: 1px solid #D0D9E8; border-top: 3px solid #55C8E8; border-radius: 8px; margin: 0 34px 24px; padding: 20px; }
+  .visual-box .visual-kicker { font-size: 11px; color: #0e1c42; margin-bottom: 10px; }
+  .visual-box img { width: 100%; max-width: 420px; display: block; border-radius: 6px; margin-bottom: 12px; }
+  .visual-box .visual-body { font-size: 15px; color: #1a2340; line-height: 1.6; }
+  .visual-box .visual-credit { font-size: 11px; color: #8290ab; margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -316,6 +335,12 @@
     <li><span class="gloss" tabindex="0">Wounded Knee<button class="gloss-audio" aria-label="Play pronunciation" onclick="speakGloss(event,'WOON-did nee')">&#128266;</button><span class="gloss-tip"><span class="gloss-pron">WOON-did nee</span>The site in South Dakota where, in December 1890, U.S. soldiers killed more than 150 Lakota men, women, and children, effectively ending the Indian Wars.</span></span></li>
   </ul>
 </div>
+<div class="map-card">
+  <div class="map-kicker">&#128506; MAP: The Cattle Trails, 1873</div>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/1873_Map_of_Chisholm_Trail_with_subsidiary_trails_in_Texas.jpg" alt="1873 map of the Chisholm Trail and its subsidiary cattle trails across Texas and Indian Territory to Kansas." />
+  <div class="map-caption">This 1873 map traces the Chisholm Trail and its subsidiary routes, the paths drovers used to move Texas longhorns north to railroad towns in Kansas, described later in this lesson. The same map shows how closely these trails ran alongside the reservation lands this lesson traces from the Treaty of Fort Laramie to Wounded Knee.</div>
+  <div class="map-credit">Map: Kansas Historical Society, 1873. Public domain.</div>
+</div>
 <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-top: 3px solid #C7922C; border-radius: 8px; padding: 20px 24px; margin: 0 34px 20px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 12px;">&#128214; TODAY'S LESSON</div>
   <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p>The <span class="gloss" tabindex="0">Homestead Act of 1862<span class="gloss-tip"><span class="gloss-pron">HOHM-sted akt uv AY-teen SIKS-tee-too</span>A federal law offering 160 acres of public land free to any citizen who lived on and improved it for five years.</span></span> offered any citizen, or any immigrant planning to become one, 160 acres of public land free of charge. The only requirement was to live on it and improve it for five years. On paper, it was an invitation to a nation of small farmers. In practice, it ran into a fact Congress had not solved by any law. The Great Plains already belonged, in every sense that mattered on the ground, to the horse-mounted nations who lived there. The Sioux, Cheyenne, Comanche, and their neighbors had spent more than a century mastering a mobile way of life built around the buffalo. That way of life let them strike, trade, and vanish across hundreds of miles of open grassland. No Homestead Act could be made real until that power was broken. Breaking it took the United States Army the better part of three decades. It also took several humiliating defeats and a deliberate campaign against the tribes' economic base: the buffalo herds, hunted toward extinction by the 1880s. Between 1862 and 1900, the government issued more than 1.6 million homestead claims. Barely half of all claimants ever proved up their land and kept it. Drought, isolation, and the sheer difficulty of prairie farming defeated as many families as they rewarded.</p>
@@ -325,6 +350,13 @@
 <p>Technology did as much as policy to decide this larger contest. The repeating rifle gave the Army an advantage no earlier generation of soldiers had possessed. So did the railroads that could move troops and settlers alike. Joseph Glidden's <span class="gloss" tabindex="0">barbed wire<span class="gloss-tip"><span class="gloss-pron">barbd wyr</span>Fencing wire with sharp barbs, patented by Joseph Glidden in 1874, that let farmers cheaply enclose land and ended the era of open, unfenced cattle range.</span></span>, patented in 1874, let a farmer with no timber for a fence enclose 160 acres cheaply. It ended the era of open, unfenced range almost as soon as it had properly begun. Railroads received their own land grants from Congress, often in a checkerboard pattern of alternating square-mile sections. The railroads then sold that land to the very settlers they needed as future customers. This tied the fate of Plains farming to the fate of the railroad companies from the very start. German, Scandinavian, and Bohemian immigrants poured onto the plains behind the railroads, drawn by cheap land and free passage. Whole counties in Nebraska and the Dakotas took on the language and church customs of Central Europe within a single generation.</p>
 <p>Not every settler who came to the Plains was foreign-born or free of the South's politics. In 1879, thousands of Black Southerners migrated to Kansas in a movement later called the Exodus. Many were discouraged by the collapse of Reconstruction traced in Week 1. The movement was led in part by a former Tennessee carpenter named Benjamin "Pap" Singleton. These <span class="gloss" tabindex="0">Exodusters<span class="gloss-tip"><span class="gloss-pron">EK-suh-DUS-terz</span>Black Southerners who migrated to Kansas beginning in 1879, led in part by Benjamin "Pap" Singleton, seeking free land and escape from Redemption-era restrictions.</span></span> saw the Homestead Act's promise of free land as a real escape from Redemption's new restrictions. Kansas land was often the driest and least developed land still available by the time they arrived. Their migration was small next to the millions of European immigrants who came west by rail. But it shows that the West's promise of free land was never only a story about foreign immigration. It was also a chapter in the still-unfinished argument over what freedom would mean for Black Americans after Reconstruction.</p>
 <p>Between the buffalo's fall and the farmer's fence lay one more economy, brief but unforgettable: the open-range cattle drive. Texas longhorns, descended from Spanish stock and multiplying wild for decades, were worth only a few dollars a head in Texas. The same animal was worth forty dollars a head at a railhead in Kansas. Cowboys, many of them Black or Mexican veterans of the cattle trade, drove herds of a thousand or more up trails like the <span class="gloss" tabindex="0">Chisholm<span class="gloss-tip"><span class="gloss-pron">CHIZ-um trayl</span>One of the major cattle-drive routes used to move Texas longhorns north to railroad towns in Kansas.</span></span> to meet the railroad. It was a decade-long boom. Barbed wire and a catastrophic winter in 1886-87 brought it to a fairly sudden end. None of it, from the Army's slow campaigns to the cowboy's brief golden age to the Exodusters' hard choice, followed any fixed schedule. It was a contest for the same ground among several different ways of life. Weather, weapons, gold, and railroads decided its outcome as much as any law passed in Washington.</p></div>
+</div>
+<div class="visual-box">
+  <div class="visual-kicker">PEOPLES: The Cowboy</div>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/The_Cow_Boy_1888.jpg" alt="Photograph of a mounted cowboy in Dakota Territory, 1887." />
+  <div class="visual-body"><p>This 1887 photograph by John Grabill, taken near Sturgis in Dakota Territory, shows one of the thousands of cowhands who drove Texas longhorns north along trails like the Chisholm during the decade this lesson describes. Cowboys were often young, poorly paid, and more diverse than later Western films suggested. Historians estimate as many as one in four cowboys on the major trails were Black or Mexican, many of them former slaves, vaqueros, or Confederate veterans with few other options after the war.</p>
+<p>The work was dangerous and seasonal: long days in the saddle, sudden stampedes, and river crossings, for wages of about a dollar a day. Photographs like this one are rare survivals of a working life that barbed wire and the catastrophic winter of 1886-87 brought to a fairly sudden end.</p></div>
+  <div class="visual-credit">John C. H. Grabill, 1887. Library of Congress. Public domain.</div>
 </div>
 <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 18px 22px; margin: 0 34px 20px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 12px;">&#127919; BY THE END OF THIS LESSON YOU WILL BE ABLE TO&hellip;</div>
@@ -362,6 +394,7 @@
     <div>
       <div style="font-size: 17px; color: #0e1c42; margin-bottom: 2px;"><strong>Reading Quiz · 2.1</strong></div>
       <div style="font-size: 15px; color: #1a2340;">A short autograded quiz over today's lesson. Find it in Canvas under this week's module.</div>
+      
     </div>
   </div>
 </div>
