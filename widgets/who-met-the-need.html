@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Met the Need?</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Segoe UI", Segoe, Arial, sans-serif; background: linear-gradient(135deg,#E8F6FB,#F4F9FC); color: #1a2340; padding: 12px; }
+.widget { max-width: 680px; margin: 0 auto; background: #fff; border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 10px; padding: 14px 18px 18px; }
+.kicker { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #1B6A94; margin-bottom: 4px; }
+h1 { font-size: 18px; color: #0E1C42; margin: 0 0 4px; }
+.hint { font-size: 13px; color: #555; margin-bottom: 12px; line-height: 1.45; }
+.q { font-size: 15px; line-height: 1.5; color: #0E1C42; margin: 0 0 12px; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opts button, .chip { background: #fff; border: 1.5px solid #D0D9E8; border-radius: 8px; padding: 8px 12px; font-size: 14px; color: #0E1C42; cursor: pointer; font-family: inherit; text-align: left; line-height: 1.35; }
+.opts button:hover, .chip:hover { background: #F4F6FA; border-color: #55C8E8; }
+.opts button.selected { background: #0E1C42; color: #fff; border-color: #0E1C42; }
+.opts button.correct { background: #D8F0DD; border-color: #2A9D5C; color: #1A6B3D; }
+.opts button.incorrect { background: #FDECEC; border-color: #C0392B; color: #8A1F16; }
+.opts button:disabled { cursor: default; }
+.opts.stack button { flex: 1 1 100%; }
+.opts.scale { flex-wrap: nowrap; }
+.opts.scale button { flex: 1; text-align: center; font-size: 13px; }
+.row { background: #FAFBFD; border: 1px solid #D0D9E8; border-radius: 6px; padding: 10px 12px; margin-bottom: 9px; }
+.row-prompt { font-size: 14.5px; line-height: 1.45; margin-bottom: 8px; }
+.fb { display: none; padding: 9px 12px; margin-top: 10px; font-size: 14px; line-height: 1.5; border-radius: 4px; background: #fff; border-left: 3px solid #C7922C; }
+.fb.show { display: block; }
+.fb.correct { background: #D8F0DD; border-left-color: #2A9D5C; color: #1A6B3D; }
+.fb.incorrect { background: #FDECEC; border-left-color: #C0392B; color: #8A1F16; }
+.reveal { font-size: 14px; line-height: 1.55; background: #FBF3E3; border-left: 4px solid #C7922C; border-radius: 6px; padding: 11px 14px; margin-top: 10px; }
+.reveal .tag { display: block; font-weight: bold; text-transform: uppercase; font-size: 10.5px; letter-spacing: .04em; color: #8a6416; margin-bottom: 4px; }
+.cards { display: flex; flex-wrap: wrap; gap: 10px; }
+.flip { flex: 1 1 240px; min-height: 120px; background: #FAFBFD; border: 1px solid #D0D9E8; border-radius: 8px; padding: 14px 16px; cursor: pointer; font-size: 14.5px; line-height: 1.5; display: flex; align-items: center; justify-content: center; text-align: center; }
+.flip:hover { border-color: #55C8E8; }
+.flip .back { display: none; text-align: left; }
+.flip.flipped { background: #EEF4FF; border-color: #2196D0; }
+.flip.flipped .front { display: none; }
+.flip.flipped .back { display: block; }
+.tap { font-size: 11.5px; color: #1B6A94; display: block; margin-top: 6px; }
+.pool { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; min-height: 38px; }
+.chip { font-size: 13px; padding: 6px 10px; }
+.label { font-size: 12px; color: #555; margin: 4px 0 6px; }
+ol.slots { list-style: none; margin: 0 0 10px; padding: 0; }
+ol.slots li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #FAFBFD; border: 1px solid #D0D9E8; border-radius: 6px; padding: 6px 10px; margin-bottom: 5px; font-size: 13.5px; cursor: pointer; }
+ol.slots li .n { font-weight: bold; color: #1B6A94; min-width: 18px; }
+ol.slots li.ok { background: #D8F0DD; border-color: #2A9D5C; cursor: default; }
+ol.slots li.bad { background: #FDECEC; border-color: #C0392B; }
+ol.slots li .note { flex: 1 1 100%; font-size: 12.5px; padding-left: 26px; }
+ol.slots li.empty { cursor: default; color: #8a93a8; border-style: dashed; }
+.go { background: #0E1C42; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13.5px; cursor: pointer; font-family: inherit; }
+.go:disabled { background: #9aa3b8; cursor: default; }
+.widget-reset { background: transparent; border: 1px solid #C7922C; color: #8a6416; border-radius: 6px; padding: 6px 12px; font-size: 12px; cursor: pointer; font-family: inherit; margin-top: 12px; }
+.widget-reset:hover { background: #FDF3E3; }
+.sim-banner { background: #FBF3E3; border: 1px dashed #C7922C; border-radius: 6px; padding: 7px 10px; font-size: 12.5px; color: #6b4e10; margin-bottom: 10px; }
+.mode { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.mode label { display: flex; gap: 6px; align-items: center; font-size: 13.5px; background: #FAFBFD; border: 1px solid #D0D9E8; border-radius: 6px; padding: 7px 10px; cursor: pointer; flex: 1 1 250px; }
+.slider-wrap { margin: 8px 0 12px; font-size: 14px; }
+.slider-wrap input { width: 100%; }
+.grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; margin: 8px 0; }
+.bld { height: 34px; border-radius: 4px; border: 1px solid #9aa3b8; background: #e6e9f0; transition: background .25s, border-color .25s; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #44506b; }
+.bld.ok { background: #bfe6c9; border-color: #2A9D5C; color: #1A6B3D; }
+.bld.wait { background: #f8e3b8; border-color: #C7922C; color: #6b4e10; }
+.bld.no { background: #f6cfcb; border-color: #C0392B; color: #8A1F16; }
+.legend { font-size: 12px; color: #555; display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 8px; }
+.stat { font-size: 15px; color: #0E1C42; margin: 6px 0; }
+@media (max-width: 480px) { .opts.scale { flex-wrap: wrap; } .opts.scale button { flex: 1 1 100%; } }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+var SPEC = {
+ "type": "select",
+ "kicker": "Try It Yourself",
+ "title": "Who Met the Need?",
+ "hint": "Newcomers solved practical problems with the tools at hand.",
+ "question": "Match each problem a newcomer family faced to the part of community life that met it.",
+ "rows": [
+  {
+   "p": "You have just arrived and need a job, a bed, and maybe a loan.",
+   "o": [
+    "Mutual aid society",
+    "Taking in boarders",
+    "Padrone",
+    "Patron-saint feast day"
+   ],
+   "c": 2,
+   "fb": "Right. A padrone arranged jobs, housing, and sometimes loans, for a fee. Honest or not, he was the way work often arrived.",
+   "hint": "Think about the Italian-speaking labor broker who charged fees to arrange work."
+  },
+  {
+   "p": "A father is sick and cannot work, or a relative has died and the funeral must be paid for.",
+   "o": [
+    "Padrone",
+    "Patron-saint feast day",
+    "Taking in boarders",
+    "Mutual aid society"
+   ],
+   "c": 3,
+   "fb": "Right. Mutual aid societies paid sick benefits and funeral costs. They worked as informal insurance.",
+   "hint": "Which organization acted like insurance for people the formal economy offered none?"
+  },
+  {
+   "p": "One wage earner's pay does not cover the rent.",
+   "o": [
+    "Patron-saint feast day",
+    "Taking in boarders",
+    "Padrone",
+    "Mutual aid society"
+   ],
+   "c": 1,
+   "fb": "Right. Many households took in boarders, often unmarried male relatives or fellow villagers, and the extra income helped cover rent.",
+   "hint": "Think about who could pay to rent a bed or a corner of a room."
+  },
+  {
+   "p": "A whole neighborhood wants to renew its tie to a village most of its younger members have never seen.",
+   "o": [
+    "Taking in boarders",
+    "Patron-saint feast day",
+    "Mutual aid society",
+    "Padrone"
+   ],
+   "c": 1,
+   "fb": "Right. Villages brought their feast days over from home and marked them with processions through Bensonhurst's streets.",
+   "hint": "Think about celebrations with processions in the street."
+  }
+ ]
+};
+
+(function () {
+  var root = document.getElementById('app');
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  var E = {};
+
+  E.reflect = function (w) {
+    w.appendChild(el('div', 'q', SPEC.question));
+    var opts = el('div', 'opts stack'); w.appendChild(opts);
+    var fb = el('div', 'fb'); w.appendChild(fb);
+    SPEC.options.forEach(function (o) {
+      var b = el('button', null, o.label);
+      b.onclick = function () {
+        opts.querySelectorAll('button').forEach(function (x) { x.classList.remove('selected'); });
+        b.classList.add('selected');
+        fb.textContent = o.response + (SPEC.closing ? ' ' + SPEC.closing : '');
+        fb.classList.add('show');
+      };
+      opts.appendChild(b);
+    });
+  };
+
+  E.select = function (w) {
+    w.appendChild(el('div', 'q', SPEC.question));
+    SPEC.rows.forEach(function (r) {
+      var row = el('div', 'row'); w.appendChild(row);
+      row.appendChild(el('div', 'row-prompt', r.p));
+      var opts = el('div', 'opts' + (SPEC.scale ? ' scale' : '')); row.appendChild(opts);
+      var fb = el('div', 'fb'); row.appendChild(fb);
+      r.o.forEach(function (label, i) {
+        var b = el('button', null, label);
+        b.onclick = function () {
+          opts.querySelectorAll('button').forEach(function (x) { x.classList.remove('correct', 'incorrect'); });
+          var right = i === r.c;
+          b.classList.add(right ? 'correct' : 'incorrect');
+          fb.className = 'fb show ' + (right ? 'correct' : 'incorrect');
+          fb.textContent = right ? r.fb : (r.hints && r.hints[i]) || r.hint;
+        };
+        opts.appendChild(b);
+      });
+    });
+  };
+
+  E.cr = function (w) {
+    w.appendChild(el('div', 'q', SPEC.question));
+    var opts = el('div', 'opts stack'); w.appendChild(opts);
+    var out = el('div'); w.appendChild(out);
+    SPEC.options.forEach(function (label, i) {
+      var b = el('button', null, label);
+      b.onclick = function () {
+        opts.querySelectorAll('button').forEach(function (x) { x.disabled = true; });
+        b.classList.add('selected');
+        out.innerHTML = '';
+        var mine = el('div', 'fb show', SPEC.notes[i]); out.appendChild(mine);
+        var rv = el('div', 'reveal'); rv.appendChild(el('span', 'tag', SPEC.revealTag));
+        rv.appendChild(document.createTextNode(SPEC.reveal)); out.appendChild(rv);
+      };
+      opts.appendChild(b);
+    });
+  };
+
+  E.flip = function (w) {
+    w.appendChild(el('div', 'q', SPEC.question));
+    var cards = el('div', 'cards'); w.appendChild(cards);
+    SPEC.cards.forEach(function (c) {
+      var d = el('div', 'flip'); d.tabIndex = 0; d.setAttribute('role', 'button');
+      var f = el('div', 'front'); f.appendChild(document.createTextNode(c.front)); f.appendChild(el('span', 'tap', 'Tap to flip'));
+      var b = el('div', 'back', c.back);
+      d.appendChild(f); d.appendChild(b);
+      function t() { d.classList.toggle('flipped'); }
+      d.onclick = t;
+      d.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t(); } };
+      cards.appendChild(d);
+    });
+  };
+
+  E.seq = function (w) {
+    var items = SPEC.items, order = SPEC.order, placed = [], result = null;
+    w.appendChild(el('div', 'q', SPEC.question));
+    w.appendChild(el('div', 'label', 'Tap events below to build the timeline, earliest first. Tap a placed event to send it back.'));
+    var pool = el('div', 'pool'); w.appendChild(pool);
+    var slots = el('ol', 'slots'); w.appendChild(slots);
+    var go = el('button', 'go', 'Check order'); w.appendChild(go);
+    var sum = el('div', 'fb'); w.appendChild(sum);
+    function draw() {
+      pool.innerHTML = ''; slots.innerHTML = '';
+      order.forEach(function (i) {
+        if (placed.indexOf(i) < 0) {
+          var c = el('button', 'chip', items[i].text);
+          c.onclick = function () { placed.push(i); result = null; draw(); };
+          pool.appendChild(c);
+        }
+      });
+      for (var pos = 0; pos < items.length; pos++) {
+        var li = el('li');
+        if (pos < placed.length) {
+          (function (p) {
+            var idx = placed[p];
+            li.appendChild(el('span', 'n', String(p + 1)));
+            li.appendChild(el('span', null, items[idx].text));
+            if (result) {
+              var good = idx === p;
+              li.className = good ? 'ok' : 'bad';
+              li.appendChild(el('span', 'note', good ? items[idx].why : items[idx].hint));
+            }
+            li.onclick = function () { if (result && idx === p) return; placed.splice(p, 1); result = null; draw(); };
+          })(pos);
+        } else {
+          li.className = 'empty';
+          li.appendChild(el('span', 'n', String(pos + 1)));
+          li.appendChild(el('span', null, 'empty'));
+        }
+        slots.appendChild(li);
+      }
+      go.disabled = placed.length !== items.length;
+      if (!result) { sum.className = 'fb'; sum.textContent = ''; }
+    }
+    go.onclick = function () {
+      result = placed.map(function (idx, p) { return idx === p; });
+      var n = result.filter(Boolean).length;
+      draw();
+      sum.className = 'fb show ' + (n === items.length ? 'correct' : 'incorrect');
+      sum.textContent = n === items.length ? SPEC.done : n + ' of ' + items.length + ' are in the right place. Read the notes on the red ones, send them back, and try again.';
+    };
+    draw();
+  };
+
+  E.sim = function (w) {
+    w.appendChild(el('div', 'sim-banner', 'ILLUSTRATIVE MODEL. The numbers here are invented to show a pattern. They are not real figures from 1901.'));
+    w.appendChild(el('div', 'q', SPEC.question));
+    var N = 20, VOL = 4, MAXREACH = 16;
+    var enforce = true, reach = 8;
+    var mode = el('div', 'mode');
+    var l1 = el('label'), r1 = el('input'); r1.type = 'radio'; r1.name = 'm'; r1.checked = false;
+    l1.appendChild(r1); l1.appendChild(document.createTextNode('Written standards only (like the 1879 law)'));
+    var l2 = el('label'), r2 = el('input'); r2.type = 'radio'; r2.name = 'm'; r2.checked = true;
+    l2.appendChild(r2); l2.appendChild(document.createTextNode('Standards plus inspectors who can issue violations (like the 1901 Act)'));
+    mode.appendChild(l1); mode.appendChild(l2); w.appendChild(mode);
+    var sw = el('div', 'slider-wrap'); var lab = el('div'); var sl = el('input'); sl.type = 'range'; sl.min = 0; sl.max = MAXREACH; sl.value = reach;
+    sw.appendChild(lab); sw.appendChild(sl); w.appendChild(sw);
+    var lg = el('div', 'legend');
+    lg.appendChild(el('span', null, 'Green: meets the standard'));
+    lg.appendChild(el('span', null, 'Amber: violation issued, landlord not yet compelled'));
+    lg.appendChild(el('span', null, 'Red: no one checking'));
+    w.appendChild(lg);
+    var grid = el('div', 'grid'); w.appendChild(grid);
+    var stat = el('div', 'stat'); w.appendChild(stat);
+    var fb = el('div', 'fb show'); w.appendChild(fb);
+    function draw() {
+      grid.innerHTML = '';
+      var ok = 0;
+      for (var i = 0; i < N; i++) {
+        var b = el('div', 'bld');
+        if (i < VOL) { b.classList.add('ok'); b.textContent = 'OK'; ok++; }
+        else if (enforce && i < VOL + reach) { b.classList.add('ok'); b.textContent = 'OK'; ok++; }
+        else if (enforce) { b.classList.add('wait'); b.textContent = '?'; }
+        else { b.classList.add('no'); b.textContent = '-'; }
+        grid.appendChild(b);
+      }
+      sl.disabled = !enforce;
+      lab.textContent = enforce ? 'Buildings an inspector reaches: ' + reach + ' of ' + (N - VOL) + ' that need to change' : 'With no inspectors, the slider has nothing to move.';
+      stat.textContent = 'Buildings meeting the standard: ' + ok + ' of ' + N;
+      fb.textContent = enforce
+        ? (reach === 0 ? 'Inspectors exist on paper but have reached no one yet. Only the landlords who would comply anyway have changed anything.' : (reach === MAXREACH ? 'Every building has been reached. Notice how much slower it is to get here than to write the rule.' : 'Each building an inspector reaches can be forced to change. The rest are still waiting. A family in an unreached building has no help yet.'))
+        : 'In this model, only landlords who would have complied anyway meet the standard. The law names a standard, but no one has the power to check it. That is the gap the 1879 law left.';
+    }
+    r1.onchange = function () { enforce = false; draw(); };
+    r2.onchange = function () { enforce = true; draw(); };
+    sl.oninput = function () { reach = +sl.value; draw(); };
+    draw();
+  };
+
+  function render() {
+    root.innerHTML = '';
+    var w = el('div', 'widget');
+    w.appendChild(el('div', 'kicker', SPEC.kicker));
+    w.appendChild(el('h1', null, SPEC.title));
+    if (SPEC.hint) w.appendChild(el('div', 'hint', SPEC.hint));
+    E[SPEC.type](w);
+    var r = el('button', 'widget-reset', 'Reset'); r.onclick = render; w.appendChild(r);
+    root.appendChild(w);
+  }
+  render();
+})();
+
+</script>
+</body>
+</html>
