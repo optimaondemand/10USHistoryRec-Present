@@ -35,6 +35,25 @@
   .gloss-audio:hover { color: #0E1C42; }
   .gloss-tip { position: absolute; left: 0; bottom: 100%; margin-bottom: 8px; width: 260px; max-width: 70vw; background: #0E1C42; color: #fff; font-weight: normal; font-size: 13px; line-height: 1.5; padding: 10px 12px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.25); z-index: 20; }
   .gloss-pron { display: block; color: #55C8E8; font-size: 11px; margin-bottom: 4px; font-style: italic; }
+  /* Finding 7 (remediation-S2): gold time-estimate pill, optima-lesson-format's spec. */
+  .time-pill { display: inline-block; background: #C7922C; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 11px; border-radius: 999px; margin-left: 10px; vertical-align: middle; }
+  /* optima-world-history Part IV, borrowed in (2026-08-17): main map, figure bio box, visual boxes. */
+  .map-card { background: #FFFFFF; border: 1px solid #D0D9E8; border-top: 4px solid #2196D0; border-radius: 8px; margin: 0 34px 24px; overflow: hidden; }
+  .map-card .map-kicker { padding: 14px 20px 0; font-size: 11px; color: #2196D0; }
+  .map-card img { width: 100%; display: block; margin-top: 10px; }
+  .map-card .map-caption { padding: 14px 20px 4px; font-size: 15px; color: #1a2340; line-height: 1.6; }
+  .map-card .map-credit { padding: 0 20px 14px; font-size: 11px; color: #8290ab; }
+  .figure-box { background: #F7F8FC; border: 1px solid #D0D9E8; border-left: 5px solid #C7922C; border-radius: 8px; margin: 0 34px 24px; padding: 20px; display: flex; gap: 18px; flex-wrap: wrap; }
+  .figure-box img { width: 140px; height: auto; border-radius: 6px; flex-shrink: 0; }
+  .figure-box .figure-kicker { font-size: 11px; color: #c7922c; margin-bottom: 6px; }
+  .figure-box .figure-name { font-size: 17px; color: #0e1c42; margin-bottom: 8px; }
+  .figure-box .figure-body { font-size: 15px; color: #1a2340; line-height: 1.6; }
+  .figure-box .figure-credit { font-size: 11px; color: #8290ab; margin-top: 10px; }
+  .visual-box { background: #FFFFFF; border: 1px solid #D0D9E8; border-top: 3px solid #55C8E8; border-radius: 8px; margin: 0 34px 24px; padding: 20px; }
+  .visual-box .visual-kicker { font-size: 11px; color: #0e1c42; margin-bottom: 10px; }
+  .visual-box img { width: 100%; max-width: 420px; display: block; border-radius: 6px; margin-bottom: 12px; }
+  .visual-box .visual-body { font-size: 15px; color: #1a2340; line-height: 1.6; }
+  .visual-box .visual-credit { font-size: 11px; color: #8290ab; margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -313,9 +332,24 @@
   <div style="font-size: 17px; color: #1a2340; line-height: 1.7;"><p>In 1890, the U.S. Census Bureau announced something new. It could no longer draw a meaningful line on the map marking a continuous American "frontier." The settled land Week 2 traced from the Homestead Act had finally filled in completely.</p>
 <p>Historian <span class="gloss" tabindex="0">Frederick Jackson Turner<span class="gloss-tip"><span class="gloss-pron">FRED-rik JAK-sun TER-ner</span>The historian who argued in 1893 that the American frontier's closing would require a new outlet for the individualism and democracy it had fostered.</span></span> argued three years later that this frontier, the ongoing process of settling open land, had shaped American character itself. It had fostered individualism and democracy, in Turner's view. Those habits would need some new outlet, he warned, once the frontier finally closed for good. Turner first read this argument to a nearly empty room at a historical conference in Chicago. The conference met alongside a much bigger event, the 1893 world's fair celebrating four centuries of European settlement in the Americas. Almost no one in that small room seemed to notice what Turner had said. Only years later did his thesis become one of the most influential ideas in American historical writing. That delay is itself worth remembering: an idea's later influence often has little to do with how it was first received. Turner's thesis has real limits worth naming honestly. Later historians pointed out that it told the story almost entirely from the perspective of white settlers moving west. It said very little about the Native peoples this course met in Week 2, the Mexican and Mexican American communities already living across much of the Southwest, or the women whose labor made western settlement possible in the first place. Whether or not Turner's specific thesis holds up under that scrutiny, the practical fact he was responding to was entirely real. The West that Week 2 opened with settlers, railroads, and cattle drives was, by century's end, a West with no more open land left to claim.</p>
 <p>That closing produced a genuine and lasting anxiety, worth taking seriously as its own historical force. Many Americans worried that the nation's most spectacular natural places might be destroyed next. The same logging, mining, and development that had already transformed the rest of the continent could easily reach the wildest places left. <span class="gloss" tabindex="0">John Muir<span class="gloss-tip"><span class="gloss-pron">jahn myoor</span>A self-taught naturalist who founded the Sierra Club and championed the preservation of wild land, including Yosemite.</span></span> became the loudest voice answering that anxiety. Muir was a Scottish-born inventor who had worked in an Indianapolis wagon factory as a young man. An industrial accident there in 1867 very nearly blinded him. Recovering his sight taught Muir to value it differently than before. He walked a thousand miles from Indiana to the Gulf of Mexico soon afterward. Within a few years he had settled in California's Sierra Nevada for good, trading mechanical invention for the study of wild mountains.</p>
+<div class="iframe-wrap" style="margin: 20px 0;">
+  <div class="iframe-header">Predict, Then See: Collapse or Glaciers?</div>
+  <iframe src="https://optimaondemand.github.io/10USHistoryRec-Present/widgets/collapse-or-glaciers.html" width="100%" height="700" style="border: none; display: block;" allowfullscreen></iframe>
+</div>
+
 <p>Muir was self-taught as a scientist, with no university training at all. He used his own fieldwork to challenge the state geologist's official theory of how Yosemite Valley had formed. The state geologist, Josiah Whitney, argued the valley's floor had simply collapsed in a sudden catastrophe. Muir argued instead that ancient glaciers had carved the valley slowly. It was a patient process, in Muir's account, stretched across a very long span of time, not a single violent event. Later geologists confirmed that Muir, the self-taught wanderer, had been right. The trained state geologist had been wrong.</p>
 <p>Muir did not stay a quiet naturalist for long. In 1889 he partnered with Robert Underwood Johnson, an editor at the influential <i>Century</i> magazine, on a public campaign to win Yosemite Valley stronger federal protection than California's state government had managed to provide. Their magazine articles and behind-the-scenes lobbying helped push Congress to create Yosemite National Park in 1890, a story this week's second lesson follows in more detail. Muir founded the <span class="gloss" tabindex="0">Sierra Club<span class="gloss-tip"><span class="gloss-pron">see-AIR-uh klub</span>An organization founded by John Muir in 1892 to advocate for the total preservation of wild land.</span></span> two years later, in 1892. Its purpose was to advocate for total, untouched preservation of wild land, a philosophy historians now call "<span class="gloss" tabindex="0">preservationism<span class="gloss-tip"><span class="gloss-pron">prez-er-VAY-shuh-niz-um</span>The philosophy, associated with John Muir, that wild land should be kept entirely untouched.</span></span>." Gifford Pinchot held a related but genuinely different view. Pinchot was the first head of the U.S. Forest Service, an agency Week 13 traced back to Roosevelt's own creation of it in 1905. He also served as Roosevelt's closest conservation advisor, and the two men were genuinely close friends, not merely professional colleagues. Pinchot had studied forestry in France, a field with almost no American training programs yet, and he brought that scientific approach home with him. He and Roosevelt regularly exercised together at the White House, a habit reporters nicknamed the "tennis cabinet." Pinchot's philosophy is sometimes called "<span class="gloss" tabindex="0">conservationism<span class="gloss-tip"><span class="gloss-pron">kahn-ser-VAY-shuh-niz-um</span>The philosophy, associated with Gifford Pinchot, that natural resources should be scientifically managed for sustained long-term use.</span></span>," or simply "wise use." It held that natural resources should be scientifically managed for sustained, long-term use. Forests, in this view, should be logged on a renewable cycle. They should be neither exhausted for short-term profit nor locked away entirely from any use at all.</p>
+<div class="iframe-wrap" style="margin: 20px 0;">
+  <div class="iframe-header">Quick Check-In: Four Pieces of Land</div>
+  <iframe src="https://optimaondemand.github.io/10USHistoryRec-Present/widgets/four-pieces-of-land.html" width="100%" height="800" style="border: none; display: block;" allowfullscreen></iframe>
+</div>
+
 <p>Muir and Pinchot were close allies for years. They split openly over one specific fight: a proposal to dam <span class="gloss" tabindex="0">Hetch Hetchy<span class="gloss-tip"><span class="gloss-pron">hech HECH-ee</span>A Yosemite-area valley whose damming for San Francisco's water supply, opposed by Muir and supported by Pinchot, became the defining fight between preservationism and conservationism.</span></span> Valley for the city of San Francisco. Muir considered Hetch Hetchy nearly as magnificent as Yosemite Valley itself. He fought the dam as the destruction of an irreplaceable wild place. Pinchot supported the dam instead, calling it a legitimate "wise use" of a natural resource. A growing city's need for reliable water, in his view, outweighed the loss of one scenic valley. San Francisco's catastrophic 1906 earthquake and fire strengthened the city's case considerably. The disaster left officials desperate for a dependable water supply they could actually count on. San Francisco's mayor and its engineers argued that no other site nearby could supply the city as cheaply or as reliably as Hetch Hetchy could.</p>
+<div class="iframe-wrap" style="margin: 20px 0;">
+  <div class="iframe-header">Try It Yourself: Hetch Hetchy: One Valley, Two Verdicts</div>
+  <iframe src="https://optimaondemand.github.io/10USHistoryRec-Present/widgets/hetch-hetchy-verdict.html" width="100%" height="650" style="border: none; display: block;" allowfullscreen></iframe>
+</div>
+
 <p>Judged by this course's own standard for evaluating regimes and movements, both men were arguing about a genuine first-order economic problem. How should a growing society use a genuinely scarce and valuable resource? Neither position was simply wrong. The dam was ultimately authorized by Congress in 1913 and built soon after, a real defeat for Muir's preservationist vision. Muir died the following year. Some of his own friends believed the loss of Hetch Hetchy had hastened his decline. The argument itself did not die with him, though. It is the direct ancestor of the wilderness-versus-managed-use debates that still shape American public land policy today, debates that show up whenever a proposed dam, pipeline, or mine touches land the public has otherwise agreed to protect.</p></div>
 </div>
 <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 18px 22px; margin: 0 34px 20px;">
@@ -339,10 +373,6 @@
     <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Today's lesson text (below)</div>
   </div>
 </div>
-<div class="iframe-wrap" style="margin: 0 34px 24px;">
-  <div class="iframe-header">Try It Yourself: Hetch Hetchy: One Valley, Two Verdicts</div>
-  <iframe src="https://optimaondemand.github.io/10USHistoryRec-Present/widgets/hetch-hetchy-verdict.html" width="100%" height="650" style="border: none; display: block;" allowfullscreen></iframe>
-</div>
 <div style="background: #FDF3E3; border-left: 5px solid #C7922C; border-radius: 6px; padding: 18px 22px; margin: 0 34px 30px;">
   <div style="font-size: 11px; color: #c7922c; margin-bottom: 14px;">&#10145; WHAT YOU'LL DO NEXT (in Canvas)</div>
   <div style="display: flex; align-items: flex-start; gap: 14px;">
@@ -350,6 +380,7 @@
     <div>
       <div style="font-size: 17px; color: #0e1c42; margin-bottom: 2px;"><strong>Reading Quiz · 15.1</strong></div>
       <div style="font-size: 15px; color: #1a2340;">A short autograded quiz over today's lesson. Find it in Canvas under this week's module.</div>
+      
     </div>
   </div>
 </div>
